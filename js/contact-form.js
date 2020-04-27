@@ -2,11 +2,20 @@ let submitButton = document.getElementById("submit-button");
 let firstname = document.getElementById("firstname");
 let surname = document.getElementById("surname");
 let subject = document.getElementById("subject");
+let email = document.getElementById("email");
 
 submitButton.disabled = true;
-if (emptyTxt(firstname)===false && emptyTxt(surname)===false && msgLength(subject)) {
-    submitButton.disabled = false;   
-}
+firstname.addEventListener('input',submitButtonDisabled);
+surname.addEventListener('input',submitButtonDisabled);
+email.addEventListener('input',submitButtonDisabled);
+subject.addEventListener('input',submitButtonDisabled);
+
+function submitButtonDisabled() {
+if (!emptyTxt(firstname) && !emptyTxt(surname) && !emptyTxt(email) && msgLength(subject) ) {
+    submitButton.disabled = false;  
+}else{
+    submitButton.disabled = true;   
+}}
 
 function allLetter(inputtxt) {
     var letters = /^[A-Za-z]+$/;
@@ -29,5 +38,5 @@ function emptyTxt(inputtxt) {
 }
 
 function msgLength(inputtxt) {
-    return inputtxt.value.length<=210 ;
+    return (inputtxt.value.length<=210 && inputtxt.value.length>=3);
 }
