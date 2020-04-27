@@ -11,7 +11,7 @@ email.addEventListener('input',submitButtonDisabled);
 subject.addEventListener('input',submitButtonDisabled);
 
 function submitButtonDisabled() {
-if (!emptyTxt(firstname) && !emptyTxt(surname) && !emptyTxt(email) && msgLength(subject) ) {
+if (!emptyTxt(firstname) && !emptyTxt(surname) && !(email.value==="") && msgLength(subject) ) {
     submitButton.disabled = false;  
 }else{
     submitButton.disabled = true;   
