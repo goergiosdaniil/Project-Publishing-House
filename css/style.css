@@ -216,7 +216,7 @@ footer{
 }
 @media only screen and (max-width: 900px) {
     .article-contact{
-        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
         grid-auto-rows: minmax(auto, auto);
     }
     .contact-form{
@@ -227,9 +227,15 @@ footer{
         margin: auto;
     }
     .contact-form div{
-        max-width: 500px;
+        max-width: 450px;
+        
     }
+    .fields{
+        max-width: 46%;
+    }
+
 }
+
 .contact-form{
     max-width: 800px;
     padding-left: 10px;
