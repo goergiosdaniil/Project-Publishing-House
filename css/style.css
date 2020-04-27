@@ -70,18 +70,60 @@ nav li a{
     height: 24px;
     line-height: 40px;
     text-align: center;
-    
 }
 .nav2 h2{
     margin:0 auto;
     display: inline;
     color: rgb(40, 40, 40);
 }
+footer{
+    background-color: black;
+    color: rgb(240, 240, 240);
+    min-height: 130px;
+    max-width: 1200px;
+    margin:auto;
+    padding: 10px 0px 10px;
+    font-size:0.7em ;
+}
+.footer-container{
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;   
+    margin: 0 100px;
+}
+.footer-column{
+    color: inherit;
+    flex: 0 1 180px;
+    
+}
+.column-title{
+    display: block;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-top: 18px;
+}
+.column-list{
+    list-style-type: none;
+    text-align: center;
+    padding: 0;
+}
+.column-list li{
+    margin:18px 0px;
+}
+.column-list a{
+    text-decoration: none;
+    color: rgba(235, 235, 235,0.5);
+}
+
+/*  Home Page   */
 .main-home{
     min-height: 400px ;
     max-width: 1200px;
     margin: 50px auto;
-    padding-left: 400px;
+    padding-left: 200px;
+
 }
 .main-home h3{
     font-weight: 500;
@@ -90,6 +132,17 @@ nav li a{
 .main-home p{
     line-height: 30px;
 }
+@media only screen and (max-width: 1200px) {
+    .main-home{
+        padding: 0 100px;
+    }  
+}
+@media only screen and (max-width: 751px) {
+    .main-home{
+        padding: 0 20px;
+    }  
+}
+
 /*  allBooks.html   */
 .grid-books{
     padding: 0;
@@ -136,7 +189,7 @@ nav li a{
     padding: 20px;
     display: grid;
     /* grid-template-columns: 1fr 1fr 1fr; */
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     /* grid-template-rows: repeat(2,350px); */
     grid-auto-rows: minmax(350px, auto);
     grid-gap: 30px ;
@@ -153,60 +206,7 @@ nav li a{
     border-radius: 5px;
 }
 
-footer{
-    background-color: black;
-    color: rgb(240, 240, 240);
-    min-height: 130px;
-    max-width: 1200px;
-    margin:auto;
-    padding: 10px 0px 10px;
-    font-size:0.7em ;
-    
-   
-
-}
-.footer-container{
-
-    /* display: grid; */
-    /*grid-template-columns: 1fr 1fr 1fr 1fr;*/
-    /* grid-template-columns: repeat(auto-fill, minmax(100px, 288px)); */
-    /* grid-template-rows: repeat(2,350px); */
-    /* grid-auto-rows: minmax(auto, auto);
-    grid-gap: 15px; */
- 
-    max-width: 1200px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;   
-    margin: 0 100px;
-}
-.footer-column{
-    color: inherit;
-    flex: 0 1 180px;
-    
-}
-.column-title{
-    display: block;
-    text-align: center;
-    font-size: 1.2em;
-    font-weight: 500;
-    margin-top: 18px;
-
-}
-.column-list{
-    list-style-type: none;
-    text-align: center;
-    padding: 0;
-}
-.column-list li{
-    margin:18px 0px;
-}
-.column-list a{
-    text-decoration: none;
-    color: rgba(235, 235, 235,0.5);
-}
-
-/* Form CSS*/ 
+/* contact-Form html*/ 
 .article-contact{
     max-width: 1200px;
     margin: 30px auto;
@@ -215,14 +215,27 @@ footer{
     grid-template-columns: 2fr 1fr;
 
 }
+@media only screen and (max-width: 1081px) {
+    .article-contact{
+        grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+        grid-auto-rows: minmax(auto, auto);
+    }
+    .contact-form{
+        margin:auto;
+    }
+    .contact-info{
+        margin: auto;
+    }
+}
 .contact-form{
     max-width: 800px;
+
 }
 .contact-form div{
     margin: 0 auto;
     margin-bottom: 30px;
     margin-top: 30px;
-    width: 600px;
+    max-width: 600px;
 }
 .contact-form h2{
     margin-bottom: 20px;
@@ -266,21 +279,22 @@ footer{
     margin-bottom: 30px;
     width: 110px;
 }
-.contact-info{
+.contact-info-list{
     list-style-type: none;
     text-align: left;
     padding-left: 20px;
     
 }
-.contact-info li{
+.contact-info-list li{
     color:rgb(40, 40, 40);
     margin: 10px 0px;
 }
-.contact-info a{
+.contact-info-list a{
     text-decoration: none;
     color:inherit;
+    
 }
-.contact-info li:first-child,.contact-info li:nth-child(3){
+.contact-inf-list li:first-child,.contact-info li:nth-child(3){
     margin-top: 40px;
 }
 
