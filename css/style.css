@@ -210,25 +210,29 @@ footer{
 .article-contact{
     max-width: 1200px;
     margin: 30px auto;
-    border: 0px solid red;
     display: grid;
     grid-template-columns: 2fr 1fr;
 
 }
-@media only screen and (max-width: 1081px) {
+@media only screen and (max-width: 900px) {
     .article-contact{
-        grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
         grid-auto-rows: minmax(auto, auto);
     }
     .contact-form{
         margin:auto;
+        padding: 0 10px;        
     }
     .contact-info{
         margin: auto;
     }
+    .contact-form div{
+        max-width: 500px;
+    }
 }
 .contact-form{
     max-width: 800px;
+    padding-left: 10px;
 
 }
 .contact-form div{
@@ -255,7 +259,7 @@ footer{
      width:47%;
     }
 #firstname{
-    margin-right: 15px;
+    margin-right: 12px;
 }
 .fields2 {
     font-size: 20px; 
