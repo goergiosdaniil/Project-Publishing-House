@@ -8,6 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Εκδοτικος Οίκος - Φόρμα Επικοινωνίας</title>
     <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link href="../css/logInDropDown.css"  rel="stylesheet" type="text/css">
+    <link href="../css/contactFormPage.css"  rel="stylesheet" type="text/css">
 </head>
 <body>
     <header>
@@ -30,27 +32,46 @@
             <li>
               <a href="contactForm.html">Επικοινωνία</a>
             </li>
-            <li>
-              <a href="">Λογαριασμός</a>
+            <li id="logInItem">
+              <div > 
+                  <p id="signInButton"> Σύνδεση</p>
+                  <span>|</span>
+                  <a href="signUpForm.html">Εγγραφή</a>
+                  <div class="logIn-popUp" id="logInDiv">
+                    <form action="" class="logIn-container" id="logInForm" method="POST">
+                        <div class="cancel" >Σύνδεση</div>
+                        
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" placeholder="Email" name="email" required>
+
+                        <label for="password"><b>Κωδικός</b></label>
+                        <input type="password" placeholder="Κωδικός" name="password" required>
+
+                        <button type="submit" class="logIn-button">Login</button>
+                    </form>
+                </div>
+              </div> 
             </li>
           </ul>
     </nav>
+
     <article class="article-contact">
-        <form action="form.html" method="POST" class="contact-form">
+        <form action="contactForm.html" method="POST" class="contact-form">
             <div><h2>Επικοινωνείστε μαζί μας</h2></div>
             <div id="hr"><hr></div>
             <div>
-                <label for="firstname surname"><h3>Ονοματεπώνυμο</h3></label>
+                <label for="firstname surname"><h3>Ονοματεπώνυμο </h3> &nbsp <span> ( <sup>*</sup>μόνο γράμματα ) </span><br></label>
                 <input type="text" id="firstname" name="firstname" placeholder=" Όνομα" class="fields">
                 <input type="text" id="surname" name="surname" placeholder=" Επώνυμο" class="fields">
                 <br>
             </div>
             <div>
                 <label for="email"><h3>E-mail</h3></label>
+                <legend></legend>
                 <input type="text" name="email" id="email" placeholder=" ✉️ Διεύθυνση e-mail" class="fields2">
             </div>
             <div>
-                <label for="subject"><h3>Μήνυμα</h3></label>
+                <label for="subject"><h3>Μήνυμα</h3> &nbsp <span> ( <sup>*</sup>από 3 έως 210 χαρακτήρες ) </span> <br></label>
                 <textarea id="subject" name="subject" placeholder="Γράψε εδώ το μήνυμά σου..."></textarea>
             </div>
             <div>
@@ -76,7 +97,6 @@
                 <span class="column-title">Εξυπηρέτηση</span>
                 <ul class="column-list">
                     <li><a href="">Καταστήματα</a></li>
-                    <li><a href="">Τεχνική υποστήριξη</a></li>
                     <li><a href="">Για επιχειρήσεις</a></li>
                     <li><a href="">Επικοινωνία</a></li>
                 </ul>
@@ -110,6 +130,30 @@
             </div>
         </div>
     </footer>
-    <script src="../js/contact-form.js"></script>
+    <script src="../js/contactForm.js"></script>
+    <script src="../js/logInDropDown.js"></script>
 </body>
+
+<!--     LogED in User Nav
+       <nav>
+        <ul>
+            <li>
+              <a href="../index.html">Αρχική</a>
+            </li>
+            <li>
+              <a href="allBooks.html">Βιβλία</a>
+            </li>
+            <li>
+              <a href="">Καταστήματα</a>
+            </li>
+            <li>
+              <a href="contactForm.html">Επικοινωνία</a>
+            </li>
+            <li>
+              <a href="">Λογαριασμός</a>
+            </li>
+          </ul>
+    </nav>
+ -->
+
 </html>

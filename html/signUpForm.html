@@ -6,9 +6,11 @@
     <meta name="description" content="Publishing House">
     <meta name="keywords" content="HMTL, CSS, JS, Project, Ekdotikos Oikos, Upatras">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Εκδοτικος Οίκος - Books</title>
+    <title>Εκδοτικος Οίκος - Home Page</title>
+
     <link href="../css/style.css" rel="stylesheet" type="text/css">
     <link href="../css/logInDropDown.css"  rel="stylesheet" type="text/css">
+    <link href="../css/signUpForm.css"  rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -24,7 +26,7 @@
               <a href="../index.html">Αρχική</a>
             </li>
             <li>
-              <a href="../html/allBooks.html">Βιβλία</a>
+              <a href="allBooks.html">Βιβλία</a>
             </li>
             <li>
               <a href="">Καταστήματα</a>
@@ -54,31 +56,36 @@
             </li>
           </ul>
     </nav>
-    <div class="nav2"><h2>Βιβλία</h2>
+
+    <div class="nav2"><h2>Φόρμα Εγγραφής</h2>
     </div>
-    <main class="grid-books">
-        <aside class="aside-books">
-            <h2>Κατηγορίες</h2>
-            <hr>
-            <ul>
-                <li><a href=""> Kati 1 </a></li>
-                <li><a href=""> kati 2 </a></li>
-                <li><a href=""> kati 3 </a></li>
-                <li><a href=""> kati 4 </a></li>
-                <li><a href=""> kati 5 </a></li>
-            </ul>
-        </aside>
-        <article class="article-books">
-            
-            <div class="article-container">
-                <div> 1</div>
-                <div> 2</div>
-                <div> 3</div>
-                <div> 4</div>
-                <div> 5</div>
-                <div> 6</div>
+
+    <!--   %%%%%%%%%%   εδω θα μπει καποια εικονα στην αρχικη με το κειμενο   %%%%%%%%%%   -->
+    
+    <main class="main-home">
+
+        <form action="signUpForm.html" method="POST" class="signUp-form">
+
+            <div>
+                <label for="firstname surname"><h3>Ονοματεπώνυμο </h3> &nbsp <span> ( <sup>*</sup>μόνο γράμματα ) </span><br></label>
+                <input type="text" id="signUp-firstname" name="firstname" placeholder=" Όνομα" class="signUp-fields">
+                <input type="text" id="signUp-surname" name="surname" placeholder=" Επώνυμο" class="signUp-fields">
+                <br>
             </div>
-        </article>
+            <div>
+                <label for="email"><h3>E-mail</h3></label>
+                <legend></legend>
+                <input type="text" name="email" id="signUp-email" placeholder=" ✉️ Διεύθυνση e-mail" class="fields2">
+            </div>
+            <div>
+                
+            </div>
+            <div>
+                <input type="submit" value="Εγγραφη" id="register-button">
+            </div>
+        </form>
+       
+       
     </main>
     <footer>
         <div class="footer-container">
@@ -105,10 +112,10 @@
             <div class="footer-column">
                 <span class="column-title">Επικοινωνία</span>
                 <ul class="column-list">
-                    <li><a href="tel:+302613000000" >📞 +30 26130-00000</a></li>
+                    <li><a href="tel:+302613000000" >📞+30 26130-00000</a></li>
                     <li><a href="tel:+306900000000">📱 +30 6900000000</a></li>
-                    <li><a href="mailto:up1046927@upnet.gr?subject=Contact Us-Ekdotikos Oikos">✉️&nbsp up1046927@upnet.gr</a></li>
-                    <li><a href="mailto:up1046805@upnet.gr?subject=Contact Us-Ekdotikos Oikos">✉️&nbsp up1046805@upnet.gr</a></li>
+                    <li><a href="mailto:up1046927@upnet.gr?subject=Contact Us-Ekdotikos Oikos">✉️ up1046927@upnet.gr</a></li>
+                    <li><a href="mailto:up1046805@upnet.gr?subject=Contact Us-Ekdotikos Oikos">✉️ up1046805@upnet.gr</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -124,9 +131,8 @@
 
     <script src="../js/logInDropDown.js"></script>
 
+    
 </body>
-
-
 
 <!--     LogED in User Nav
        <nav>
@@ -149,4 +155,6 @@
           </ul>
     </nav>
  -->
+
+
 </html>
