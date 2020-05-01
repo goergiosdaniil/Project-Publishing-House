@@ -2,10 +2,8 @@
   "name": "projectara",
   "version": "1.0.0",
   "description": "Project Peppas Daniil",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "main": "server.js",
+  "scripts": {},
   "author": "",
   "license": "ISC",
   "dependencies": {
