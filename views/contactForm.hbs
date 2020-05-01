@@ -1,0 +1,28 @@
+   {{> header }} 
+<article class="article-contact">
+        <form action="/contact" method="POST" role="form" class="contact-form">
+            <div><h2>Επικοινωνείστε μαζί μας</h2></div>
+            <div id="hr"><hr></div>
+            <div>
+                <label for="name"><h3>Ονοματεπώνυμο </h3> &nbsp <span> ( <sup>*</sup>μόνο γράμματα ) </span><br></label>
+                <input type="text" id="name" name="name" type="text" placeholder=" Όνομα" class="fields">
+                
+                <br>
+            </div>
+            <div>
+                <label for="email"><h3>E-mail</h3></label>
+                <legend></legend>
+                <input type="text" name="email" id="email" placeholder=" ✉️ Διεύθυνση e-mail" class="fields2">
+            </div>
+            <div>
+                <label for="message"><h3>Μήνυμα</h3> &nbsp <span> ( <sup>*</sup>από 3 έως 210 χαρακτήρες ) </span> <br></label>
+                <textarea id="message" name="message" placeholder="Γράψε εδώ το μήνυμά σου..."></textarea>
+            </div>
+            <div>
+                <input type="submit" value="Υποβολή" id="submit-button">
+            </div>
+          
+        </form>
+
+
+            {{> footer }} 

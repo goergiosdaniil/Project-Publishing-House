@@ -1,0 +1,208 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Book View</title>
+  <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+  <div class="container">
+    <h2>Books List</h2>
+        <button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Add New Book</button>
+    <table class="table table-striped" id="mytable">
+      <thead>
+        <tr>
+          <th>Βοοk ID</th>
+          <th>Βook title</th>
+          <th>Book Description</th>
+          <th>Βοοk Cover</th>
+          <th>Βook Author</th>
+          <th>Book Reviewer</th>
+          <th>Βοοk is Written</th>
+          <th>Βook is reveiwed</th>
+          <th>Book is published</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+         {{#each results}}
+        <tr>
+          <td>{{ book_id }}</td>
+          <td>{{ book_title }}</td>
+          <td>{{ book_description }}</td>
+          <td>{{ book_cover }}</td>
+          <td>{{ book_author_id }}</td>
+          <td>{{ book_reviewer_id }}</td>
+          <td>{{ book_is_written }}</td>
+          <td>{{ book_is_reviewed }}</td>
+          <td>{{ book_is_published }}</td>
+          <td>
+            <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{ book_id }}" data-book_title="{{ book_title }}" data-book_description="{{ book_description }}" data-book_cover="{{ book_cover }}" data-book_author_id="{{ book_author_id }}" data-book_reviewer_id="{{ book_reviewer_id }}" data-book_is_written="{{ book_is_written }}" data-book_is_reviewed="{{ book_is_reviewed }}" data-book_is_published="{{ book_is_published }}">Edit</a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{ book_id }}">Delete</a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+ 
+    <!-- Modal Add Product-->
+      <form action="/save" method="post">
+        <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Add New Book</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+               <div class="form-group">
+                   <input type="text" name="book_title" class="form-control" placeholder="book_title" required>
+               </div>
+ 
+               <div class="form-group">
+                   <input type="text" name="book_description" class="form-control" placeholder="book_description" required>
+               </div>
+
+                <div class="form-group">
+                   <input type="text" name="book_cover" class="form-control" placeholder="book_cover" required>
+               </div> 
+               <div class="form-group">
+                   <input type="text" name="book_author_id" class="form-control" placeholder="book_author_id" required>
+               </div> 
+               <div class="form-group">
+                   <input type="text" name="book_reviewer_id" class="form-control" placeholder="book_reviewer_id" required>
+               </div> 
+               <div class="form-group">
+                   <input type="text" name="book_is_written" class="form-control" placeholder="book_is_written" required>
+               </div> 
+               <div class="form-group">
+                   <input type="text" name="book_is_reviewed" class="form-control" placeholder="book_is_reviewed" required>
+               </div>
+                <div class="form-group">
+                   <input type="text" name="book_is_published" class="form-control" placeholder="book_is_published" required>
+               </div>
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary">Save</button>
+             </div>
+           </div>
+         </div>
+        </div>
+     </form>
+ 
+     <!-- Modal Update Product-->
+   <form action="/update" method="post">
+       <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Book</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                  <input type="text" name="book_title" class="form-control book_title" placeholder="book_title" required>
+              </div>
+ 
+              <div class="form-group">
+                  <input type="text" name="book_description" class="form-control book_description" placeholder="book_description" required>
+              </div>
+ 
+              <div class="form-group">
+                  <input type="text" name="book_cover" class="form-control book_cover" placeholder="book_cover" required>
+              </div>
+ 
+              <div class="form-group">
+                  <input type="text" name="book_author_id" class="form-control book_author_id" placeholder="book_author_id" required>
+              </div>
+ 
+              <div class="form-group">
+                  <input type="text" name="book_reviewer_id" class="form-control book_reviewer_id" placeholder="book_reviewer_id" required>
+              </div>
+ 
+              <div class="form-group">
+                  <input type="text" name="book_is_written" class="form-control book_is_written" placeholder="book_is_written" required>
+              </div>
+ 
+              <div class="form-group">
+                  <input type="text" name="book_is_reviewed" class="form-control book_is_reviewed" placeholder="book_is_reviewed" required>
+              </div>
+ 
+              <div class="form-group">
+                  <input type="text" name="book_is_published" class="form-control book_is_published" placeholder="book_is_published" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="id" class="book_id">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </div>
+        </div>
+       </div>
+  </form>
+ 
+     <!-- Modal Delete Product-->
+      <form id="add-row-form" action="/delete" method="post">
+         <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+               <div class="modal-content">
+                   <div class="modal-header">
+                                        <h5 class="modal-title" id="myModalLabel">Delete Book</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                   </div>
+                   <div class="modal-body">
+                                                 <strong>Are you sure to delete this data?</strong>
+                   </div>
+                   <div class="modal-footer">
+                                            <input type="hidden" name="book_id" class="form-control book_id2" required>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Delete</button>
+                   </div>
+                    </div>
+            </div>
+         </div>
+     </form>
+ 
+<script src="js/jquery-3.5.0.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+    $(document).ready(function(){
+            //showing data to edit modal      
+        $('#mytable').on('click','.edit',function(){
+        var book_id = $(this).data('id');
+        var book_title = $(this).data('book_title');
+        var book_description = $(this).data('book_description');
+        var book_cover = $(this).data('book_cover');
+        var book_author_id = $(this).data('book_author_id');
+        var book_reviewer_id = $(this).data('book_reviewer_id');
+        var book_is_written = $(this).data('book_is_written');
+        var book_is_reviewed = $(this).data('book_is_reviewed');
+        var book_is_published = $(this).data('book_is_published');
+        $('#EditModal').modal('show');
+        $('.book_title').val(book_title);
+        $('.book_description').val(book_description);
+        $('.book_cover').val(book_cover);
+        $('.book_author_id').val(book_author_id);
+        $('.book_reviewer_id').val(book_reviewer_id);
+        $('.book_is_written').val(book_is_written);
+        $('.book_is_reviewed').val(book_is_reviewed);
+        $('.book_is_published').val(book_is_published);
+        $('.book_id').val(book_id);
+      });
+            //showing delete record modal
+        $('#mytable').on('click','.delete',function(){
+        var bookt_id = $(this).data('id');
+        $('#DeleteModal').modal('show');
+        $('.book_id2').val(book_id);
+      });
+ 
+    });
+</script>
+</body>
+</html>

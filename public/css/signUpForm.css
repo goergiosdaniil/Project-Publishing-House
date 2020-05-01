@@ -1,0 +1,17 @@
+.signUp-form{
+    background-color: rgb(150, 150, 150);
+    padding: 0px 200px;
+}
+.signUp-form div:first-child{
+    background-color: saddlebrown;
+}
+@media only screen and (max-width: 1200px) {
+    .signUp-form{
+        padding: 0 100px;
+    }  
+}
+@media only screen and (max-width: 751px) {
+    .signUp-form{
+        padding: 0 20px;
+    }  
+}

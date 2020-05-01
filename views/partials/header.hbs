@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Spyridon Peppas, George Danil">
+    <meta name="description" content="Publishing House">
+    <meta name="keywords" content="HMTL, CSS, JS, Project, Ekdotikos Oikos, Upatras">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Εκδοτικος Οίκος - Home Page</title>
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link href="../css/logInDropDown.css"  rel="stylesheet" type="text/css">
+    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <style>
+      #map {
+        height: 100%;
+      }
+      .map-container-2{
+overflow:hidden;
+padding-bottom:56.25%;
+position:relative;
+height:0;
+}
+.map-container-2 iframe{
+left:0;
+top:0;
+height:100%;
+width:100%;
+position:absolute;
+}
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>Εκδοτικός Οίκος</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li>
+              <a href="/">Αρχική</a>
+            </li>
+            <li>
+              <a href="/allBooks">Βιβλία</a>
+            </li>
+            <li>
+              <a href="/stores">Καταστήματα</a>
+            </li>
+            <li>
+              <a href="/contactForm">Επικοινωνία</a>
+            </li>
+            {{#if user.displayName}} 
+            <li>
+              <a href="/account">{{user.displayName}}</a><a> is signed in</a>.<a href="/logout">Log out</a>
+            </li>
+                
+            {{else}}
+                <li id="logInItem">
+              <div > 
+                  <p id="signInButton"> Σύνδεση</p>
+                  <span>|</span>
+                  <a href="/signUpForm">Εγγραφή</a>
+                  <div class="logIn-popUp" id="logInDiv">
+                    <form action="/login" class="logIn-container" id="logInForm" method="post"> 
+                        <div class="cancel" >Σύνδεση</div>
+                        
+                        <label for="username"><b>username</b></label>
+                        <input type="text" placeholder="username" name="username" required>
+                        <label for="password"><b>Κωδικός</b></label>
+                        <input type="password" placeholder="Κωδικός" name="password" required>
+
+                        <button type="submit" class="logIn-button">Σύνδεση</button>
+                    </form>
+                </div>
+              </div> 
+            </li>
+            {{/if}}
+            
+          </ul>
+    </nav>

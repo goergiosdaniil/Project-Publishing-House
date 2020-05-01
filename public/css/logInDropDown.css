@@ -1,0 +1,81 @@
+/* The popup form - hidden by default */
+.logIn-popUp {
+  display: none;
+  position: absolute;
+  top: 0;
+  left:0;
+  right:0;
+  width: 100%;
+  border: 0px;
+  background-color: rgba(0, 0, 0, 0);  
+  z-index: 8; 
+}
+.logIn-container{
+  background-color: black;
+  padding-bottom: 20px;
+  margin: 0 auto;
+  max-width: 300px;
+  border-radius: 1px;
+  z-index: 9;
+}
+/* Full-width input fields */
+.logIn-container input[type=text], .logIn-container input[type=password] {
+  background: #ddd;
+  margin: 0px auto;
+  margin-top: 10px;
+  padding: 5px 10px;
+  width: 70%;
+  max-width: 270px;
+  border: none;
+  border-radius: 1px;
+
+}
+  
+/* When the inputs get focus, do something */
+.logIn-container input[type=text]:focus, .logIn-container input[type=password]:focus {
+  background-color: rgb(240, 240, 240);
+  outline: none;
+}
+  
+/* Set a style for the submit/login button */
+.logIn-container .logIn-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 18px;
+  margin: 20px auto 0px;
+  display: block;
+  border: none;
+  width: 60%;
+  max-width: 220px;
+  opacity: 0.9;
+  border-radius: 1px;
+  cursor: pointer;
+}
+  
+/* Add a red background color to the cancel button */
+.logIn-container .cancel {
+  background-color: black;
+  color: white;
+  width: 100%;
+  max-width: 300px;
+  font-size: large;
+  line-height: 50px;
+  height: 50px;
+  border:none;
+}
+  
+/* Add some hover effects to buttons */
+.logIn-container .logIn-button:hover {
+  opacity: 1;
+}
+
+.logIn-container label[for=email], .logIn-container label[for=password] {
+  background-color: black;
+  display: block;
+  padding-top: 10px;
+}
+
+.logIn-container label[for=email]{
+  border-top: 2px solid white;
+  border-color: rgb(240, 240, 240);
+}
