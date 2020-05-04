@@ -4,6 +4,10 @@
   "description": "Project Peppas Daniil",
   "main": "server.js",
   "scripts": {},
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
