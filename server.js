@@ -283,8 +283,8 @@ app.post('/contact', (req, res) => {
     }
   })
 })
-
+var portNumber = process.env.port || process.env.PORT || 1337;
 //server listening
-app.listen(80, () => {
-  console.log('Server is running at port 80');
+app.listen(portNumber, () => {
+  console.log('Server is running at port '+portNumber);
 });
