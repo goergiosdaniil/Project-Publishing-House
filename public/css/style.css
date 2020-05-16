@@ -1,16 +1,17 @@
 body {
-    margin: 0px;
+    margin: auto;
     padding: 10px 0px;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-    background-color: rgb(240, 240, 240);
+    background-color:  rgb(240, 240, 240);
 }
+
 header {
     max-width: 1200px;
     height: 270px; 
     margin:auto;
     margin-bottom: 10px;
     text-align: center;
-    background-image: url("/img/site_header_bg_image.jpg");
+    background-image: url("../img/site_header_bg_image.jpg");
     background-repeat: repeat;
     background-size: 600px 291px;
     background-color: black;
@@ -19,7 +20,7 @@ header {
 header div{
     margin:0px;
     display: block;
-	background-image: linear-gradient(to bottom, rgba(235, 235, 235, 0.3), rgba(235, 235, 235, 0.3));
+	background-image: linear-gradient(to bottom, rgba(240, 240, 240, 0.3), rgba(240, 240, 240, 0.3));
     width: inherit;
     height: inherit;
 }
@@ -28,68 +29,15 @@ header h1{
     font-size: 2.8rem;
     width: max-content;
     height: min-content;
-    line-height: inherit;
+    line-height: 50px;
     display: inline-block;
-    background-color: rgba(235, 235, 235,1);
+    background-color: rgba(240, 240, 240,1);
     color: rgb(40, 40, 40);
     border-radius: 5px;
     padding:1px 3px;
-}
-nav {
-    max-width: 1200px;
-    margin:auto;
-    background-color: black;
-    min-height: 50px;
-    z-index: 9;
-}
-nav ul{
-    list-style-type: none;
-    margin: 0px;
-    padding: 0px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    
-}
-nav li{
-    display: inline;
-    flex: 1 0 177px;
-    text-align: center;
-    color:white;   
-    font-size: large; 
-    
-}
-nav li a{
-    text-decoration: none;
-    font-size: inherit;
-    line-height: 50px;
-    color: inherit;
-    font-size: large;
-}
-nav li p{
-    margin:0;
-    height: 20px;
-    max-width: 100px;
-    display: inline-block;
-    cursor: pointer;
-}
-nav #logInItem{
-    position: relative;
+    font-weight: 600;
 }
 
-.nav2{
-    margin: 20px auto;
-    max-width: 1200px;
-    border: 0px solid red;
-    height: 24px;
-    line-height: 40px;
-    text-align: center;
-}
-.nav2 h2{
-    margin:0 auto;
-    display: inline;
-    color: rgb(40, 40, 40);
-}
 footer{
     background-color: black;
     color: rgb(240, 240, 240);
@@ -97,7 +45,7 @@ footer{
     max-width: 1200px;
     margin:auto;
     padding: 10px 0px 10px;
-    font-size:0.7em ;
+    font-size:0.8em ;
 }
 .footer-container{
     max-width: 1200px;
@@ -128,7 +76,7 @@ footer{
 }
 .column-list a{
     text-decoration: none;
-    color: rgba(235, 235, 235,0.5);
+    color: rgba(240, 240, 240,0.5);
 }
 
 /*  Home Page   */
@@ -137,27 +85,19 @@ footer{
     max-width: 1200px;
     margin: 50px auto;
     
-
 }
 .main-home h3{
-    padding: 0px 200px;
+    padding: 0px 10px;
     font-weight: 500;
     font-size: 22px;
+    text-align: center;
 }
 .main-home p{
     line-height: 30px;
-    padding: 0px 200px;
+    padding: 0px 10px;
+    text-align: center;
 }
-@media only screen and (max-width: 1200px) {
-    .main-home{
-        padding: 0 100px;
-    }  
-}
-@media only screen and (max-width: 751px) {
-    .main-home{
-        padding: 0 20px;
-    }  
-}
+
 
 /*  allBooks.html   */
 .grid-books{
@@ -218,11 +158,19 @@ footer{
     color: royalblue;
     text-align: center;
     line-height: 100px;
+    background-color:rgb(240, 156, 94);
     border-radius: 5px;
-    background-size: 300px;
 }
 
 
+/*
 
+@media only screen and (max-width: 1200px) {
+    .main-home p, .main-home h3{
+        padding: 0 100px;
+    }  
+}
+
+*/
 
 

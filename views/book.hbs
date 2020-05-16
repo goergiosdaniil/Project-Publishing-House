@@ -1,21 +1,144 @@
-  {{> header }} 
-  
-  
-  
-    </div>
 
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Spyridon Peppas, George Danil">
+    <meta name="description" content="Publishing House">
+    <meta name="keywords" content="HMTL, CSS, JS, Project, Ekdotikos Oikos, Upatras">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Εκδοτικος Οίκος - Home Page</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link href="../css/navbar.css" rel="stylesheet" type="text/css">
+    <link href="../css/book.css" rel="stylesheet" type="text/css">
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+</head>
+
+<body>
     
-    
-    <main class="main-home">
-       <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-      <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-        <div class="my-3 py-3">
-          <h2 class="display-5">{{results.0.book_title}}</h2>
-          <p class="lead">{{results.0.author_name}}</p>
-          <p class="lead">{{results.0.book_description}}</p>
+    <header>
+        <div>
+            <h1>Εκδοτικός Οίκος</h1>
         </div>
-        <img src={{results.0.book_cover}} class="img-thumbnail"  width="304" height="236"> 
+    </header>
+
+    {{> header}}
+    <!--       rh3iu g4cut43uty34n2yft35nyopt23nvfi2vc4oh y23ihv4u3ypm3u24fti4ipty34  -->
+
+    <main class="container main-book">
+        <div class="row justify-content-center my-3"><h2 id="book-title">{{results.0.book_title}}</h2></div>
+        <div class="row justify-content-start">
+            <aside class="col-md-6 py-3 mb-3 aside-book ">
+              <img class="mx-auto d-block" id="book-img" src="{{results.0.book_cover}}" alt="{{results.0.book_title}}">
+            </aside>
+            <article class="col-md-5 article-book py-5 my-5">
+              <div class="article-details mt-5">
+                <div class="article-authors">
+                  <p><span>Είδος :</span>  Δράσης</p><br>
+                  <p><span>Συγγραφέας : </span>  {{results.0.author_name}}</p>
+                </div> 
+                <div class="article-rating">
+                  <p> <span>Αξιολόγηση</span> </p><br>
+                  <!-- EDw pairnei value ton meso oro ton aksiologisewn apo thn vash-->
+                  <progress value="3" max="5"></progress>
+                  <!-- EDw pairnei value ton meso oro ton aksiologisewn apo thn vash-->
+                  <p style="padding-left: 15px;" id="book-stars">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                  </p>
+                </div>
+                <div class="article-wish">
+                  <button type="button" class="btn btn-default wishlist" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
+                  <p>Wishlist it!</p>
+                </div>
+              </div>
+            </article>
+        </div>
+
+        <div class="row description px-5 py-4 my-3">
+            <span class="title">Περιγραφή</span>
+            <p class="px-4 mt-2">  {{results.0.book_description}}</p>
+        </div>
+
+
+        <div class="row new-comment my-3 px-5 py-2">
+          <span class="title">Προσθήκη Σχολίου</span>
+
+
+          <form action="?" class="w-100 m-3">
+            <textarea id="comment-text" name="commentText" placeholder="Γράψε εδώ το σχόλιο σου..."></textarea>
+            
+            <p class="float-left ml-3">
+              <!-- Edw pairneis auto to input gia to rating pou edwse o xrhsths -->
+              <input type="range" id="rating" name="rating" 
+                      min="0" max="5" value="0" step="1">
+              <!-- Edw pairneis auto to input gia to rating pou edwse o xrhsths -->
+              <nobr>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+              </nobr>
+            </p>
+            <p class="mx-5 mb-0 mt-2 " id="anonymous">
+              <label for="anonymous">Εμφάνιση ως ανώνυμο?</label> 
+              <input type="checkbox" checked class="ml-2"  name="anonymous" value="yes">
+            </p>
+            <button class="btn btn-default float-right mr-3" id="submitButton"type="submit">Υποβολή</button>
+
+        </div>
+
+        
+        <div class="row comments my-3 px-5 pt-2 pb-3">
+          <span class="title">Σχολιασμοί Βιβλίου</span>
+          {{#each results2}}
+          <div class="comment px-2 pt-2 mt-4">
+            <p class="comment-username ml-3 mb-1 float-left">{{full_name}}</p>
+            <p class="comment-date float-left ml-3 my-1"> on {{date}}</p>
+
+            <p class="comment-rating float-right mb-1 mr-3">
+               <!-- EDw pairnei value ton meso oro ton aksiologisewn apo thn vash-->
+               <meter min="0"  max="5" value={{rating}}></meter>
+                
+              
+            </p><br>
+            <!--If userID == comment ID-->
+            <button class="btn btn-default ml-3 float-left my-1" name="removeCommentId" value="hbs.id"> Αφαίρεση Σχολίου</button>
+            <!--If userID == comment ID-->
+            <p class="comment-comment mx-5">
+                {{comment}}
+            </p> 
+          </div>
+          {{/each}}
+          
+
+        </div>
+      </form>
     </main>
+
+
+    <!--       rh3iu g4cut43uty34n2yft35nyopt23nvfi2vc4oh y23ihv4u3ypm3u24fti4ipty34  -->
+    {{> footer}}
+
+    <script src="../js/book.js"></script>
+
+</body>
+
+</html>
+ 
   
-  
-  {{> footer }} 
+

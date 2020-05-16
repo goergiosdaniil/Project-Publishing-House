@@ -1,0 +1,8 @@
+{
+  "appService.zipIgnorePattern": [
+    "node_modules{,/**}",
+    ".vscode{,/**}"
+  ],
+  "appService.deploySubpath": "",
+  "appService.defaultWebAppToDeploy": "/subscriptions/ee70175f-1b20-47e0-9d52-7cfe64b8c734/resourceGroups/gk802/providers/Microsoft.Web/sites/EkdotikosOikos"
+}

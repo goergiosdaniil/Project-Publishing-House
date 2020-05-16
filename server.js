@@ -172,12 +172,16 @@ app.post('/delete',(req, res) => {
 //route for book 
 app.get('/book/:input',(req, res) => {
   let sql = "SELECT book_id,book_title, book_description, book_cover, tbl_book_authors.author_name, book_reviewer_id, book_is_written, book_is_reviewed, book_is_published FROM tbl_books INNER JOIN tbl_book_authors ON tbl_books.book_author_id = tbl_book_authors.book_author_id WHERE tbl_books.book_id="+req.params.input+"";
-  console.log(req.params.input);
+  let sql2 ="SELECT book_id,tbl_users.full_name,anonymous,comment,rating,date FROM tbl_comments INNER JOIN tbl_users ON tbl_comments.user_id = tbl_users.id_user WHERE book_id="+req.params.input+"";
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
-    res.render('book',{
-      results: results, 
+    let query2 = conn.query(sql2,(err, results2)=>
+    {res.render('book',{
+      results: results,
+      results2: results2, 
       user: req.user });
+    })
+    
   });
 });
 
@@ -197,6 +201,12 @@ app.get('/emailSent',
 app.get('/emailFailed',
   function(req, res) {
     res.render('emailFailed', { user: req.user });
+  }
+);
+
+app.get('/signUp',
+  function(req, res) {
+    res.render('signUpForm', { user: req.user });
   }
 );
 
@@ -273,10 +283,8 @@ app.post('/contact', (req, res) => {
     }
   })
 })
-var portNumber = process.env.port || process.env.PORT || 1337;
-
 
 //server listening
-app.listen(portNumber, () => {
-  console.log('Server is running at port '+portNumber);
+app.listen(80, () => {
+  console.log('Server is running at port 80');
 });

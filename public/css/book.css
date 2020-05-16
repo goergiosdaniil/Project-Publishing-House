@@ -1,0 +1,150 @@
+.container{
+    max-width: 1200px;
+}
+.main-book{
+    font-size: 1.3rem;
+}
+.row{
+    max-width: 1200px;
+}
+#book-title{
+    font-weight: 600;
+    margin: 10px 0px 0px;
+}
+#book-img{
+    width:70%;
+    border-radius: 3px;
+}
+.aside-book{  
+    background-color: transparent;
+}
+.article-book{
+    background-color: rgba(230, 230, 230, 0.8);
+}
+.article-details{
+    width: fit-content;
+    margin: auto;
+}
+.article-details span{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: black;
+}
+.article-details p{
+    display: inline-block;
+    font-size: 1.2rem;
+    color: grey;
+}
+.article-details div{
+    margin-bottom: 20px;
+}
+
+.article-wish p{
+    color: black;
+    margin-left: 15px;
+    font-style: italic;
+}
+.article-wish .wishlist{
+    color: rgb(240, 240, 240);
+    background: #37bc9b;
+    height: 35px;
+    width: 41px;
+    border: none;
+}
+.article-wish .wishlist:hover{
+    background: teal;
+}
+.article-wish i{
+    font-size: 18px;
+    display: block;
+}
+.description{
+    text-align:start;
+    background-color: rgba(230, 230, 230, 0.8);
+    font-size: smaller;
+    color: rgba(0, 0, 0, 0.7);
+}
+.description .title,
+.new-comment .title,
+.comments .title{
+    width: 100%;
+    color: black;
+    text-align: center;
+    font-weight: 600;
+    font-size: 25px;
+}
+.new-comment{
+    background-color: rgba(230, 230, 230, 0.8);
+}
+#comment-text{
+    padding: 5px;
+    min-height: 100px;
+    width: 100%;
+    font-size: 20px;
+    line-height: 22px;
+}
+.new-comment button{
+    background-color: teal;
+    color: rgb(240, 240, 240);
+    width: 100px;
+    height: 40px;
+}
+.new-comment .float-left{
+    width: max-content;
+    margin:0;
+    font-size: 2rem;
+}
+.new-comment i{
+    margin: 0px 5px;
+    color: gray;
+}
+
+#rating,progress,meter{
+    /*  display:none;   */
+}
+#anonymous{
+    display: inline-block;
+    font-size: 1rem;
+}
+#anonymous input{
+    transform: scale(1.5);
+}
+.comments{
+    background-color: rgba(230, 230, 230, 0.8);
+}
+.comments .comment{
+    width: 100%;
+    min-height: 100px;
+    border: 1px solid grey;
+    background-color: rgba(240, 240, 240,1);
+}
+.comment-username,.comment-rating{
+    width: fit-content;
+    display:block;
+    font-size: 1rem;
+}
+.comment-date{
+    width: fit-content;
+    display:block;
+    font-style: italic;
+    font-size: 0.8rem;
+}
+.comment-comment{
+    display: inline-block;
+    font-size: 1rem;
+}
+.comment-rating i{
+    color:grey;
+}
+.comment button{
+    font-size: 0.5rem;
+    color:rgb(240, 240, 240);
+    font-style: oblique;
+    padding: 2px 3px;
+    background-color: teal;
+}
+.new-comment .float-left{
+    width: fit-content;
+    
+    
+}

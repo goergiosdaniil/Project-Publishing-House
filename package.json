@@ -2,11 +2,11 @@
   "name": "projectara",
   "version": "1.0.0",
   "description": "Project Peppas Daniil",
-  "main": "server.js",
-  "scripts": {},
-  "engines": {
-    "node": ">=10.0.0",
-    "npm": ">=6.0.0"
+  "main": "index.js",
+  "scripts": {
+    "debug":"nodemon --inspect ./server.js",
+    "watch": "nodemon ./server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +21,7 @@
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "nodemailer": "^6.4.6",
+    "nodemon": "^2.0.4",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0"
   }

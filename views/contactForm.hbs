@@ -1,12 +1,40 @@
+  <!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Spyridon Peppas, George Danil">
+    <meta name="description" content="Contact Form">
+    <meta name="keywords" content="HMTL, CSS, JS, Project, Ekdotikos Oikos, Upatras">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Εκδοτικος Οίκος - Φόρμα Επικοινωνίας</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link href="../css/contactFormPage.css"  rel="stylesheet" type="text/css">
+    <link href="../css/navbar.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Εκδοτικός Οίκος</h1>
+        </div>
+    </header>
+
+    
    {{> header }} 
 <article class="article-contact">
-        <form action="/contact" method="POST" role="form" class="contact-form">
+        <form action="contactForm.html" method="POST" class="contact-form">
             <div><h2>Επικοινωνείστε μαζί μας</h2></div>
             <div id="hr"><hr></div>
             <div>
-                <label for="name"><h3>Ονοματεπώνυμο </h3> &nbsp <span> ( <sup>*</sup>μόνο γράμματα ) </span><br></label>
-                <input type="text" id="name" name="name" type="text" placeholder=" Όνομα" class="fields">
-                
+                <label for="firstname surname"><h3>Ονοματεπώνυμο </h3> &nbsp <span> ( <sup>*</sup>μόνο γράμματα ) </span><br><br></label>
+                <input type="text" id="firstname" name="firstname" placeholder=" Όνομα" class="fields">
+                <input type="text" id="surname" name="surname" placeholder=" Επώνυμο" class="fields">
                 <br>
             </div>
             <div>
@@ -15,14 +43,30 @@
                 <input type="text" name="email" id="email" placeholder=" ✉️ Διεύθυνση e-mail" class="fields2">
             </div>
             <div>
-                <label for="message"><h3>Μήνυμα</h3> &nbsp <span> ( <sup>*</sup>από 3 έως 210 χαρακτήρες ) </span> <br></label>
-                <textarea id="message" name="message" placeholder="Γράψε εδώ το μήνυμά σου..."></textarea>
+                <label for="subject"><h3>Μήνυμα</h3> &nbsp <span> ( <sup>*</sup>από 3 έως 210 χαρακτήρες ) </span> <br></label>
+                <textarea id="subject" name="subject" placeholder="Γράψε εδώ το μήνυμά σου..."></textarea>
             </div>
             <div>
-                <input type="submit" value="Υποβολή" id="submit-button">
+                <input type="submit" value="Υποβολή" id="submitButton">
             </div>
-          
         </form>
+<div class="contact-info">
+            <h2>Στοιχεία επικοινωνίας</h2>
+            <ul class="contact-info-list">
+                <li><span>University of Patras</span></li>
+                <li><span>Rio, Achaia, GR</span></li>
+                <li><a href="mailto:up1046927@upnet.gr?subject=Contact Us-Ekdotikos Oikos">✉️&nbsp up1046927@upnet.gr</a></li>
+                <li><a href="mailto:up1046805@upnet.gr?subject=Contact Us-Ekdotikos Oikos">✉️&nbsp  up1046805@upnet.gr</a></li>
+                <li><span>📞 +30 26130-00000</span></li>
+                <li><span>📱 +30 6900000000</span></li>
+            </ul>
+        </div>
+    </article>
+
+{{> footer }} 
+<script src="../js/contactForm.js"></script>
+</body>
 
 
-            {{> footer }} 
+
+</html>

@@ -1,17 +1,36 @@
-.signUp-form{
-    background-color: rgb(150, 150, 150);
-    padding: 0px 200px;
+.card{
+    margin-top: 30px;
+    margin-bottom: 100px;
+    z-index: 0;
+    max-width: 1000px;
+    margin: 30px auto 100px;
+
 }
-.signUp-form div:first-child{
-    background-color: saddlebrown;
+.card-body{
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
-@media only screen and (max-width: 1200px) {
-    .signUp-form{
-        padding: 0 100px;
-    }  
+.col-form-label{
+    font-size: 20px;
+   
 }
-@media only screen and (max-width: 751px) {
-    .signUp-form{
-        padding: 0 20px;
-    }  
+.form-control{
+    margin-top: 7px;
+}
+legend{
+    font-style: italic;
+    font-size: 0.7em;
+    color: red;
+    margin: 0;
+}
+.myPswdLegend{
+    font-style: italic;
+    font-size: 0.6em;
+    text-align: center;
+}
+form div:nth-child(4){
+    margin-bottom: 0;
+}
+#submit-button{
+    align-items: center;
 }

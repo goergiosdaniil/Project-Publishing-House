@@ -1,0 +1,82 @@
+.navbar{
+    background-color: black;
+    max-width: 1200px;
+    max-height: 60px;
+    min-height: 50px;
+    margin:auto;
+    padding: 0;
+    font-size: 18px;
+    z-index: 11;
+    
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: rgb(240,240,240);
+}
+
+.navbar-nav{
+    background-color: black; 
+    text-align: center;
+   
+}
+.nav-item{
+    width: 100%;
+    color: rgb(240,240,240);
+}
+.nav-link{
+    color: rgb(240,240,240);
+    display: inline;
+    line-height: 60px;
+}
+
+.dropdown-item{
+    color: rgb(240,240,240);
+}
+.nav-link:hover{
+    color: rgba(240, 240, 240, 0.7);
+}
+.nav-item .dropdown-menu{            
+    background-color: black;
+    left: 0;
+    right: 0;
+    border: 0;
+    border-radius: 0%;
+    color: rgb(240,240,240);
+}
+.dropdown-menu form{
+    width: 90%;
+    margin: auto;
+}
+#exampleDropdownFormPassword, #exampleDropdownFormEmail{
+    font-size: 0.9rem;
+}
+.navbar-toggler{
+    margin: 5px 10px;
+    
+}
+
+@media only screen and (max-width: 767px) {
+    .nav-link{
+        line-height: 40px;
+        padding-left: 8px;
+    }
+    .nav-item .dropdown-menu{
+        width: 50%;
+        margin:auto;
+    }
+    
+}
+
+.nav2{
+    margin: 20px auto;
+    max-width: 1200px;
+    border: 0px solid red;
+    height: 24px;
+    line-height: 40px;
+    text-align: center;
+
+}
+.nav2 h2{
+    margin:0 auto;
+    display: inline;
+    color: rgb(40, 40, 40);
+}

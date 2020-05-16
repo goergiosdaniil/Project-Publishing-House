@@ -6,9 +6,10 @@
     grid-template-columns: 2fr 1fr;
 
 }
-@media only screen and (max-width: 900px) {
+
+@media only screen and (max-width: 767px) {
     .article-contact{
-        grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
         grid-auto-rows: minmax(auto, auto);
     }
     .contact-form{
@@ -19,15 +20,29 @@
         margin: auto;
     }
     .contact-form div{
-        max-width: 450px;
-        
+        max-width: 400px;
     }
-    .fields{
+    .fields1{
         max-width: 46%;
     }
 
 }
 
+@media only screen and (max-width: 480px) {
+    .article-contact{
+        grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+        grid-auto-rows: minmax(auto, auto);
+    }
+    .contact-form{
+        margin:0;
+        padding: 0 10px;        
+    }
+
+}
+
+label{
+    display: inline;
+}
 .contact-form{
     max-width: 800px;
     padding-left: 10px;
@@ -80,14 +95,14 @@
     width:98%; 
     
    }
-#message {
+#subject {
     width: 98%;
     min-height: 150px;
     font-size: 20px;
     padding: 5px;
     font-family: inherit;
 }
-#submit-button { 
+#submitButton { 
     background-color: rgb(218, 93, 51); 
     border: none; 
     font-size: 17px; 
