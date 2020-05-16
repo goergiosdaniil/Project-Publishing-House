@@ -28,14 +28,20 @@
                 Σύνδεση</a>|
               <a href="/signUp" class="nav-link" style="padding:0;">Εγγραφή</a>
               <div class="dropdown-menu">
-                  <form class="px-2 py-1">
+                  <form action="/login" method="post" class="px-2 py-1">
                     <div class="form-group">
                       <label for="exampleDropdownFormEmail1">Διεύθυνση Email</label>
-                      <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email">
+                      <input type="email" class="form-control" id="exampleDropdownFormEmail1" 
+                      name="username"
+                      placeholder="email">
                     </div>
+
                     <div class="form-group">
-                      <label for="exampleDropdownFormPassword1">Κωδικός</label>
-                      <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="κωδικός">
+                      <label 
+                      for="exampleDropdownFormPassword1">Κωδικός</label>
+                      <input type="password" class="form-control" id="exampleDropdownFormPassword1" 
+                      name="password"
+                      placeholder="κωδικός">
                     </div>
                     <!-- <div class="form-check">
                       <input type="checkbox" class="form-check-input" id="dropdownCheck">
@@ -43,7 +49,7 @@
                         Remember me
                       </label>
                     </div> -->
-                    <button type="submit" class="btn btn-primary">Σύνδεση</button>
+                    <button type="submit" class="btn btn-primary logIn-button">Σύνδεση</button>
                   </form>
                  <!-- 
                   <div class="dropdown-divider"></div>

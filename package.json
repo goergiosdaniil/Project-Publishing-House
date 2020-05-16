@@ -4,9 +4,8 @@
   "description": "Project Peppas Daniil",
   "main": "index.js",
   "scripts": {
-    "debug":"nodemon --inspect ./server.js",
-    "watch": "nodemon ./server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "debug": "nodemon --inspect ./server.js",
+    "watch": "nodemon ./server.js"
   },
   "author": "",
   "license": "ISC",
