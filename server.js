@@ -9,7 +9,7 @@ dotenv.config();
 //use bodyParser middleware
 const bodyParser = require('body-parser');
 var db = require('./db');
-
+const flash = require('connect-flash');
 //use mysql database
 const mysql = require('mysql');
 var passport = require('passport');
@@ -88,6 +88,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
+app.use(flash());
 
 
 
@@ -269,8 +270,8 @@ app.post('/contact', (req, res) => {
   const mailOpts = {
     from: 'Your sender info here', // This is ignored by Gmail
     to: process.env.GMAIL_USER,
-    subject: 'New message from contact form at tylerkrys.ca',
-    text: `${req.body.name} (${req.body.email}) says: ${req.body.message}`
+    subject: 'New message from contact form at ekdotikosOikos',
+    text: `${req.body.firstname} ${req.body.surname} (${req.body.email}) says: ${req.body.subject}`
   }
 
   // Attempt to send the email
