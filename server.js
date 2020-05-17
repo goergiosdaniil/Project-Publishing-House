@@ -114,10 +114,32 @@ app.get('/',(req, res) => {
 app.get('/allBooks',(req, res) => {
   let sql = "SELECT book_id,book_title,book_description,book_cover FROM tbl_books";
   let query = conn.query(sql, (err, results) => {
+    
     if(err) throw err;
+    
+    results3 = req.params;
+  
+    totalPages = Math.floor(results.length/6);
+    if (results.length%6 > 0 ){
+      totalPages = totalPages + 1 ;
+    }
+    results3.totalPages = totalPages;
+
+    page = req.query.page;
+    if (req.query.page){
+      page = req.query.page;
+    }else{
+      page = 1;
+    }
+
     res.render('allBooks',{
-      results: results, 
+      page : page,
+      results3 : results3,
+      results: results.slice((page-1)*6,(page-1)*6+6), 
       user: req.user });
+
+    
+    
   });
 });
 
@@ -156,7 +178,6 @@ app.post('/update',(req, res) => {
   let sql = "UPDATE tbl_books SET book_title='"+req.body.book_title+"', book_description='"+req.body.book_description+"', book_cover='"+req.body.book_cover+"', book_author_id='"+req.body.book_author_id+"', book_reviewer_id='"+req.body.book_reviewer_id+"', book_is_written='"+req.body.book_is_written+"', book_is_reviewed='"+req.body.book_is_reviewed+"', book_is_published='"+req.body.book_is_published+"' WHERE book_id="+req.body.id;
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
-    console.log(req.body);
     res.redirect('/bookview');
   });
 });
@@ -185,7 +206,19 @@ app.get('/book/:input',(req, res) => {
     
   });
 });
-
+app.post('/newReview',(req, res) => {
+  let data = {book_id: req.body.book_id, user_id: req.body.user_id, anonymous: req.body.anonymous, comment: req.body.commentText, rating: parseInt(req.body.rating), date: req.body.date};
+  let sql = "INSERT INTO tbl_comments SET ?";
+   let query = conn.query(sql, data,(err, results) => {
+   if(err) throw err;
+  console.log(typeof req.body.rating);
+    res.redirect('/book/'+req.body.book_id);
+  });
+    
+  
+  
+  
+});
 
 
 app.get('/stores',

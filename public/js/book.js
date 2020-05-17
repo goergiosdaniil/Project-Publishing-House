@@ -76,3 +76,13 @@ commentRating.forEach(item=>{
     }
 })
 
+var d = new Date();
+var day = "-"+d.getDate();
+var mon = d.getMonth()+1;
+if (mon<10){
+    mon = "0"+mon;
+}
+var yea = d.getFullYear()+"-";
+var fullDate = yea.concat(mon);
+fullDate = fullDate.concat(day);
+document.getElementById("date").setAttribute("value",fullDate);

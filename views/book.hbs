@@ -7,7 +7,7 @@
     <meta name="description" content="Publishing House">
     <meta name="keywords" content="HMTL, CSS, JS, Project, Ekdotikos Oikos, Upatras">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Εκδοτικος Οίκος - Home Page</title>
+    <title>{{results.0.book_title}}</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -78,7 +78,7 @@
           <span class="title">Προσθήκη Σχολίου</span>
 
 
-          <form action="?" class="w-100 m-3">
+          <form action="/newReview" method="post" class="w-100 m-3">
             <textarea id="comment-text" name="commentText" placeholder="Γράψε εδώ το σχόλιο σου..."></textarea>
             
             <p class="float-left ml-3">
@@ -96,18 +96,28 @@
             </p>
             <p class="mx-5 mb-0 mt-2 " id="anonymous">
               <label for="anonymous">Εμφάνιση ως ανώνυμο?</label> 
-              <input type="checkbox" checked class="ml-2"  name="anonymous" value="yes">
+              <input type="checkbox" id ="anonymous" class="ml-2"  name="anonymous" value="YES">
             </p>
+            
+            <input type = "hidden" id = "book_id"  name = "book_id" value ={{results.0.book_id}} />
+            <input type = "hidden" id = "date" name = "date"  />
+            <input type = "hidden" id = "user_id" name ="user_id"  value ={{user.id}} />
             <button class="btn btn-default float-right mr-3" id="submitButton"type="submit">Υποβολή</button>
 
         </div>
-
+      </form>   
         
         <div class="row comments my-3 px-5 pt-2 pb-3">
           <span class="title">Σχολιασμοί Βιβλίου</span>
           {{#each results2}}
           <div class="comment px-2 pt-2 mt-4">
+            {{#if anonymous}}
+            <p class="comment-username ml-3 mb-1 float-left">Anonymous</p>
+            {{else}}
             <p class="comment-username ml-3 mb-1 float-left">{{full_name}}</p>
+            {{/if}}
+            
+            
             <p class="comment-date float-left ml-3 my-1"> on {{date}}</p>
 
             <p class="comment-rating float-right mb-1 mr-3">
@@ -127,7 +137,7 @@
           
 
         </div>
-      </form>
+      
     </main>
 
 
