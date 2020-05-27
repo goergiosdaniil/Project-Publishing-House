@@ -26,22 +26,16 @@
 
 <body>
     
-    <header>
-        <div>
-            <h1>Εκδοτικός Οίκος</h1>
-        </div>
-    </header>
-
     {{> header}}
-    <!--       rh3iu g4cut43uty34n2yft35nyopt23nvfi2vc4oh y23ihv4u3ypm3u24fti4ipty34  -->
 
-    <main class="container main-book">
-        <div class="row justify-content-center my-3"><h2 id="book-title">{{results.0.book_title}}</h2></div>
+    <main class="container main-book p-2 my-3">
+       
         <div class="row justify-content-start">
-            <aside class="col-md-6 py-3 mb-3 aside-book ">
+            <aside class="col-md-6 my-3 pb-3 aside-book ">
               <img class="mx-auto d-block" id="book-img" src="{{results.0.book_cover}}" alt="{{results.0.book_title}}">
             </aside>
-            <article class="col-md-5 article-book py-5 my-5">
+            <article class="col-md-5 article-book py-3 mt-3 mb-4">
+              <div class="row justify-content-center my-3"><h2 id="book-title">{{results.0.book_title}}</h2></div>
               <div class="article-details mt-5">
                 <div class="article-authors">
                   <p><span>Είδος :</span>  Δράσης</p><br>
@@ -50,7 +44,7 @@
                 <div class="article-rating">
                   <p> <span>Αξιολόγηση</span> </p><br>
                   <!-- EDw pairnei value ton meso oro ton aksiologisewn apo thn vash-->
-                  <progress value="3" max="5"></progress>
+                  <progress value="0" max="5"></progress>
                   <!-- EDw pairnei value ton meso oro ton aksiologisewn apo thn vash-->
                   <p style="padding-left: 15px;" id="book-stars">
                     <i class="fa fa-star"></i>
@@ -77,7 +71,7 @@
         <div class="row new-comment my-3 px-5 py-2">
           <span class="title">Προσθήκη Σχολίου</span>
 
-
+          {{#if user.id}}
           <form action="/newReview" method="post" class="w-100 m-3">
             <textarea id="comment-text" name="commentText" placeholder="Γράψε εδώ το σχόλιο σου..."></textarea>
             
@@ -103,32 +97,34 @@
             <input type = "hidden" id = "date" name = "date"  />
             <input type = "hidden" id = "user_id" name ="user_id"  value ={{user.id}} />
             <button class="btn btn-default float-right mr-3" id="submitButton"type="submit">Υποβολή</button>
-
-        </div>
-      </form>   
+        </form>
+        {{else}}
+          <div class="w-100 my-3 " style="font-style: italic;text-align:center;font-size:18px">πρέπει να συνδεθείς για να γράψεις σχόλιο</div>  
+        {{/if}}
         
-        <div class="row comments my-3 px-5 pt-2 pb-3">
+        </div>
+
+        <div class="row comments mt-3 px-5 pt-2 pb-3">
           <span class="title">Σχολιασμοί Βιβλίου</span>
+          
           {{#each results2}}
+
           <div class="comment px-2 pt-2 mt-4">
+            
             {{#if anonymous}}
-            <p class="comment-username ml-3 mb-1 float-left">Anonymous</p>
+            <p class="comment-username ml-3 mb-1 float-left" style="font-style: italic;">anonymous</p>
             {{else}}
-            <p class="comment-username ml-3 mb-1 float-left">{{full_name}}</p>
+            <p class="comment-username ml-3 mb-1 float-left">{{firstName}}</p>
             {{/if}}
             
-            
-            <p class="comment-date float-left ml-3 my-1"> on {{date}}</p>
-
+            <p class="comment-date float-left ml-2 my-1">on {{date}}</p>
             <p class="comment-rating float-right mb-1 mr-3">
-               <!-- EDw pairnei value ton meso oro ton aksiologisewn apo thn vash-->
-               <meter min="0"  max="5" value={{rating}}></meter>
-                
-              
+               <meter min="0"  max="5" value={{rating}}></meter>    
             </p><br>
-            <!--If userID == comment ID-->
-            <button class="btn btn-default ml-3 float-left my-1" name="removeCommentId" value="hbs.id"> Αφαίρεση Σχολίου</button>
-            <!--If userID == comment ID-->
+            <form action="/removeComment" method="post">
+              <button class="btn btn-default ml-3 float-left my-1 removeButton"  name="removeCommentId" id="removeButton" value={{id_comment}}> Αφαίρεση </button>
+              <div class="removeButtonDiv">{{user_id}}</div>
+            </form>
             <p class="comment-comment mx-5">
                 {{comment}}
             </p> 
@@ -140,8 +136,6 @@
       
     </main>
 
-
-    <!--       rh3iu g4cut43uty34n2yft35nyopt23nvfi2vc4oh y23ihv4u3ypm3u24fti4ipty34  -->
     {{> footer}}
 
     <script src="../js/book.js"></script>
@@ -149,6 +143,3 @@
 </body>
 
 </html>
- 
-  
-

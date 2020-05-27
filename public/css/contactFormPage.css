@@ -114,6 +114,9 @@ label{
     width: 110px;
     cursor: pointer;
 }
+#submitButton:disabled{
+    background-color: rgb(211, 139, 115);
+}
 .contact-info-list{
     list-style-type: none;
     text-align: left;

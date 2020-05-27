@@ -54,10 +54,7 @@ passport.deserializeUser(function(id, cb) {
   });
 });
 
-
-
 const app = express();
-
 
 //Create connection
 const conn = mysql.createConnection({
@@ -75,7 +72,6 @@ conn.connect((err) =>{
 });
 
 
-
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
 app.use(require('morgan')('combined'));
@@ -87,10 +83,7 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: false, save
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.use(flash());
-
-
 
 //set views file
 app.set('views',path.join(__dirname,'views'));
@@ -105,9 +98,7 @@ app.use(express.static(__dirname + '/public'));
 
 //route for homepage
 app.get('/',(req, res) => {
-
   res.render('index',{user: req.user});
- 
 });
 
 //route for allBooks
@@ -137,8 +128,6 @@ app.get('/allBooks',(req, res) => {
       results3 : results3,
       results: results.slice((page-1)*6,(page-1)*6+6), 
       user: req.user });
-
-    
     
   });
 });
@@ -146,8 +135,6 @@ app.get('/allBooks',(req, res) => {
 
 
 //route for bookview
-
-
 app.get('/bookview',
   require('connect-ensure-login').ensureLoggedIn(),
   function(req, res){
@@ -160,7 +147,6 @@ app.get('/bookview',
     });
   }
 );
-
 
 
 //route for insert data
@@ -194,32 +180,36 @@ app.post('/delete',(req, res) => {
 //route for book 
 app.get('/book/:input',(req, res) => {
   let sql = "SELECT book_id,book_title, book_description, book_cover, tbl_book_authors.author_name, book_reviewer_id, book_is_written, book_is_reviewed, book_is_published FROM tbl_books INNER JOIN tbl_book_authors ON tbl_books.book_author_id = tbl_book_authors.book_author_id WHERE tbl_books.book_id="+req.params.input+"";
-  let sql2 ="SELECT book_id,tbl_users.full_name,anonymous,comment,rating,date FROM tbl_comments INNER JOIN tbl_users ON tbl_comments.user_id = tbl_users.id_user WHERE book_id="+req.params.input+"";
+  let sql2 ="SELECT book_id,anonymous,comment,id_comment,rating,date,tbl_users.user_id,tbl_users.firstName FROM tbl_comments INNER JOIN tbl_users ON tbl_comments.user_id = tbl_users.user_id WHERE book_id="+req.params.input+"";
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
     let query2 = conn.query(sql2,(err, results2)=>
-    {res.render('book',{
+    { console.log(req.user);
+      res.render('book',{
       results: results,
       results2: results2, 
       user: req.user });
     })
-    
   });
 });
+
 app.post('/newReview',(req, res) => {
   let data = {book_id: req.body.book_id, user_id: req.body.user_id, anonymous: req.body.anonymous, comment: req.body.commentText, rating: parseInt(req.body.rating), date: req.body.date};
   let sql = "INSERT INTO tbl_comments SET ?";
-   let query = conn.query(sql, data,(err, results) => {
-   if(err) throw err;
-  console.log(typeof req.body.rating);
+  let query = conn.query(sql, data,(err, results) => {
+    if(err) throw err;
+    console.log(typeof req.body.rating);
     res.redirect('/book/'+req.body.book_id);
   });
-    
-  
-  
-  
 });
 
+app.post('/removeComment',(req, res) => {
+  let sql = "DELETE FROM tbl_comments WHERE id_comment="+req.body.removeCommentId+"";
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.redirect(req.get('referer'));
+  });
+});
 
 app.get('/stores',
   function(req, res) {
@@ -267,14 +257,14 @@ app.get('/login',
 app.post('/login', 
   passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect(req.get('referer'));
   }
 );
   
 app.get('/logout',
   function(req, res){
     req.logout();
-    res.redirect('/');
+    res.redirect(req.get('referer'));
   }
 );
 
@@ -317,7 +307,7 @@ app.post('/contact', (req, res) => {
     }
   })
 })
-var portNumber = process.env.port || process.env.PORT || 1337;
+var portNumber = process.env.port || process.env.PORT || 3000;
 //server listening
 app.listen(portNumber, () => {
   console.log('Server is running at port '+portNumber);

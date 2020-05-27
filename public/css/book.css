@@ -100,7 +100,7 @@
 }
 
 #rating,progress,meter{
-    /*  display:none;   */
+    display:none;  
 }
 #anonymous{
     display: inline-block;
@@ -142,9 +142,15 @@
     font-style: oblique;
     padding: 2px 3px;
     background-color: teal;
+    width: 60px;
+    display: none;
+}
+.comment button:hover{
+    color: rgba(230, 230, 230, 1);
 }
 .new-comment .float-left{
-    width: fit-content;
-    
-    
+    width: fit-content;  
+}
+.removeButtonDiv{
+    display: none;
 }

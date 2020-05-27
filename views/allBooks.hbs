@@ -19,12 +19,8 @@
 </head>
 <body>
 
-    <header>
-        <div>
-            <h1>Εκδοτικός Οίκος</h1>
-        </div>
-    </header>    
     {{> header }} 
+    
     <div class="nav2"><h2>Βιβλία</h2>
     </div>
     <main class="grid-books">
@@ -55,26 +51,28 @@
     </main>
     <input type = "hidden" id = "totalPages" value ={{results3.totalPages}} />
     <input type = "hidden" id = "page" value ={{page}} />
-   <nav aria-label="Page navigation example">
-  <ul class="pagination justify-content-center" id="listOfPages">
-    {{!-- <li class="page-item ">
-      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-    </li> --}}
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center" id="listOfPages">
+        {{!-- <li class="page-item ">
+          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+        </li> --}}
 
 
-    {{!-- AYTO MPAINEI PLEON APO TIN JAVASCRIPT ANALOGA ME TO POSA VIVLIA YPARXOUN --}}
+        {{!-- AYTO MPAINEI PLEON APO TIN JAVASCRIPT ANALOGA ME TO POSA VIVLIA YPARXOUN --}}
 
-    
-    {{!-- <li class="page-item"><a class="page-link" value = "1"href="?page=1">1</a></li>
-    <li class="page-item"><a class="page-link" value = "2" href="?page=2">2</a></li>
-    <li class="page-item"><a class="page-link" value = "3" href="?page=3">3</a></li> --}}
-    {{!-- <li class="page-item">
-      <a class="page-link" href="#">Next</a>
-    </li> --}}
-  </ul>
-</nav>
+        
+        {{!-- <li class="page-item"><a class="page-link" value = "1"href="?page=1">1</a></li>
+        <li class="page-item"><a class="page-link" value = "2" href="?page=2">2</a></li>
+        <li class="page-item"><a class="page-link" value = "3" href="?page=3">3</a></li> --}}
+        {{!-- <li class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li> --}}
+      </ul>
+    </nav>
+
     {{> footer }} 
-    <script src="../js/allBooks.js"></script>
-    </body>
 
+    <script src="../js/allBooks.js"></script>
+
+</body>
 </html>

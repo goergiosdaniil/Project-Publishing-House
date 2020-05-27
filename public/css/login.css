@@ -1,0 +1,7 @@
+#login-container{
+    width: fit-content;
+    margin: 100px auto;
+    background-color: rgb(230, 230, 230);
+    border-radius: 8px;
+    padding: 40px;
+}

@@ -47,11 +47,15 @@
     margin: auto;
 }
 #exampleDropdownFormPassword, #exampleDropdownFormEmail{
-    font-size: 0.9rem;
+    font-size: 0.7rem;
 }
 .navbar-toggler{
     margin: 5px 10px;
     
+}
+
+.form-control{
+    font-size: 0.8rem;
 }
 
 @media only screen and (max-width: 767px) {
@@ -79,4 +83,27 @@
     margin:0 auto;
     display: inline;
     color: rgb(40, 40, 40);
+}
+
+#loggedIn-dropdownToggle{
+    font-size: 18px;
+    font-style: italic;
+}
+#loggedIn-dropdownToggle b{
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+}
+#loggedIn-dropdownMenu{
+    height: 80px;
+    padding: 0;
+    text-align: center;
+    margin: 0;
+}
+.loggedIn-dropdownItem{
+    line-height: 10px;
+    height: 40px;
+}
+.loggedIn-dropdownItem a{
+    line-height: 30px;
 }

@@ -1,0 +1,168 @@
+<nav class="navbar navbar-expand-md navbar-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        
+      </button>
+      <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
+        <ul class="navbar-nav w-100 justify-content-around">
+            <li class="nav-item">
+              <a href="/" class="nav-link">Αρχική</a>
+            </li>
+            <li class="nav-item">
+              <a href="/allbooks" class="nav-link">Βιβλία</a>
+            </li>
+            <li class="nav-item">
+              <a href="/stores" class="nav-link">Καταστήματα</a>
+            </li>
+            <li class="nav-item">
+              <a href="/contactForm" class="nav-link">Επικοινωνία</a>
+            </li>
+            
+            {{#if user.id}}
+
+            <li class="nav-item dropdown" >
+              <a class="nav-link dropdown-toggle" href="#" id="loggedIn-dropdownToggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Γεια σου, <b>{{user.firstName}}</b>
+              </a>
+              <div class="dropdown-menu" id="loggedIn-dropdownMenu">
+                <div class="loggedIn-dropdownItem"><a href="/account" class="nav-link">Λογαριασμός</a></div>
+                <div class="loggedIn-dropdownItem"><a href="/logout" class="nav-link">Αποσύνδεση</a></div>
+              </div>
+            </li>
+                
+            {{else}}
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" style="padding:0;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Σύνδεση</a>|
+              <a href="/signUp" class="nav-link" style="padding:0;">Εγγραφή</a>
+              <div class="dropdown-menu">
+                  <form action="/login" method="post" class="px-2 py-1">
+                    <div class="form-group">
+                      <label for="exampleDropdownFormEmail1">Διεύθυνση Email</label>
+                      <input type="email" class="form-control" id="exampleDropdownFormEmail1" 
+                      name="username"
+                      placeholder="email">
+                    </div>
+
+                    <div class="form-group">
+                      <label 
+                      for="exampleDropdownFormPassword1">Κωδικός</label>
+                      <input type="password" class="form-control" id="exampleDropdownFormPassword1" 
+                      name="password"
+                      placeholder="κωδικός">
+                    </div>
+                    <!-- <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                      <label class="form-check-label" for="dropdownCheck">
+                        Remember me
+                      </label>
+                    </div> -->
+                    <button type="submit" class="btn btn-primary logIn-button">Σύνδεση</button>
+                  </form>
+                 <!-- 
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">New around here? Sign up</a>
+                  <a class="dropdown-item" href="#">Forgot password?</a>
+                 -->
+              </div>
+            </li>
+
+            {{/if}}
+        
+        </ul>
+      </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+{{!-- <!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Spyridon Peppas, George Danil">
+    <meta name="description" content="Publishing House">
+    <meta name="keywords" content="HMTL, CSS, JS, Project, Ekdotikos Oikos, Upatras">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Εκδοτικος Οίκος - Home Page</title>
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link href="../css/logInDropDown.css"  rel="stylesheet" type="text/css">
+    <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <style>
+      #map {
+        height: 100%;
+      }
+      .map-container-2{
+overflow:hidden;
+padding-bottom:56.25%;
+position:relative;
+height:0;
+}
+.map-container-2 iframe{
+left:0;
+top:0;
+height:100%;
+width:100%;
+position:absolute;
+}
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>Εκδοτικός Οίκος</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li>
+              <a href="/">Αρχική</a>
+            </li>
+            <li>
+              <a href="/allBooks">Βιβλία</a>
+            </li>
+            <li>
+              <a href="/stores">Καταστήματα</a>
+            </li>
+            <li>
+              <a href="/contactForm">Επικοινωνία</a>
+            </li>
+            {{#if user.displayName}} 
+            <li>
+              <a href="/account">{{user.displayName}}</a><a> is signed in</a>.<a href="/logout">Log out</a>
+            </li>
+                
+            {{else}}
+                <li id="logInItem">
+              <div > 
+                  <p id="signInButton"> Σύνδεση</p>
+                  <span>|</span>
+                  <a href="/signUpForm">Εγγραφή</a>
+                  <div class="logIn-popUp" id="logInDiv">
+                    <form action="/login" class="logIn-container" id="logInForm" method="post"> 
+                        <div class="cancel" >Σύνδεση</div>
+                        
+                        <label for="username"><b>username</b></label>
+                        <input type="text" placeholder="username" name="username" required>
+                        <label for="password"><b>Κωδικός</b></label>
+                        <input type="password" placeholder="Κωδικός" name="password" required>
+
+                        <button type="submit" class="logIn-button">Σύνδεση</button>
+                    </form>
+                </div>
+              </div> 
+            </li>
+            {{/if}}
+            
+          </ul>
+    </nav> --}}
