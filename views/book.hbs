@@ -71,7 +71,7 @@
         <div class="row new-comment my-3 px-5 py-2">
           <span class="title">Προσθήκη Σχολίου</span>
 
-          {{#if user.id}}
+          {{#if user.user_id}}
           <form action="/newReview" method="post" class="w-100 m-3">
             <textarea id="comment-text" name="commentText" placeholder="Γράψε εδώ το σχόλιο σου..."></textarea>
             
@@ -95,13 +95,12 @@
             
             <input type = "hidden" id = "book_id"  name = "book_id" value ={{results.0.book_id}} />
             <input type = "hidden" id = "date" name = "date"  />
-            <input type = "hidden" id = "user_id" name ="user_id"  value ={{user.id}} />
+            <input type = "hidden" id = "user_id" name ="user_id"  value ={{user.user_id}} />
             <button class="btn btn-default float-right mr-3" id="submitButton"type="submit">Υποβολή</button>
-        </form>
-        {{else}}
+          </form>
+          {{else}}
           <div class="w-100 my-3 " style="font-style: italic;text-align:center;font-size:18px">πρέπει να συνδεθείς για να γράψεις σχόλιο</div>  
-        {{/if}}
-        
+          {{/if}}
         </div>
 
         <div class="row comments mt-3 px-5 pt-2 pb-3">

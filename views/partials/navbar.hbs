@@ -18,7 +18,7 @@
               <a href="/contactForm" class="nav-link">Επικοινωνία</a>
             </li>
             
-            {{#if user.id}}
+            {{#if user.user_id}}
 
             <li class="nav-item dropdown" >
               <a class="nav-link dropdown-toggle" href="#" id="loggedIn-dropdownToggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -35,14 +35,13 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" style="padding:0;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Σύνδεση</a>|
-              <a href="/signUp" class="nav-link" style="padding:0;">Εγγραφή</a>
+              <a href="/registerForm" class="nav-link" style="padding:0;">Εγγραφή</a>
               <div class="dropdown-menu">
                   <form action="/login" method="post" class="px-2 py-1">
                     <div class="form-group">
                       <label for="exampleDropdownFormEmail1">Διεύθυνση Email</label>
                       <input type="email" class="form-control" id="exampleDropdownFormEmail1" 
-                      name="username"
-                      placeholder="email">
+                      name="username" placeholder="👤 email">
                     </div>
 
                     <div class="form-group">
@@ -50,7 +49,7 @@
                       for="exampleDropdownFormPassword1">Κωδικός</label>
                       <input type="password" class="form-control" id="exampleDropdownFormPassword1" 
                       name="password"
-                      placeholder="κωδικός">
+                      placeholder="🔑 κωδικός">
                     </div>
                     <!-- <div class="form-check">
                       <input type="checkbox" class="form-check-input" id="dropdownCheck">

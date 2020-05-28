@@ -132,6 +132,9 @@ label{
     color:inherit;
     
 }
-.contact-inf-list li:first-child,.contact-info li:nth-child(3){
+.contact-info-list li:first-child,.contact-info li:nth-child(3){
+    margin-top: 30px;
+}
+.contact-info{
     margin-top: 30px;
 }

@@ -1,7 +1,32 @@
 #login-container{
-    width: fit-content;
+    width: 375px;
     margin: 100px auto;
     background-color: rgb(230, 230, 230);
     border-radius: 8px;
-    padding: 40px;
+    padding: 20px 20px;
+}
+#login-container b{
+    display:block;
+    width: fit-content;
+    margin: 20px auto 0px;
+    color: red;
+    font-weight: normal;
+}
+#login-container{
+    text-align: center;
+}
+#login-container input{
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+#login-container label{
+    font-weight: 600;
+    margin: 10px 0px
+}
+#login-container button{
+    margin: 0 48px;
+}
+#inside-container{
+    width: fit-content;
+    margin: auto;
 }

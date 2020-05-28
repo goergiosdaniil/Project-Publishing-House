@@ -15,45 +15,7 @@ const mysql = require('mysql');
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 const nodemailer = require('nodemailer')
-
-
-
-
-// Configure the local strategy for use by Passport.
-//
-// The local strategy require a `verify` function which receives the credentials
-// (`username` and `password`) submitted by the user.  The function must verify
-// that the password is correct and then invoke `cb` with a user object, which
-// will be set at `req.user` in route handlers after authentication.
-passport.use(new Strategy(
-  function(username, password, cb) {
-    db.users.findByUsername(username, function(err, user) {
-      if (err) { return cb(err); }
-      if (!user) { return cb(null, false); }
-      if (user.password != password) { return cb(null, false); }
-      return cb(null, user);
-    });
-  }));
-
-
-// Configure Passport authenticated session persistence.
-//
-// In order to restore authentication state across HTTP requests, Passport needs
-// to serialize users into and deserialize users out of the session.  The
-// typical implementation of this is as simple as supplying the user ID when
-// serializing, and querying the user record by ID from the database when
-// deserializing.
-passport.serializeUser(function(user, cb) {
-  cb(null, user.id);
-});
-
-passport.deserializeUser(function(id, cb) {
-  db.users.findById(id, function (err, user) {
-    if (err) { return cb(err); }
-    cb(null, user);
-  });
-});
-
+const bcrypt = require('bcrypt');
 const app = express();
 
 //Create connection
@@ -64,13 +26,68 @@ const conn = mysql.createConnection({
   database: process.env.DB_DB
 });
 
-
 //connect to database
 conn.connect((err) =>{
   if(err) throw err;
   console.log('Mysql Connected...');
 });
 
+// Configure the local strategy for use by Passport.
+//
+// The local strategy require a `verify` function which receives the credentials
+// (`username` and `password`) submitted by the user.  The function must verify
+// that the password is correct and then invoke `cb` with a user object, which
+// will be set at `req.user` in route handlers after authentication.
+
+/*            !!!!!json log in no longer needed !!!!!
+passport.use(new Strategy(
+  function(username, password, cb) {
+    db.users.findByUsername(username, function(err, user) {
+      if (err) { return cb(err); }
+      if (!user) { return cb(null, false); }
+      if (user.password != password) { return cb(null, false); }
+      return cb(null, user);
+    });
+  }));
+ */
+
+passport.use('local',new Strategy(
+    // by default, local strategy uses username and password, we will override with email
+  function(username, password, done) { // callback with email and password from our form
+    conn.query("SELECT * FROM tbl_users WHERE username = ?",username, function(err, rows){
+      console.log(username,password);
+      if (err)
+        return done(err);
+      if (!rows.length) { return done(null, false); }
+      // req.flash is the way to set flashdata using connect-flash
+      // if the user is found but the password is wrong
+      if (!bcrypt.compareSync(password, rows[0].password))
+        return done(null, false); 
+      // create the loginMessage and save it to session as flashdata
+      // all is well, return successful user
+      return done(null, rows[0]);
+    });
+  })
+);
+
+// Configure Passport authenticated session persistence.
+//
+// In order to restore authentication state across HTTP requests, Passport needs
+// to serialize users into and deserialize users out of the session.  The
+// typical implementation of this is as simple as supplying the user ID when
+// serializing, and querying the user record by ID from the database when
+// deserializing.
+passport.serializeUser(function(user, cb) {
+  console.log(user);
+  cb(null, user.user_id);
+});
+
+passport.deserializeUser(function(id, cb) {
+  conn.query("select * from tbl_users where user_id = "+id,function(err,rows){
+    console.log(rows[0].username);	
+    cb(err, rows[0]);
+  });
+});
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
@@ -105,24 +122,19 @@ app.get('/',(req, res) => {
 app.get('/allBooks',(req, res) => {
   let sql = "SELECT book_id,book_title,book_description,book_cover FROM tbl_books";
   let query = conn.query(sql, (err, results) => {
-    
     if(err) throw err;
-    
     results3 = req.params;
-  
     totalPages = Math.floor(results.length/6);
     if (results.length%6 > 0 ){
       totalPages = totalPages + 1 ;
     }
     results3.totalPages = totalPages;
-
     page = req.query.page;
     if (req.query.page){
       page = req.query.page;
     }else{
       page = 1;
     }
-
     res.render('allBooks',{
       page : page,
       results3 : results3,
@@ -131,8 +143,6 @@ app.get('/allBooks',(req, res) => {
     
   });
 });
-
-
 
 //route for bookview
 app.get('/bookview',
@@ -147,7 +157,6 @@ app.get('/bookview',
     });
   }
 );
-
 
 //route for insert data
 app.post('/save',(req, res) => {
@@ -184,9 +193,8 @@ app.get('/book/:input',(req, res) => {
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
     let query2 = conn.query(sql2,(err, results2)=>
-    { console.log(req.user);
-      res.render('book',{
-      results: results,
+    {res.render('book',
+    { results: results,
       results2: results2, 
       user: req.user });
     })
@@ -198,7 +206,6 @@ app.post('/newReview',(req, res) => {
   let sql = "INSERT INTO tbl_comments SET ?";
   let query = conn.query(sql, data,(err, results) => {
     if(err) throw err;
-    console.log(typeof req.body.rating);
     res.redirect('/book/'+req.body.book_id);
   });
 });
@@ -228,9 +235,9 @@ app.get('/emailFailed',
   }
 );
 
-app.get('/signUp',
+app.get('/registerForm',
   function(req, res) {
-    res.render('signUpForm', { user: req.user });
+    res.render('registerForm', { user: req.user });
   }
 );
 
@@ -240,6 +247,17 @@ app.get('/contactForm',
   }
 );
 
+app.post('/registerUser', function(req,res){
+  bcrypt.hash(req.body.password,10,(err,hash)=>{
+    if (err){throw(err);};
+    let data = {username: req.body.email, firstName: req.body.firstName, lastName: req.body.lastName, password: hash, email: req.body.email, role: 'User'};
+    let sql = "INSERT INTO tbl_users SET ?";
+    let query = conn.query(sql, data, (err, results) => {
+      if(err) throw err;
+      res.redirect('registerForm');
+    });
+  });
+})
 
 // Define routes for passport.
 app.get('/fakehome',
@@ -258,6 +276,14 @@ app.post('/login',
   passport.authenticate('local', { failureRedirect: '/login' }),
   function(req, res) {
     res.redirect(req.get('referer'));
+  }
+);
+
+//when log-in attempt from login.hbs
+app.post('/login2', 
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
   }
 );
   

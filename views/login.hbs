@@ -28,24 +28,23 @@
 {{> header}}
 
 <div class="container" id="login-container">
-    <form action="/login" method="post">
-        <div>
-        <label>Username:</label><br>
-        <input type="text" name="username"/><br/>
-        </div>
-        <div>
-        <label>Password:</label>
-        <input type="password" name="password"/>
-        </div>
-        <div>
-        <input type="submit" value="Submit"/>
-        </div>
-    </form>
-
-
-<p>You gave wrong credentials</p>
+    <div id="inside-container">
+        <form action="/login2" method="post">
+            <div>
+                <label>E-mail</label><br>
+                <input type="text" name="username" placeholder="👤"/><br/>
+            </div>
+            <div>
+                <label>Κωδικός</label><br>
+                <input type="password" name="password" placeholder="🔑 "/>
+            </div><br>
+            <div>
+                <button type="submit" class="btn btn-primary logIn-button"> Σύνδεση </button>
+            </div>
+        </form>
+        <b>Έδωσες λάθος στοιχεία</b>
+    </div>
 </div>
-
 {{> footer}}
 
 </body>

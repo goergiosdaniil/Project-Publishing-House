@@ -21,7 +21,6 @@ for (i in starsArray){
 }
 starsArray=[];
 
-
 starsNewComment.forEach(item=>{
     item.addEventListener('mouseout',event=>{
         for (item of starsNewComment){
