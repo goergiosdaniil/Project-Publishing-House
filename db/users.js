@@ -1,3 +1,5 @@
+/* 
+
 var records = [
     { id: 1, username: 'george@daniil.com', password: 'daniil',firstName: 'Georgios',lastName:'Daniil', role:'Admin', email: 'george@daniil.com' }
   , { id: 2, username: 'spiros@peppas.com', password: 'peppas',firstName: 'Spiros',lastName:'Peppas', role:'Admin', email: 'spiros@peppas.com' }
@@ -25,3 +27,5 @@ process.nextTick(function() {
   return cb(null, null);
 });
 }
+
+ */

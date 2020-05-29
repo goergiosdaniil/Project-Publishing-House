@@ -8,7 +8,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 //use bodyParser middleware
 const bodyParser = require('body-parser');
-var db = require('./db');
+//var db = require('./db');
 const flash = require('connect-flash');
 //use mysql database
 const mysql = require('mysql');
