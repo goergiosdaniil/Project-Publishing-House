@@ -477,7 +477,7 @@ app.post('/contact', (req, res) => {
       res.render('emailFailed') // Show a page indicating failure
     }
     else {
-      res.render('emailSent') // Show a page indicating success
+      res.render('emailsent') // Show a page indicating success
     }
   })
 })
