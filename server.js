@@ -371,9 +371,9 @@ app.get('/stores',
     res.render('stores', { user: req.user });
   }
 );
-app.get('/emailSent',
+app.get('/emailsent',
   function(req, res) {
-    res.render('emailSent', { user: req.user });
+    res.render('emailsent', { user: req.user });
   }
 );
 
