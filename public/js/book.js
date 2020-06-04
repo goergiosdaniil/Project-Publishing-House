@@ -110,7 +110,6 @@ let usr = document.getElementById("user_id");
 if (usr){ 
     for (rm in rmDiv){
         if (rmDiv[rm].innerHTML==usr.value){
-            console.log(rmDiv[rm].innerHTML,usr.value);
             rmBtns[rm].setAttribute("style","display:block;");
         }
     }

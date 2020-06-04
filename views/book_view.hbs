@@ -6,9 +6,13 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/navbar.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+  {{> header }} 
   <div class="container">
+   
     <h2>Books List</h2>
         <button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Add New Book</button>
     <table class="table table-striped" id="mytable">
@@ -17,12 +21,14 @@
           <th>Βοοk ID</th>
           <th>Βook title</th>
           <th>Book Description</th>
+          <th>Category</th>
           <th>Βοοk Cover</th>
           <th>Βook Author</th>
           <th>Book Reviewer</th>
           <th>Βοοk is Written</th>
-          <th>Βook is reveiwed</th>
+          <th>Βook is reviewed</th>
           <th>Book is published</th>
+          
           <th>Action</th>
         </tr>
       </thead>
@@ -32,14 +38,16 @@
           <td>{{ book_id }}</td>
           <td>{{ book_title }}</td>
           <td>{{ book_description }}</td>
-          <td>{{ book_cover }}</td>
-          <td>{{ book_author_id }}</td>
+          <td>{{ category_name }}</td>
+          <td><img src="{{ book_cover }}" alt="..." class="img-thumbnail" ></td>
+          <td>{{ author_name }}</td>
           <td>{{ book_reviewer_id }}</td>
-          <td>{{ book_is_written }}</td>
-          <td>{{ book_is_reviewed }}</td>
-          <td>{{ book_is_published }}</td>
+          <td class="check1" >{{ book_is_written }}</td>
+          <td class="check1">{{ book_is_reviewed }}</td>
+          <td class="check1">{{ book_is_published }}</td>
+          
           <td>
-            <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{ book_id }}" data-book_title="{{ book_title }}" data-book_description="{{ book_description }}" data-book_cover="{{ book_cover }}" data-book_author_id="{{ book_author_id }}" data-book_reviewer_id="{{ book_reviewer_id }}" data-book_is_written="{{ book_is_written }}" data-book_is_reviewed="{{ book_is_reviewed }}" data-book_is_published="{{ book_is_published }}">Edit</a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{ book_id }}" data-book_title="{{ book_title }}" data-book_description="{{ book_description }}" data-book_cover="{{ book_cover }}" data-book_author_id="{{ book_author_id }}" data-book_reviewer_id="{{ book_reviewer_id }}" data-book_is_written="{{ book_is_written }}" data-book_is_reviewed="{{ book_is_reviewed }}" data-book_is_published="{{ book_is_published }}" data-book_category="{{ book_category }}">Edit</a>
             <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{ book_id }}">Delete</a>
           </td>
         </tr>
@@ -61,19 +69,29 @@
              </div>
              <div class="modal-body">
                <div class="form-group">
+                 <label for="book_title">Τιτλος βιβλίου</label>
                    <input type="text" name="book_title" class="form-control" placeholder="book_title" required>
                </div>
  
                <div class="form-group">
+                 <label for="book_description">Περιγραφή του βιβλίου</label>
                    <input type="text" name="book_description" class="form-control" placeholder="book_description" required>
                </div>
 
                 <div class="form-group">
                    <input type="text" name="book_cover" class="form-control" placeholder="book_cover" required>
                </div> 
+               
+
                <div class="form-group">
-                   <input type="text" name="book_author_id" class="form-control" placeholder="book_author_id" required>
-               </div> 
+                    <label for="sel1">Συγγραφέας</label>
+                    <select class="form-control" name="book_author_id" id="sel1">
+                      {{#each results3}}
+                      <option value={{book_author_id}}>{{author_name}}</option>
+                      {{/each}}
+                    </select>
+                </div> 
+
                <div class="form-group">
                    <input type="text" name="book_reviewer_id" class="form-control" placeholder="book_reviewer_id" required>
                </div> 
@@ -86,6 +104,16 @@
                 <div class="form-group">
                    <input type="text" name="book_is_published" class="form-control" placeholder="book_is_published" required>
                </div>
+               
+                <div class="form-group">
+                    <label for="sel1">Κατηγορία</label>
+                    <select class="form-control" name="book_category" id="sel1">
+                      {{#each results2}}
+                      <option value={{id}}>{{category_name}}</option>
+                      {{/each}}
+                    </select>
+                </div> 
+
              </div>
              <div class="modal-footer">
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -119,10 +147,14 @@
               <div class="form-group">
                   <input type="text" name="book_cover" class="form-control book_cover" placeholder="book_cover" required>
               </div>
- 
               <div class="form-group">
-                  <input type="text" name="book_author_id" class="form-control book_author_id" placeholder="book_author_id" required>
-              </div>
+                    <label for="sel1">Συγγραφέας</label>
+                    <select class="form-control book_author_id" name="book_author_id" id="sel1">
+                      {{#each results3}}
+                      <option value={{book_author_id}}>{{author_name}}</option>
+                      {{/each}}
+                    </select>
+                </div> 
  
               <div class="form-group">
                   <input type="text" name="book_reviewer_id" class="form-control book_reviewer_id" placeholder="book_reviewer_id" required>
@@ -139,6 +171,14 @@
               <div class="form-group">
                   <input type="text" name="book_is_published" class="form-control book_is_published" placeholder="book_is_published" required>
               </div>
+              <div class="form-group">
+                    <label for="sel1">Κατηγορία</label>
+                    <select class="form-control book_category" name="book_category" id="sel1">
+                      {{#each results2}}
+                      <option value={{id}}>{{category_name}}</option>
+                      {{/each}}
+                    </select>
+                </div> 
             </div>
             <div class="modal-footer">
               <input type="hidden" name="id" class="book_id">
@@ -171,7 +211,7 @@
             </div>
          </div>
      </form>
- 
+ {{> footer }} 
 
 <script>
     $(document).ready(function(){
@@ -186,6 +226,8 @@
         var book_is_written = $(this).data('book_is_written');
         var book_is_reviewed = $(this).data('book_is_reviewed');
         var book_is_published = $(this).data('book_is_published');
+        var book_category = $(this).data('book_category');
+        console.log(book_category);
         $('#EditModal').modal('show');
         $('.book_title').val(book_title);
         $('.book_description').val(book_description);
@@ -195,15 +237,29 @@
         $('.book_is_written').val(book_is_written);
         $('.book_is_reviewed').val(book_is_reviewed);
         $('.book_is_published').val(book_is_published);
+        $('.book_category').val(book_category);
         $('.book_id').val(book_id);
+
       });
             //showing delete record modal
         $('#mytable').on('click','.delete',function(){
-        var bookt_id = $(this).data('id');
+        var book_id = $(this).data('id');
         $('#DeleteModal').modal('show');
         $('.book_id2').val(book_id);
       });
- 
+        
+          var x = document.getElementsByClassName("check1");
+          var i;
+          for (i = 0; i < x.length; i++) {
+            if(x[i].innerHTML == "1"){
+              x[i].innerHTML = "YES";
+            }
+            else{
+              x[i].innerHTML = "NO";
+            }
+            
+          }
+          
     });
 </script>
 </body>
