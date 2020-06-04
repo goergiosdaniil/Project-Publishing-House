@@ -25,7 +25,9 @@
     Username: {{user.username}} <br/>
     Name: {{user.firstName}} {{user.lastName}} <br/>
     Role: {{user.role}} <br/>
-    
+    {{#if user.isAdmin}}
+    isAdmin: {{user.isAdmin}} <br/>
+    {{/if}}
     <a href="/bookview">Admin Panel for Books</a> <br/>
     <a href="/viewcategories">Admin Panel for Categories</a> <br/>
     <a href="/authorsView">Admin Panel for Authors</a> <br/>
