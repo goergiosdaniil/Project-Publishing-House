@@ -23,7 +23,7 @@ else{
     let nowPage = document.getElementById("page").value;
    document.getElementById("page"+nowPage).setAttribute("class","page-item active");
 
-  
 
-  
+
+
  });

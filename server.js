@@ -103,43 +103,58 @@ app.get('/',(req, res) => {
 //route for allBooks
 app.get('/allBooks',(req, res) => {
   let sql2 = "SELECT * FROM tbl_categories;"
+  
   let query2 = conn.query(sql2, (err, results2) => {
     if(err) throw err;
     if(req.query.category){
       var sql = "SELECT book_id,book_title,book_description,book_cover FROM tbl_books WHERE book_category="+req.query.category+";"
-      
+      var sql4 = "SELECT * FROM tbl_book_authors;";
+    }
+    else if(req.query.author){
+      var sql = "SELECT book_id,book_title,book_description,book_cover FROM tbl_books WHERE book_author_id="+req.query.author+";";
+      var sql4 = "SELECT * FROM tbl_book_authors WHERE book_author_id="+req.query.author+";";
     }
     else{
       var sql = "SELECT book_id,book_title,book_description,book_cover FROM tbl_books;"
+      var sql4 = "SELECT * FROM tbl_book_authors;";
     }
 
-
-    let query = conn.query(sql, (err, results) => {
+    let query = conn.query(sql4, (err, results4) => {
       if(err) throw err;
-      results3 = req.params;
-      if(req.query.category){
-      results3.category_name=results2[req.query.category].category_name;
-      results3.category=req.query.category;
-      }
-      totalPages = Math.floor(results.length/6);
-      if (results.length%6 > 0 ){
-        totalPages = totalPages + 1 ;
-      }
-      results3.totalPages = totalPages;
-      page = req.query.page;
-      if (req.query.page){
+      let query = conn.query(sql, (err, results) => {
+        if(err) throw err;
+        results3 = req.params;
+        if(req.query.category){
+        results3.category_name=results2[req.query.category].category_name;
+        results3.category=req.query.category;
+        }else if(req.query.author){ 
+          results3.author_name = results4[0].author_name;
+          results3.book_author_id = req.query.author; 
+          
+        }
+        
+        totalPages = Math.floor(results.length/6);
+        if (results.length%6 > 0 ){
+          totalPages = totalPages + 1 ;
+        }
+        results3.totalPages = totalPages;
         page = req.query.page;
-      }else{
-        page = 1;
-      }
-      res.render('allBooks',{
-        page : page,
-        results2 : results2,
-        results3 : results3,
-        results: results.slice((page-1)*6,(page-1)*6+6), 
-        user: req.user });
-      
-    });
+        if (req.query.page){
+          page = req.query.page;
+        }else{
+          page = 1;
+        }
+
+        res.render('allBooks',{
+          page : page,
+          results2 : results2,
+          results3 : results3,
+          results: results.slice((page-1)*6,(page-1)*6+6), 
+          user: req.user });
+        
+      });
+    })
+    
   });
 });
 
@@ -208,12 +223,32 @@ app.post('/deleteCat',require('connect-ensure-login').ensureLoggedIn(),(req, res
 //route for authors
 app.get('/authorsView',(req, res) => {
   let sql = "SELECT * FROM tbl_book_authors";
-  //let sql2 = "SELECT book_author_id FROM tbl_books ORDER BY book_author_id ASC";
+  let sql2 = "SELECT book_author_id FROM tbl_books ORDER BY book_author_id ASC";
   let query = conn.query(sql, (err, results) => {
-    
-    res.render('viewAuthors',{
+    if(err) throw err;
+    let query = conn.query(sql2, (err, results2) => {
+      if(err) throw err;
+      let sum = 0;
+      pointer = 1;
+      for (i = 0; i < results2.length; i++) {
+        if (pointer == results2[i].book_author_id){
+          sum = sum + 1;
+
+        }
+        else{
+          results[pointer-1].sum=sum;
+          pointer = results2[i].book_author_id;
+          sum = 1;
+        }
+      }
+      results[pointer].sum=sum;
+
+      
+      res.render('viewAuthors',{
       results: results,
       user: req.user });
+    });
+    
   });
 });
 

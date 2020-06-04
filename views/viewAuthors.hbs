@@ -29,7 +29,7 @@
          {{#each results}}
         <tr>
           <td>{{ book_author_id }}</td>
-          <td>{{ author_name }}</td>
+          <td> <a href="/allbooks?author={{ book_author_id }}"{{ book_author_id }}>{{ author_name }}</a> </td>
           <td>{{ author_description }}</td>
           <td>{{ author_photo }}</td>
           <td>{{ sum }}</td>

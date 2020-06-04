@@ -27,7 +27,7 @@
          {{#each results}}
         <tr>
           <td>{{ id }}</td>
-          <td>{{ category_name }}</td>
+          <td> <a href="/allbooks?category={{ id }}"{{ id }}>{{ category_name }}</a> </td>
           <td>{{ sum }}</td>
           <td>
             <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{ id }}" data-category_name="{{ category_name }}" >Edit</a>
