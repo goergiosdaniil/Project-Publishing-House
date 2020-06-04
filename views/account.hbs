@@ -21,13 +21,14 @@
 
     {{> header }} 
 
-    <main class="main-home">ID: {{user.id}} <br/>
+    <main class="main-home">ID: {{user.user_id}} <br/>
     Username: {{user.username}} <br/>
-    Name: {{user.displayName}} <br/>
+    Name: {{user.firstName}} {{user.lastName}} <br/>
     Role: {{user.role}} <br/>
     
     <a href="/bookview">Admin Panel for Books</a> <br/>
     <a href="/viewcategories">Admin Panel for Categories</a> <br/>
+    <a href="/authorsView">Admin Panel for Authors</a> <br/>
     
 
     <a href="/logout">Log out</a>

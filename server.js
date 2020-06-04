@@ -205,6 +205,47 @@ app.post('/deleteCat',require('connect-ensure-login').ensureLoggedIn(),(req, res
 });
 
 
+//route for authors
+app.get('/authorsView',(req, res) => {
+  let sql = "SELECT * FROM tbl_book_authors";
+  //let sql2 = "SELECT book_author_id FROM tbl_books ORDER BY book_author_id ASC";
+  let query = conn.query(sql, (err, results) => {
+    
+    res.render('viewAuthors',{
+      results: results,
+      user: req.user });
+  });
+});
+
+//route for insert author
+app.post('/saveAuthor',(req, res) => {
+  let data = {author_name: req.body.author_name, author_description: req.body.author_description, author_photo: req.body.author_photo};
+  let sql = "INSERT INTO tbl_book_authors SET ?";
+  let query = conn.query(sql, data,(err, results) => {
+    if(err) throw err;
+    res.redirect('/authorsView');
+  });
+});
+
+//route for update author
+app.post('/updateAuthor',(req, res) => {
+  let sql = "UPDATE tbl_book_authors SET author_name='"+req.body.author_name+"', author_description='"+req.body.author_description+"',  author_photo='"+req.body.author_photo+"' WHERE book_author_id="+req.body.book_author_id;
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.redirect('/authorsView');
+  });
+});
+ 
+//route for delete author
+app.post('/deleteAuthor',(req, res) => {
+  let sql = "DELETE FROM tbl_book_authors WHERE book_author_id="+req.body.book_author_id;
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+      res.redirect('/authorsView');
+  });
+});
+
+
 
 //route for bookview
 app.get('/bookview',
@@ -250,7 +291,7 @@ app.post('/update',(req, res) => {
 });
  
 //route for delete data
-app.post('/delete',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
+app.post('/delete',(req, res) => {
   let sql = "DELETE FROM tbl_books WHERE book_id="+req.body.book_id;
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
@@ -409,5 +450,4 @@ var portNumber = process.env.port || process.env.PORT || 3000;
 //server listening
 app.listen(portNumber, () => {
   console.log('Server is running at port '+portNumber);
-  console.log('http://localhost:'+portNumber);
 });
