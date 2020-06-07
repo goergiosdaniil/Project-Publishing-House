@@ -336,7 +336,7 @@ app.post('/delete',(req, res) => {
 
 //route for book 
 app.get('/book/:input',(req, res) => {
-  let sql = "SELECT book_id,book_title, book_description, book_cover, tbl_book_authors.author_name, book_reviewer_id, book_is_written, book_is_reviewed, book_is_published, tbl_categories.category_name FROM tbl_books INNER JOIN tbl_book_authors ON tbl_books.book_author_id = tbl_book_authors.book_author_id INNER JOIN tbl_categories ON tbl_books.book_category = tbl_categories.id WHERE tbl_books.book_id="+req.params.input+"";
+  let sql = "SELECT book_id,book_title, book_description, book_cover, tbl_book_authors.author_name, tbl_books.book_author_id, book_reviewer_id, book_is_written, book_is_reviewed, book_is_published, tbl_categories.category_name, tbl_books.book_category FROM tbl_books INNER JOIN tbl_book_authors ON tbl_books.book_author_id = tbl_book_authors.book_author_id INNER JOIN tbl_categories ON tbl_books.book_category = tbl_categories.id WHERE tbl_books.book_id="+req.params.input+"";
   let sql2 ="SELECT book_id,anonymous,comment,id_comment,rating,date,tbl_users.user_id,tbl_users.firstName FROM tbl_comments INNER JOIN tbl_users ON tbl_comments.user_id = tbl_users.user_id WHERE book_id="+req.params.input+"";
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
