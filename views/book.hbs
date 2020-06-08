@@ -55,8 +55,34 @@
                   </p>
                 </div>
                 <div class="article-wish">
-                  <button type="button" class="btn btn-default wishlist" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
-                  <p>Wishlist it!</p>
+                  {{#if user.user_id}}
+                    {{#if results3.0.id}}
+                    <form action="/deleteWishlist" method="post">
+                        <input type = "hidden" id = "book_id" name = "book_id" value ={{results.0.book_id}} />
+                        <input type = "hidden" id = "user_id" name = "user_id" value ={{user.user_id}} />
+                        <button type="submit" class="btn btn-default wishlist"  id="submitButton2" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
+                        <p>Αφαιρέστε αυτό το βιβλίο από τη Wishlist σας</p>
+                      </form>
+                    {{else}}
+                      <form action="/saveWishlist" method="post">
+                        <input type = "hidden" id = "book_id" name = "book_id" value ={{results.0.book_id}} />
+                        <input type = "hidden" id = "user_id" name = "user_id" value ={{user.user_id}} />
+                        <button type="submit" class="btn btn-default wishlist"  id="submitButton2" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
+                        <p>Προσθέσετε αυτό το βιβλίο στη Wishlist σας</p>
+                      </form>
+                    {{/if}}
+
+                  {{else}}
+                  <button type="submit" class="btn btn-default wishlist"  id="submitButton2" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
+                    <p>Συνδεθείτε για να προσθέσετε αυτό το βιβλίο στη Wishlist σας</p>
+                  {{/if}}
+
+
+
+
+                  
+                  
+                  
                 </div>
               </div>
             </article>

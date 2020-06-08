@@ -219,7 +219,24 @@ app.post('/deleteCat',require('connect-ensure-login').ensureLoggedIn(),(req, res
   });
 });
 
+//route for insert in Wishlist
+app.post('/saveWishlist',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
+  let data = {book_id: req.body.book_id,user_id: req.body.user_id};
+  let sql = "INSERT INTO tbl_wishlist SET ?";
+  let query = conn.query(sql, data,(err, results) => {
+    if(err) throw err;
+    res.redirect('/book/'+req.body.book_id);
+  });
+});
 
+//route for delete entry in Wishlist
+app.post('/deleteWishlist',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
+  let sql = "DELETE FROM tbl_wishlist WHERE book_id='"+req.body.book_id+"' AND user_id='"+req.body.user_id+"'";
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+      res.redirect('/book/'+req.body.book_id);
+  });
+});
 //route for authors
 app.get('/authorsView',(req, res) => {
   let sql = "SELECT * FROM tbl_book_authors";
@@ -338,16 +355,29 @@ app.post('/delete',(req, res) => {
 app.get('/book/:input',(req, res) => {
   let sql = "SELECT book_id,book_title, book_description, book_cover, tbl_book_authors.author_name, tbl_books.book_author_id, book_reviewer_id, book_is_written, book_is_reviewed, book_is_published, tbl_categories.category_name, tbl_books.book_category FROM tbl_books INNER JOIN tbl_book_authors ON tbl_books.book_author_id = tbl_book_authors.book_author_id INNER JOIN tbl_categories ON tbl_books.book_category = tbl_categories.id WHERE tbl_books.book_id="+req.params.input+"";
   let sql2 ="SELECT book_id,anonymous,comment,id_comment,rating,date,tbl_users.user_id,tbl_users.firstName FROM tbl_comments INNER JOIN tbl_users ON tbl_comments.user_id = tbl_users.user_id WHERE book_id="+req.params.input+"";
-  let query = conn.query(sql, (err, results) => {
+  if (req.user) {
+    var sql3 = "SELECT * FROM tbl_wishlist WHERE book_id="+req.params.input+" AND user_id="+req.user.user_id+"";
+  }
+  else {
+    var sql3 ="SELECT * FROM tbl_wishlist WHERE book_id=0 AND user_id=0";
+  }
+  let query3 = conn.query(sql3, (err, results3) => {
     if(err) throw err;
-    let query2 = conn.query(sql2,(err, results2)=>
-    {res.render('book',
-    { results: results,
-      results2: results2, 
-      user: req.user });
-    })
+    console.log(results3);
+    let query = conn.query(sql, (err, results) => {
+      if(err) throw err;
+      let query2 = conn.query(sql2,(err, results2)=>
+      {res.render('book',
+      { results: results,
+        results2: results2, 
+        results3:results3,
+        user: req.user });
+      })
+    });
   });
-});
+  });
+
+  
 
 app.post('/newReview',(req, res) => {
   let data = {book_id: req.body.book_id, user_id: req.body.user_id, anonymous: req.body.anonymous, comment: req.body.commentText, rating: parseInt(req.body.rating), date: req.body.date};
