@@ -16,6 +16,8 @@ var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 const nodemailer = require('nodemailer')
 const bcrypt = require('bcrypt');
+const formidable = require('formidable');
+const fs = require('fs'); 
 const app = express();
 
 //Create connection
@@ -97,8 +99,30 @@ app.use(express.static(__dirname + '/public'));
 
 //route for homepage
 app.get('/',(req, res) => {
+  console.log(process.cwd);
   res.render('index',{user: req.user});
 });
+
+app.get('/upload',(req, res) => {
+  res.render('upload',{user: req.user});
+});
+
+app.post('/upload',require('connect-ensure-login').ensureLoggedIn(), (req, res, next) => { 
+  const form = new formidable.IncomingForm(); 
+  form.parse(req, function(err, fields, files){
+      var oldPath = files.image.path;
+      if (fields.type == "book_cover"){
+        var newPath = path.join(__dirname, 'public')+ '/img/covers/'+fields.name+".jpg"
+      }
+      
+      var rawData = fs.readFileSync(oldPath) 
+    
+      fs.writeFile(newPath, rawData, function(err){ 
+          if(err) console.log(err) 
+          return res.send("Successfully uploaded") 
+      }) 
+}) 
+}); 
 
 //route for allBooks
 app.get('/allBooks',(req, res) => {
@@ -306,18 +330,29 @@ app.get('/bookview',
     let sql ="SELECT book_id, book_title, tbl_categories.category_name, book_category, book_description, book_cover, tbl_book_authors.author_name, tbl_books.book_author_id, book_reviewer_id, book_is_written, book_is_reviewed, book_is_published FROM `tbl_books` INNER JOIN tbl_categories ON tbl_books.book_category = tbl_categories.id INNER JOIN tbl_book_authors ON tbl_books.book_author_id = tbl_book_authors.book_author_id ";
     let sql2 = "SELECT * FROM tbl_categories";
     let sql3 = "SELECT * FROM tbl_book_authors";
+
     let query = conn.query(sql, (err, results) => {
       if(err) throw err;
       let query = conn.query(sql2, (err, results2) => {
         if(err) throw err;
         let query = conn.query(sql3, (err, results3) => {
           if(err) throw err;
-          res.render('book_view',{
-            results: results,
-            results2: results2,
-            results3: results3,
-            user: req.user });
-          });
+          var pather = "C:\\Users\\goerg\\Documents\\Projects\\Project-Publishing-House\\public\\img\\covers";
+          fs.readdir(pather, (err, files) => { 
+            if (err) 
+              console.log(err); 
+            else { 
+              res.render('book_view',{
+                results: results,
+                results2: results2,
+                results3: results3,
+                files: files,
+                user: req.user });
+            } 
+          }) 
+          
+
+        });
       });
     });
   }
@@ -334,7 +369,7 @@ app.post('/save',(req, res) => {
 });
 
 //route for update data
-app.post('/update',(req, res) => {
+app.post('/update',(req, res, body) => {
   let sql = "UPDATE tbl_books SET book_title='"+req.body.book_title+"', book_description='"+req.body.book_description+"', book_cover='"+req.body.book_cover+"', book_author_id='"+req.body.book_author_id+"', book_reviewer_id='"+req.body.book_reviewer_id+"', book_is_written='"+req.body.book_is_written+"', book_is_reviewed='"+req.body.book_is_reviewed+"', book_is_published='"+req.body.book_is_published+"', book_category='"+req.body.book_category+"' WHERE book_id="+req.body.id;
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;

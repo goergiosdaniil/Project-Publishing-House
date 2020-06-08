@@ -12,7 +12,6 @@
 <body>
   {{> header }} 
   <div class="container">
-   
     <h2>Books List</h2>
         <button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Add New Book</button>
     <table class="table table-striped" id="mytable">
@@ -78,9 +77,14 @@
                    <input type="text" name="book_description" class="form-control" placeholder="book_description" required>
                </div>
 
-                <div class="form-group">
-                   <input type="text" name="book_cover" class="form-control" placeholder="book_cover" required>
-               </div> 
+               <div class="form-group">
+                    <label for="sel1">Εξώφυλλο</label>
+                    <select class="form-control" name="book_cover" id="book_cover">
+                      {{#each files}}
+                      <option value="../img/covers/{{this}}">{{this}}</option>
+                      {{/each}}
+                    </select>
+                </div> 
                
 
                <div class="form-group">
@@ -95,36 +99,28 @@
                <div class="form-group">
                    <input type="text" name="book_reviewer_id" class="form-control" placeholder="book_reviewer_id" required>
                </div> 
-               <label>Book is written</label>
-               <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="book_is_written" id="book_is_written1" value="1">
-                  <label class="form-check-label" for="book_is_written1">Yes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="book_is_written" id="book_is_written2" value="0">
-                  <label class="form-check-label" for="book_is_written2">No</label>
-                </div>
-                 <br>
-                <label>Book is reviewed</label>
-               <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="book_is_reviewed" id="book_is_reviewed1" value="1">
-                  <label class="form-check-label" for="book_is_reviewed1">Yes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="book_is_reviewed" id="book_is_reviewed2" value="0">
-                  <label class="form-check-label" for="book_is_reviewed2">No</label>
-                </div>
-                
-                <br>
-                <label>Book is published</label>
-               <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="book_is_published" id="book_is_published1" value="1">
-                  <label class="form-check-label" for="book_is_published1">Yes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="book_is_published" id="book_is_published2" value="0">
-                  <label class="form-check-label" for="book_is_published2">No</label>
-                </div>
+               
+               <div class="form-group">
+                    <label for="book_is_written">Book is written</label>
+                    <select class="form-control" name="book_is_written" id="book_is_written">
+                      <option value=1>YES</option>
+                      <option value=0>NO</option>
+                    </select>
+                </div> 
+                <div class="form-group">
+                    <label for="book_is_reviewed">book_is_reviewed</label>
+                    <select class="form-control" name="book_is_reviewed" id="book_is_reviewed">
+                      <option value=1>YES</option>
+                      <option value=0>NO</option>
+                    </select>
+                </div> 
+                <div class="form-group">
+                    <label for="book_is_published">Book is published</label>
+                    <select class="form-control" name="book_is_published" id="book_is_published">
+                      <option value=1>YES</option>
+                      <option value=0>NO</option>
+                    </select>
+                </div> 
                              
                 <div class="form-group">
                     <label for="sel1">Κατηγορία</label>
@@ -164,10 +160,15 @@
               <div class="form-group">
                   <input type="text" name="book_description" class="form-control book_description" placeholder="book_description" required>
               </div>
- 
               <div class="form-group">
-                  <input type="text" name="book_cover" class="form-control book_cover" placeholder="book_cover" required>
-              </div>
+                    <label for="sel1">Εξώφυλλο</label>
+                    <select class="form-control book_cover" name="book_cover" id="book_cover">
+                      {{#each files}}
+                      <option value="../img/covers/{{this}}">{{this}}</option>
+                      {{/each}}
+                    </select>
+                </div> 
+              
               <div class="form-group">
                     <label for="sel1">Συγγραφέας</label>
                     <select class="form-control book_author_id" name="book_author_id" id="sel1">
@@ -176,40 +177,30 @@
                       {{/each}}
                     </select>
                 </div> 
- 
-              <div class="form-group">
+                <div class="form-group">
                   <input type="text" name="book_reviewer_id" class="form-control book_reviewer_id" placeholder="book_reviewer_id" required>
               </div>
-              <label>Book is written</label>
-               <div class="form-check form-check-inline active">
-                  <input class="form-check-input" type="radio" name="book_is_written" id="book_is_written1" value="1">
-                  <label class="form-check-label" for="book_is_written1">Yes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input book_is_written" type="radio" name="book_is_written" id="book_is_written0" value="0">
-                  <label class="form-check-label" for="book_is_written0">No</label>
-                </div>
-                 <br>
-                <label>Book is reviewed</label>
-               <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="book_is_reviewed" id="book_is_reviewed1" value="1">
-                  <label class="form-check-label" for="book_is_reviewed1">Yes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="book_is_reviewed" id="book_is_reviewed0" value="0">
-                  <label class="form-check-label" for="book_is_reviewed0">No</label>
-                </div>
-                
-                <br>
-                <label>Book is published</label>
-               <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="book_is_published" id="book_is_published1" value="1">
-                  <label class="form-check-label" for="book_is_published1">Yes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="book_is_published" id="book_is_published0" value="0">
-                  <label class="form-check-label" for="book_is_published0">No</label>
-                </div>
+              <div class="form-group">
+                    <label for="book_is_written">Book is written</label>
+                    <select class="form-control book_is_written" name="book_is_written" id="book_is_written">
+                      <option value=1>YES</option>
+                      <option value=0>NO</option>
+                    </select>
+                </div> 
+                <div class="form-group">
+                    <label for="book_is_reviewed">book_is_reviewed</label>
+                    <select class="form-control book_is_reviewed" name="book_is_reviewed" id="book_is_reviewed">
+                      <option value=1>YES</option>
+                      <option value=0>NO</option>
+                    </select>
+                </div> 
+                <div class="form-group">
+                    <label for="book_is_published">Book is published</label>
+                    <select class="form-control book_is_published" name="book_is_published" id="book_is_published">
+                      <option value=1>YES</option>
+                      <option value=0>NO</option>
+                    </select>
+                </div> 
               
               <div class="form-group">
                     <label for="sel1">Κατηγορία</label>
