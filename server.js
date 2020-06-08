@@ -511,6 +511,55 @@ app.post('/contact', (req, res) => {
     }
   })
 })
+
+app.get('/emailToUser',
+  function(req, res){
+    let sql = "SELECT * FROM tbl_users";
+    let query = conn.query(sql,(err, results) => {
+      if(err) throw err;
+      res.render('emailToUser',{
+        results: results,
+        user: req.user });
+    });
+  }
+);
+
+
+
+
+// POST route from contact form
+app.post('/sendToUser', (req, res) => {
+console.log(req.body)
+  // Instantiate the SMTP server
+  const smtpTrans = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PASS
+    }
+  })
+
+  // Specify what the email will look like
+  const mailOpts = {
+    from: 'Your sender info here', // This is ignored by Gmail
+    to: req.body.email,
+    subject: req.body.subject,
+    text: `${req.body.text}`
+  }
+
+  // Attempt to send the email
+  smtpTrans.sendMail(mailOpts, (error, response) => {
+    if (error) {
+      res.render('emailFailed') // Show a page indicating failure
+    }
+    else {
+      res.render('emailsent') // Show a page indicating success
+    }
+  })
+})
+
 var portNumber = process.env.port || process.env.PORT || 3000;
 //server listening
 app.listen(portNumber, () => {
