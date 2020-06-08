@@ -337,7 +337,8 @@ app.get('/bookview',
         if(err) throw err;
         let query = conn.query(sql3, (err, results3) => {
           if(err) throw err;
-          var pather = "C:\\Users\\goerg\\Documents\\Projects\\Project-Publishing-House\\public\\img\\covers";
+          // Το pather πρέπει να διαλεχθεί ανάλογα με το pc σου και που έχεις τα αρχεία αρα πρέπει να αλλάξεις το .env αρχείο
+          var pather = process.env.PATHER;
           fs.readdir(pather, (err, files) => { 
             if (err) 
               console.log(err); 
