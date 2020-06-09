@@ -191,20 +191,16 @@ app.get('/viewCategories',(req, res) => {
     if(err) throw err;
     let query = conn.query(sql2, (err, results2) => {
       if(err) throw err;
-      sum = 0;
-      pointer = 0;
-      for (i = 0; i < results2.length; i++) {
-        if (pointer == results2[i].book_category){
-          sum = sum + 1;
-
-        }
-        else{
-          results[pointer].sum=sum;
-          pointer = results2[i].book_category;
-          sum = 1;
+      for (i = 0 ; i<results.length; i++){
+        results[i].sum = 0;
+      }
+      for (i = 0 ; i<results.length; i++){
+        for (j=0 ; j<results2.length; j++){
+          if(results2[j].book_category == results[i].id ){
+            results[i].sum = results[i].sum + 1 ;
+          }
         }
       }
-      results[pointer].sum=sum;
 
       
       res.render('viewCategories',{
@@ -269,24 +265,24 @@ app.get('/authorsView',(req, res) => {
     if(err) throw err;
     let query = conn.query(sql2, (err, results2) => {
       if(err) throw err;
-      let sum = 0;
-      pointer = 1;
-      for (i = 0; i < results2.length; i++) {
-        if (pointer == results2[i].book_author_id){
-          sum = sum + 1;
-
-        }
-        else{
-          results[pointer-1].sum=sum;
-          pointer = results2[i].book_author_id;
-          sum = 1;
+      for (j = 0 ; j<results.length; j++){
+        results[j].sum = 0;
+      }
+      
+      for (i = 0 ; i<results2.length; i++){
+        for (j=0 ; j<results.length; j++){
+          if(results2[i].book_author_id == results[j].book_author_id ){
+            results[j].sum = results[j].sum + 1 ;
+          }
         }
       }
-      results[pointer].sum=sum;
 
+    
+    
       
       res.render('viewAuthors',{
       results: results,
+        
       user: req.user });
     });
     
