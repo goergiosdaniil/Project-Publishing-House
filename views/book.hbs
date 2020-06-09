@@ -42,7 +42,7 @@
                   <span>Συγγραφέας : </span>    <a href="/allbooks?author={{results.0.book_author_id}}">{{results.0.author_name}}</a>
                 </div> 
                 <div class="article-rating">
-                  <p> <span>Αξιολόγηση</span> </p><br>
+                  <p> <span>Αξιολόγηση :</span> </p>
                   <!-- EDw pairnei value ton meso oro ton aksiologisewn apo thn vash-->
                   <progress value="0" max="5"></progress>
                   <!-- EDw pairnei value ton meso oro ton aksiologisewn apo thn vash-->
@@ -60,29 +60,23 @@
                     <form action="/deleteWishlist" method="post">
                         <input type = "hidden" id = "book_id" name = "book_id" value ={{results.0.book_id}} />
                         <input type = "hidden" id = "user_id" name = "user_id" value ={{user.user_id}} />
+                        <p><span> Αφαίρεση από Wishlist</span></p> &nbsp; 
                         <button type="submit" class="btn btn-default wishlist"  id="submitButton2" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
-                        <p>Αφαιρέστε αυτό το βιβλίο από τη Wishlist σας</p>
                       </form>
                     {{else}}
                       <form action="/saveWishlist" method="post">
                         <input type = "hidden" id = "book_id" name = "book_id" value ={{results.0.book_id}} />
                         <input type = "hidden" id = "user_id" name = "user_id" value ={{user.user_id}} />
+                        <p><span> Προσθήκη σε Wishlist</span></p> &nbsp; 
                         <button type="submit" class="btn btn-default wishlist"  id="submitButton2" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
-                        <p>Προσθέσετε αυτό το βιβλίο στη Wishlist σας</p>
                       </form>
                     {{/if}}
-
                   {{else}}
-                  <button type="submit" class="btn btn-default wishlist"  id="submitButton2" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
-                    <p>Συνδεθείτε για να προσθέσετε αυτό το βιβλίο στη Wishlist σας</p>
-                  {{/if}}
-
-
-
-
-                  
-                  
-                  
+                    <form action="/login">
+                      <p><span> Προσθήκη σε Wishlist</span></p> &nbsp; 
+                      <button type="submit" class="btn btn-default wishlist"  id="submitButton2" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
+                    </form>
+                  {{/if}}                  
                 </div>
               </div>
             </article>
@@ -126,7 +120,7 @@
             <button class="btn btn-default float-right mr-3" id="submitButton"type="submit">Υποβολή</button>
           </form>
           {{else}}
-          <div class="w-100 my-3 " style="font-style: italic;text-align:center;font-size:18px">πρέπει να συνδεθείς για να γράψεις σχόλιο</div>  
+          <div class="w-100 my-3 " style="font-style: italic;text-align:center;font-size:18px"><a href="/login"> Σύνδεση για προσθήκη σχολίου</a></div>  
           {{/if}}
         </div>
 
