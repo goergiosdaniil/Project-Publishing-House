@@ -6,7 +6,7 @@
     <meta name="description" content="Publishing House">
     <meta name="keywords" content="HMTL, CSS, JS, Project, Ekdotikos Oikos, Upatras">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Εκδοτικος Οίκος - Home Page</title>
+    <title>Εκδοτικός Οίκος - Λογαριασμός</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -15,28 +15,134 @@
 
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link href="css/navbar.css" rel="stylesheet" type="text/css">
+    <link href="css/account.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
 
     {{> header }} 
 
-    <main class="main-home">ID: {{user.user_id}} <br/>
-    Username: {{user.username}} <br/>
-    Name: {{user.firstName}} {{user.lastName}} <br/>
-    Role: {{user.role}} <br/>
-    {{#if user.isAdmin}}
-    isAdmin: {{user.isAdmin}} <br/>
-    {{/if}}
-    <a href="/bookview">Admin Panel for Books</a> <br/>
-    <a href="/viewcategories">Admin Panel for Categories</a> <br/>
-    <a href="/authorsView">Admin Panel for Authors</a> <br/>
-    <a href="/emailToUser">Admin Panel to send email to user</a> <br/>
+    <div class="nav2 mb-5 pt-2"><h2>Ο λογαριασμός μου</h2></div>
 
-    <a href="/logout">Log out</a>
-    <main>
+    <main class="container my-3">
+        
+        <div class="row firstB p-5 mx-3">
+            <div class="col-6">
+                <p><b>Όνομα : </b> <span>{{user.firstName}} </span></p>
+                <p><b>Επώνυμο : </b> {{user.lastName}} </p>
+                <p><b>Χρήστης : </b> {{user.role}}</p>
+                <p><b>Email : </b> {{user.email}}</p>
+            </div>
+            <div class="col-2">
+                <p><b>Έμβλημα : </b> </p>
+                {{!-- edw h timh tou arithmou twn sxoliwn --}}
+                <p><b id="totalComments" class="ml-2">9</b> / 10 <span style="font-style: italic;">σχολιασμοί</span></p>
+            </div>
+            <div class="col-4">
+                {{!-- //kalitera na  ginei sto nodejs auto, poio badge dld na emfanizetai --}}
+                {{!-- me ousiastika ena element img kai hbs sto src="" --}}
+                <img src="../img/badgeFull.png" alt="Full Badge" id="badgeFull">
+                <img src="../img/badgeGrey.png" alt="Empty Badge" id="badgeGrey">
+            </div>
+        </div>
+
+        <div class="row secondB my-3 p-3 mx-3">
+            <h3>Wishlist</h3>
+            <div class="w-100 mt-1">
+                {{!-- ftiakse forma pou mallon 8a kalei to hdh aithma gia afairesh apo wishlist --}}
+                <form action="">
+                    <ul class="p-2">
+                        {{!-- apo edw--}}
+                        <li class="m-2">
+                            <div class="col-5"><a href="/">Παραπλάνηση</a></div>
+                            <div class="col-4">Γρηγόρης Αζαριάδης</div>
+                            <div class="col-2"><button>Αφαίρεση</button></div>
+                        </li>
+                        <hr>
+                        {{!-- mexri edw hbs for each  --}}
+                        <li class="m-2">
+                            <div class="col-5"><a href="/">Οι φανταστικοί Μπράιτστορμ 2: Σκοτεινοί ψίθυροι</a></div>
+                            <div class="col-4">Vashti Hardy</div>
+                            <div class="col-2"><button>Αφαίρεση</button></div>
+                        </li>
+                        <hr>
+                    </ul>
+                </form>
+            </div>
+        </div>
+
+        <div class="row thirdB my-3 p-3 mx-3">
+            <h3>Ανέβασε το έργο σου</h3>
+            {{!-- edw prepei na to deis pws 8a ginei kai pou 8a anevainoun ta erga --}}
+                <form action="" class="w-100 mt-3 px-3">
+                    <div class="col-1"></div>
+                    <div class="col-4"> 
+                        <input type="radio" id="summery" name="documentType" value="summery">
+                        <label for="male">Περίληψη</label>
+                        <input type="radio" id="chapter" name="documentType" value="chapter">
+                        <label for="male">Κεφάλαιο</label>
+                        <input type="radio" id="work" name="documentType" value="work">
+                        <label for="male">Έργο</label>
+                    </div>
+                    <div class="col-6">
+                        <label for="avatar">Ανέβασε το αρχείο PDF:</label>
+                        <input type="file" id="document" name="document" accept=".pdf">
+                    </div>
+                </form>
+        </div>
+
+        <div class="row secondB my-3 p-3 mx-3">
+            <h3>Τα έργα μου</h3>
+            <div class="w-100 mt-1">
+                <form action="">
+                    <ul class="p-2 workList">
+                        {{!-- for each gia ta erga mou apo neo pinaka sto db --}}
+                        <li class="m-2">
+                            <div class="col-3">το εργο μου</div>
+                            <div class="col-3">ειδος εργου</div>
+                            <div class="col-3">κατασταση</div>
+                            <div class="col-2"><button>Αφαίρεση</button></div>
+                        </li>
+                        <hr>
+                        {{!-- mexri edw katw li delete --}}
+                        <li class="m-2">
+                            <div class="col-3">το εργο μου</div>
+                            <div class="col-3">ειδος εργου</div>
+                            <div class="col-3">κατασταση</div>
+                            <div class="col-2"><button>Αφαίρεση</button></div>
+                        </li>
+                        <hr>
+                    </ul>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+
+    {{!-- DElete apo edw kai katw --}}
+
+     <hr>
+
+    <main class="mainToDELETE">ID: {{user.user_id}} <br/>
+            Username: {{user.username}} <br/>
+            Name: {{user.firstName}} {{user.lastName}} <br/>
+            Role: {{user.role}} <br/>
+            {{#if user.isAdmin}}
+            isAdmin: {{user.isAdmin}} <br/>
+            {{/if}}
+            <a href="/bookview">Admin Panel for Books</a> <br/>
+            <a href="/viewcategories">Admin Panel for Categories</a> <br/>
+            <a href="/authorsView">Admin Panel for Authors</a> <br/>
+            <a href="/emailToUser">Admin Panel to send email to user</a> <br/>
+
+            <a href="/logout">Log out</a>
+    </main>
+   
 
     {{> footer }} 
+
+    <script src="../js/account.js"></script>
 
 </body>
 </html>

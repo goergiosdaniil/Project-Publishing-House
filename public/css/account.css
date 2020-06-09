@@ -1,0 +1,73 @@
+.mainToDELETE{
+    height: 180px;
+    overflow: scroll;
+    margin: 20px ;
+    border: solid green 3px;
+}
+.container{
+    max-width: 1200px;
+}
+.row{
+    background-color: rgba(230, 230, 230, 0.8);
+}
+.firstB p{
+    margin-bottom: 0;
+}
+.firstB span{
+    text-align: left;
+}
+.firstB b{
+    display: inline-block;
+    width: 100px;
+}
+#totalComments{
+    width: max-content;
+}
+.firstB img{
+    height: 100px;
+}
+.row h3{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.secondB form div{
+    display: inline-block;
+}
+.secondB ul{
+    
+    width: 100%;
+    list-style-type: none;
+}
+.secondB a{
+    display: inline;
+    color: black;
+    font-weight: 600;
+}
+.secondB hr{
+    margin: 0 auto;
+    width: 90%;
+}
+.secondB hr:last-child{
+    display: none;
+}
+.secondB li button{
+    border-radius: 3px;
+    background-color: orange;
+    border: none;
+    height: 20px;
+    font-size: small;
+    line-height: 15px;
+}
+.secondB li button:hover{
+    background-color: rgb(224, 127, 0);
+}
+.thirdB input{
+    margin-left: 15px;
+}
+.thirdB div{
+   display: inline-block;
+}
+.workList div{
+    text-align: center;
+}
