@@ -252,9 +252,10 @@ app.post('/saveWishlist',require('connect-ensure-login').ensureLoggedIn(),(req, 
 //route for delete entry in Wishlist
 app.post('/deleteWishlist',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   let sql = "DELETE FROM tbl_wishlist WHERE book_id='"+req.body.book_id+"' AND user_id='"+req.body.user_id+"'";
+  console.log(req.body.redirect);
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
-      res.redirect('/book/'+req.body.book_id);
+      res.redirect(req.body.redirect);
   });
 });
 //route for authors
@@ -509,7 +510,23 @@ app.get('/logout',
 app.get('/account',
   require('connect-ensure-login').ensureLoggedIn(),
   function(req, res){
-    res.render('account', { user: req.user });
+    let sql ="SELECT * FROM tbl_comments WHERE user_id="+req.user.user_id+";";
+    let query = conn.query(sql, (err, results) => {
+      let sql2 = "SELECT tbl_wishlist.book_id , tbl_wishlist.user_id, tbl_books.book_title, tbl_book_authors.author_name FROM `tbl_wishlist` INNER JOIN tbl_books ON tbl_wishlist.book_id = tbl_books.book_id INNER JOIN tbl_book_authors ON tbl_books.book_author_id = tbl_book_authors.book_author_id WHERE tbl_wishlist.user_id ="+req.user.user_id+";";
+      let query2 = conn.query(sql2, (err, results2) => {
+      if(err) throw err;
+      console.log(req.user);
+      results[0].length = results.length;
+      res.render('account',{
+      results :results,
+      results2 : results2,
+      user: req.user });
+      });
+    });
+    
+    
+ 
+    
   }
 );
 

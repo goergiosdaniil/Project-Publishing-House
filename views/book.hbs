@@ -60,6 +60,7 @@
                     <form action="/deleteWishlist" method="post">
                         <input type = "hidden" id = "book_id" name = "book_id" value ={{results.0.book_id}} />
                         <input type = "hidden" id = "user_id" name = "user_id" value ={{user.user_id}} />
+                        <input type = "hidden" id = "redirect" name = "redirect" value ="/book/{{results.0.book_id}}" />
                         <p><span> Αφαίρεση από Wishlist</span></p> &nbsp; 
                         <button type="submit" class="btn btn-default wishlist"  id="submitButton2" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
                       </form>
@@ -67,6 +68,7 @@
                       <form action="/saveWishlist" method="post">
                         <input type = "hidden" id = "book_id" name = "book_id" value ={{results.0.book_id}} />
                         <input type = "hidden" id = "user_id" name = "user_id" value ={{user.user_id}} />
+                        
                         <p><span> Προσθήκη σε Wishlist</span></p> &nbsp; 
                         <button type="submit" class="btn btn-default wishlist"  id="submitButton2" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
                       </form>

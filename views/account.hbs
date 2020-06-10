@@ -36,7 +36,7 @@
             <div class="col-2">
                 <p><b>Έμβλημα : </b> </p>
                 {{!-- edw h timh tou arithmou twn sxoliwn --}}
-                <p><b id="totalComments" class="ml-2">9</b> / 10 <span style="font-style: italic;">σχολιασμοί</span></p>
+                <p><b id="totalComments" class="ml-2">{{results.0.length}}</b> / 10 <span style="font-style: italic;">σχολιασμοί</span></p>
             </div>
             <div class="col-4">
                 {{!-- //kalitera na  ginei sto nodejs auto, poio badge dld na emfanizetai --}}
@@ -53,19 +53,24 @@
                 <form action="">
                     <ul class="p-2">
                         {{!-- apo edw--}}
+                        {{#each results2}}
+
+                        
                         <li class="m-2">
-                            <div class="col-5"><a href="/">Παραπλάνηση</a></div>
-                            <div class="col-4">Γρηγόρης Αζαριάδης</div>
-                            <div class="col-2"><button>Αφαίρεση</button></div>
+                            <div class="col-5"><a href="/book/{{book_id}}">{{book_title}}</a></div>
+                            <div class="col-4">{{author_name}}</div>
+                            <div class="col-2">
+                                <form action="/deleteWishlist" method="post">
+                                <input type = "hidden" id = "book_id" name = "book_id" value ={{book_id}} />
+                                <input type = "hidden" id = "user_id" name = "user_id" value ='16' />
+                                <input type = "hidden" id = "redirect" name = "redirect" value ="/account" /><button type="submit"  title="Wishlist2">Αφαίρεση</i></button></form>
+                            </div>                             
                         </li>
                         <hr>
+                        {{/each}}
                         {{!-- mexri edw hbs for each  --}}
-                        <li class="m-2">
-                            <div class="col-5"><a href="/">Οι φανταστικοί Μπράιτστορμ 2: Σκοτεινοί ψίθυροι</a></div>
-                            <div class="col-4">Vashti Hardy</div>
-                            <div class="col-2"><button>Αφαίρεση</button></div>
-                        </li>
-                        <hr>
+
+                        
                     </ul>
                 </form>
             </div>
