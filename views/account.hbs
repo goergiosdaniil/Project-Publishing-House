@@ -36,7 +36,7 @@
             <div class="col-2">
                 <p><b>Έμβλημα : </b> </p>
                 {{!-- edw h timh tou arithmou twn sxoliwn --}}
-                <p><b id="totalComments" class="ml-2">9</b> / 10 <span style="font-style: italic;">σχολιασμοί</span></p>
+                <p><b id="totalComments" class="ml-2">{{results.0.length}}</b> / 10 <span style="font-style: italic;">σχολιασμοί</span></p>
             </div>
             <div class="col-4">
                 {{!-- //kalitera na  ginei sto nodejs auto, poio badge dld na emfanizetai --}}
@@ -50,43 +50,48 @@
             <h3>Wishlist</h3>
             <div class="w-100 mt-1">
                 {{!-- ftiakse forma pou mallon 8a kalei to hdh aithma gia afairesh apo wishlist --}}
-                
-                    <ul class="p-2 ">
+                    <ul class="p-2">
                         {{!-- apo edw--}}
-                        <li class="m-2 row ">
-                            <div class="col-5"><a href="/">Παραπλάνηση</a></div>
-                            <div class="col-4">Γρηγόρης Αζαριάδης</div>
-                            <div class="col-2"><button>Αφαίρεση</button></div>
-                        </li>
-                        <hr>
-                        {{!-- mexri edw hbs for each  --}}
+                        {{#each results2}}
                         <li class="m-2 row">
-                            <div class="col-5"><a href="/">Οι φανταστικοί Μπράιτστορμ 2: Σκοτεινοί ψίθυροι</a></div>
-                            <div class="col-4">Vashti Hardy</div>
-                            <div class="col-2"><button>Αφαίρεση</button></div>
+                            <div class="col-5"><a href="/book/{{book_id}}">{{book_title}}</a></div>
+                            <div class="col-4">{{author_name}}</div>
+                            <div class="col-2">
+                                <form action="/deleteWishlist" method="post">
+                                <input type = "hidden" class="deleteWishlist" id = "book_id" name = "book_id" value ={{book_id}} />
+                                <input type = "hidden" class="deleteWishlist" name = "user_id" value ={{user_id}} />
+                                <input type = "hidden" class="deleteWishlist" id = "redirect" name = "redirect" value ="/account" /><button type="submit"  title="Wishlist2">Αφαίρεση</button>
+                                </form>
+                            </div>                             
                         </li>
                         <hr>
+                        {{/each}}
+                        {{!-- mexri edw hbs for each  --}}
+
+                        
                     </ul>
-                
             </div>
         </div>
 
         <div class="row thirdB my-3 p-3 mx-3">
             <h3>Ανέβασε το έργο σου</h3>
             {{!-- edw prepei na to deis pws 8a ginei kai pou 8a anevainoun ta erga --}}
-                <form action="" class="w-100 mt-3 px-3">
+                <form action="upload" enctype="multipart/form-data" method="post" class="w-100 mt-3 px-3">
+                    <input type = "hidden" id = "type" name = "type" value ="user_upload" />
+                    <input type = "hidden" id = "user_id" name = "user_id" value ={{user.user_id}} />
                     <div class="col-1"></div>
                     <div class="col-4"> 
-                        <input type="radio" id="summery" name="documentType" value="summery">
+                        <input type="radio" id="summary" name="documentType" value="summary">
                         <label for="male">Περίληψη</label>
                         <input type="radio" id="chapter" name="documentType" value="chapter">
                         <label for="male">Κεφάλαιο</label>
-                        <input type="radio" id="work" name="documentType" value="work">
-                        <label for="male">Έργο</label>
+                        <input type="radio" id="book" name="documentType" value="book">
+                        <label for="male">Βιβλίο</label>
                     </div>
                     <div class="col-6">
                         <label for="avatar">Ανέβασε το αρχείο PDF:</label>
-                        <input type="file" id="document" name="document" accept=".pdf">
+                        <input type="file" id="document" name="file" accept="application/pdf">
+                        <input type="submit" value="Ανέβασε" />
                     </div>
                 </form>
         </div>
@@ -94,26 +99,25 @@
         <div class="row secondB my-3 p-3 mx-3">
             <h3>Τα έργα μου</h3>
             <div class="w-100 mt-1">
-                <form action="">
+                
                     <ul class="p-2 workList">
                         {{!-- for each gia ta erga mou apo neo pinaka sto db --}}
-                        <li class="m-2">
-                            <div class="col-3">το εργο μου</div>
-                            <div class="col-3">ειδος εργου</div>
-                            <div class="col-3">κατασταση</div>
-                            <div class="col-2"><button>Αφαίρεση</button></div>
+                        {{#each results3}}
+                        <li class="m-2 row">
+                            <div class="col-3">{{name}}</div>
+                            <div class="col-3">{{type_of_upload}}</div>
+                            <div class="col-3">{{current_state}}</div>
+                            <div class="col-2"><form action="/deleteUpload" method="post">
+                                <input type = "hidden" class="deleteUpload" id = "upload_id" name = "upload_id" value ={{id}} />
+                                <input type = "hidden" class="deleteUpload" id = "redirect" name = "redirect" value ="/account" /><button type="submit"  title="Wishlist2">Αφαίρεση</button>
+                                </form></div>
                         </li>
                         <hr>
+                        {{/each}}
                         {{!-- mexri edw katw li delete --}}
-                        <li class="m-2">
-                            <div class="col-3">το εργο μου</div>
-                            <div class="col-3">ειδος εργου</div>
-                            <div class="col-3">κατασταση</div>
-                            <div class="col-2"><button>Αφαίρεση</button></div>
-                        </li>
-                        <hr>
+                       
                     </ul>
-                </form>
+                
             </div>
         </div>
 
@@ -146,9 +150,3 @@
 
 </body>
 </html>
-
-
-
-
-   
- 
