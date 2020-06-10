@@ -27,9 +27,31 @@ a.setAttribute("href","?page="+i);
   }
   let nowPage = document.getElementById("page").value;
  document.getElementById("page"+nowPage).setAttribute("class","page-item active");}
-    
-
-
-
-
  });
+
+let categoryToggle = document.getElementById("toggleButton");
+let articleContainer = document.getElementById("mytable");
+let closeToggle = document.getElementById("closeToggle");
+let asideCategories = document.getElementById("asideCategories");
+categoryToggle.addEventListener("click",()=>{
+  categoryToggle.style.display="none";
+  articleContainer.style.position="unset";
+  asideCategories.style.display="block";
+})
+closeToggle.addEventListener("click",()=>{
+  categoryToggle.style.display="block";
+  articleContainer.style.position="relative";
+  asideCategories.style.display="none";
+})
+
+window.addEventListener('resize', ()=>{
+  if (window.innerWidth>767){ 
+    categoryToggle.style.display="none";
+    asideCategories.style.display="block";
+  }
+  if (window.innerWidth<768){
+    categoryToggle.style.display="block";
+    articleContainer.style.position="relative";
+    asideCategories.style.display="none";
+  }
+});
