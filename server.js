@@ -276,13 +276,8 @@ app.get('/authorsView',(req, res) => {
           }
         }
       }
-
-    
-    
-      
       res.render('viewAuthors',{
       results: results,
-        
       user: req.user });
     });
     
@@ -464,10 +459,17 @@ app.post('/registerUser', function(req,res){
     let sql = "INSERT INTO tbl_users SET ?";
     let query = conn.query(sql, data, (err, results) => {
       if(err) throw err;
-      res.redirect('registerForm');
+      res.redirect('registered');
     });
   });
 })
+
+app.get('/registered',
+  function(req, res) {
+    res.render('registered');
+  }
+);
+
 
 // Define routes for passport.
 app.get('/fakehome',

@@ -161,7 +161,14 @@ footer{
     background-color:rgb(240, 156, 94);
     border-radius: 5px;
 }
-
+#welcomeSign{
+    height: 200px;
+    margin: 30px auto;
+}
+#welcomeSignDiv{
+    width: 100%;
+    text-align: center;
+}
 
 /*
 
