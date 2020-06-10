@@ -123,6 +123,7 @@ app.post('/upload', (req, res, next) => {
         let randomNumber = Math.floor(Math.random() * 101);
         fileName = randomNumber+fileName;
         var newPath = path.join(__dirname, 'public')+ '\\uploadedbyusers\\'+fileName;
+        console.log(newPath);
         var rawData = fs.readFileSync(oldPath); 
         let sql="INSERT INTO tbl_uploads (name,user_id,type_of_upload,path) VALUES('"+files.file.name+"',"+fields.user_id+",'"+fields.documentType+"','"+fileName+"')";
         let query = conn.query(sql, (err, results) => {
