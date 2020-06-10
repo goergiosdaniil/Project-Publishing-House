@@ -109,3 +109,11 @@
         display: none;
     }
 }
+.pagination a{
+    color: black;
+}
+.pagination li{
+    color: black;
+    margin: 0 3px;
+    
+}
