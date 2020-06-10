@@ -28,7 +28,7 @@ legend{
     font-size: 0.6em;
     text-align: center;
 }
-form div:nth-child(4){
+form div:nth-child(4),form div:nth-child(1){
     margin-bottom: 0;
 }
 #submit-button{
