@@ -50,20 +50,18 @@
             <h3>Wishlist</h3>
             <div class="w-100 mt-1">
                 {{!-- ftiakse forma pou mallon 8a kalei to hdh aithma gia afairesh apo wishlist --}}
-                <form action="">
                     <ul class="p-2">
                         {{!-- apo edw--}}
                         {{#each results2}}
-
-                        
-                        <li class="m-2">
+                        <li class="m-2 row">
                             <div class="col-5"><a href="/book/{{book_id}}">{{book_title}}</a></div>
                             <div class="col-4">{{author_name}}</div>
                             <div class="col-2">
                                 <form action="/deleteWishlist" method="post">
-                                <input type = "hidden" id = "book_id" name = "book_id" value ={{book_id}} />
-                                <input type = "hidden" id = "user_id" name = "user_id" value ='16' />
-                                <input type = "hidden" id = "redirect" name = "redirect" value ="/account" /><button type="submit"  title="Wishlist2">Αφαίρεση</i></button></form>
+                                <input type = "hidden" class="deleteWishlist" id = "book_id" name = "book_id" value ={{book_id}} />
+                                <input type = "hidden" class="deleteWishlist" name = "user_id" value ={{user_id}} />
+                                <input type = "hidden" class="deleteWishlist" id = "redirect" name = "redirect" value ="/account" /><button type="submit"  title="Wishlist2">Αφαίρεση</button>
+                                </form>
                             </div>                             
                         </li>
                         <hr>
@@ -72,7 +70,6 @@
 
                         
                     </ul>
-                </form>
             </div>
         </div>
 

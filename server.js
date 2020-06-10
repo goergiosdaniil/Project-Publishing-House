@@ -99,7 +99,6 @@ app.use(express.static(__dirname + '/public'));
 
 //route for homepage
 app.get('/',(req, res) => {
-  console.log(process.cwd);
   res.render('index',{user: req.user});
 });
 
@@ -252,7 +251,6 @@ app.post('/saveWishlist',require('connect-ensure-login').ensureLoggedIn(),(req, 
 //route for delete entry in Wishlist
 app.post('/deleteWishlist',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   let sql = "DELETE FROM tbl_wishlist WHERE book_id='"+req.body.book_id+"' AND user_id='"+req.body.user_id+"'";
-  console.log(req.body.redirect);
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
       res.redirect(req.body.redirect);
@@ -391,7 +389,6 @@ app.get('/book/:input',(req, res) => {
   }
   let query3 = conn.query(sql3, (err, results3) => {
     if(err) throw err;
-    console.log(results3);
     let query = conn.query(sql, (err, results) => {
       if(err) throw err;
       let query2 = conn.query(sql2,(err, results2)=>
@@ -515,8 +512,15 @@ app.get('/account',
       let sql2 = "SELECT tbl_wishlist.book_id , tbl_wishlist.user_id, tbl_books.book_title, tbl_book_authors.author_name FROM `tbl_wishlist` INNER JOIN tbl_books ON tbl_wishlist.book_id = tbl_books.book_id INNER JOIN tbl_book_authors ON tbl_books.book_author_id = tbl_book_authors.book_author_id WHERE tbl_wishlist.user_id ="+req.user.user_id+";";
       let query2 = conn.query(sql2, (err, results2) => {
       if(err) throw err;
-      console.log(req.user);
-      results[0].length = results.length;
+      if (results.length != 0){
+        results[0].length = results.length;
+      }
+
+      if (results2.length != 0){
+        for (i = 0; i<results2.length ; i++){
+          results2[i].user_id = req.user.user_id;
+        }
+      }
       res.render('account',{
       results :results,
       results2 : results2,
@@ -580,7 +584,6 @@ app.get('/emailToUser',
 
 // POST route from contact form
 app.post('/sendToUser', (req, res) => {
-console.log(req.body)
   // Instantiate the SMTP server
   const smtpTrans = nodemailer.createTransport({
     host: 'smtp.gmail.com',
