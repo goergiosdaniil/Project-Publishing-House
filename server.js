@@ -19,7 +19,7 @@ const bcrypt = require('bcrypt');
 const formidable = require('formidable');
 const fs = require('fs'); 
 const app = express();
-
+var greekUtils = require('greek-utils');
 //Create connection
 const conn = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -102,32 +102,60 @@ app.get('/',(req, res) => {
   res.render('index',{user: req.user});
 });
 
-app.get('/upload',(req, res) => {
-  res.render('upload',{user: req.user});
-});
 
-app.post('/upload',require('connect-ensure-login').ensureLoggedIn(), (req, res, next) => { 
+app.post('/upload', (req, res, next) => { 
   const form = new formidable.IncomingForm(); 
   form.parse(req, function(err, fields, files){
-      var oldPath = files.image.path;
+      var oldPath = files.file.path;
       if (fields.type == "book_cover"){
         var newPath = path.join(__dirname, 'public')+ '/img/covers/'+fields.name+".jpg"
-      }
-      
-      var rawData = fs.readFileSync(oldPath) 
-    
-      fs.writeFile(newPath, rawData, function(err){ 
+        var rawData = fs.readFileSync(oldPath); 
+        fs.writeFile(newPath, rawData, function(err){ 
           if(err) console.log(err) 
-          return res.send("Successfully uploaded") 
-      }) 
-}) 
+          res.render('account',{
+            user: req.user });
+          return ;
+      });
+      }
+      else if(fields.type == "user_upload"){
+
+        let fileName = greekUtils.toGreeklish(files.file.name);
+        let randomNumber = Math.floor(Math.random() * 101);
+        fileName = randomNumber+fileName;
+        var newPath = path.join(__dirname, 'public')+ '\\uploadedbyusers\\'+fileName;
+        var rawData = fs.readFileSync(oldPath); 
+        let sql="INSERT INTO tbl_uploads (name,user_id,type_of_upload,path) VALUES('"+files.file.name+"',"+fields.user_id+",'"+fields.documentType+"','"+fileName+"')";
+        let query = conn.query(sql, (err, results) => {
+          if(err) throw err;
+        fs.writeFile(newPath, rawData, function(err){ 
+          if(err) console.log(err) 
+          res.redirect('account');})
+          })
+      
+      }
+  }); 
 }); 
+//delete upload from pc and from db
+app.post('/deleteUpload',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
+  let sql0 = "SELECT * FROM tbl_uploads WHERE id='"+req.body.upload_id+"'";
+  let query0 = conn.query(sql0, (err, results0) => {
+    let sql = "DELETE FROM tbl_uploads WHERE id='"+req.body.upload_id+"'";
+    let query = conn.query(sql, (err, results) => {
+      if(err) throw err;
+      var Pathara = process.env.PATHER +"uploadedbyusers\\"+ results0[0].path;
+      fs.unlink(Pathara, (err) => {
+        if (err) throw err;
+        res.redirect(req.body.redirect);
+      });
+    });
+  });
+});
 
 //route for allBooks
 app.get('/allBooks',(req, res) => {
   let sql2 = "SELECT * FROM tbl_categories;"
   
-  let query2 = conn.query(sql2, (err, results2) => {
+  let query2 = conn.query(sql2, (err, results2) => { 
     if(err) throw err;
     if(req.query.category){
       var sql = "SELECT book_id,book_title,book_description,book_cover FROM tbl_books WHERE book_category="+req.query.category+";"
@@ -509,30 +537,32 @@ app.get('/account',
   function(req, res){
     let sql ="SELECT * FROM tbl_comments WHERE user_id="+req.user.user_id+";";
     let query = conn.query(sql, (err, results) => {
+      if(err) throw err;
       let sql2 = "SELECT tbl_wishlist.book_id , tbl_wishlist.user_id, tbl_books.book_title, tbl_book_authors.author_name FROM `tbl_wishlist` INNER JOIN tbl_books ON tbl_wishlist.book_id = tbl_books.book_id INNER JOIN tbl_book_authors ON tbl_books.book_author_id = tbl_book_authors.book_author_id WHERE tbl_wishlist.user_id ="+req.user.user_id+";";
       let query2 = conn.query(sql2, (err, results2) => {
-      if(err) throw err;
-      if (results.length != 0){
-        results[0].length = results.length;
-      }
-
-      if (results2.length != 0){
-        for (i = 0; i<results2.length ; i++){
-          results2[i].user_id = req.user.user_id;
-        }
-      }
-      res.render('account',{
-      results :results,
-      results2 : results2,
-      user: req.user });
-      });
+        if(err) throw err;
+        let sql3 ="SELECT * FROM tbl_uploads WHERE user_id="+req.user.user_id+";";
+        let query3 = conn.query(sql3,(err, results3) =>{
+          if(err) throw err;
+          if (results.length != 0){
+            results[0].length = results.length;
+          }
+    
+          if (results2.length != 0){
+            for (i = 0; i<results2.length ; i++){
+              results2[i].user_id = req.user.user_id;
+            }
+          }
+          res.render('account',{
+          results :results,
+          results2 : results2,
+          results3 : results3,
+          user: req.user });
+        })
+        
     });
-    
-    
- 
-    
-  }
-);
+  });   
+});
 
 // POST route from contact form
 app.post('/contact', (req, res) => {
