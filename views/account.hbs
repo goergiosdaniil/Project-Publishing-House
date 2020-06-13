@@ -119,7 +119,7 @@
                         <li class="m-2 row">
                             <div class="col-md-5">{{name}}</div>
                             <div class="col-md-3">{{type_of_upload}}</div>
-                            <div class="col-md-2 currentState" >DIABASTIKE{{current_state}}</div>
+                            <div class="col-md-2 currentState" value="{{current_state}}">{{current_state}}</div>
                             <div class="col-md-2"><form action="/deleteUpload" method="post">
                                 <input type = "hidden" class="deleteUpload" id = "upload_id" name = "upload_id" value ={{id}} />
                                 <input type = "hidden" class="deleteUpload" id = "redirect" name = "redirect" value ="/account" /><button type="submit"  title="Wishlist2">Αφαίρεση</button>

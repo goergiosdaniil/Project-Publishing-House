@@ -375,6 +375,26 @@ app.post('/deleteAuthor',(req, res) => {
 });
 
 
+//route for ergoview
+app.get('/ergoview',(req, res) => {
+  let sql = "SELECT tbl_uploads.id, tbl_uploads.name, tbl_uploads.type_of_upload, tbl_uploads.current_state, tbl_uploads.path, tbl_users.firstName, tbl_users.lastName, tbl_users.user_id  FROM tbl_uploads INNER JOIN tbl_users ON tbl_users.user_id = tbl_uploads.user_id  ";
+  let query = conn.query(sql, (err, results) => {
+      res.render('ergoview',{
+      results: results,
+      user: req.user });
+
+    
+  });
+});
+//route for update author
+app.post('/updateErgoState',(req, res) => {
+  let sql = "UPDATE tbl_uploads SET current_state='"+req.body.current_state+"' WHERE id="+req.body.id;
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.redirect('/ergoview');
+  });
+});
+
 
 //route for bookview
 app.get('/bookview',
