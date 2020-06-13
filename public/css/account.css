@@ -48,6 +48,10 @@
     margin: 0 auto;
     width: 90%;
 }
+.secondB li{
+    background-color: rgba(210, 210, 210, 0.8);
+    border-radius: 5px;
+}
 .secondB hr:last-child{
     display: none;
 }
@@ -70,4 +74,18 @@
 }
 .workList div{
     text-align: center;
+}
+.zeroB{
+    justify-content: space-around;
+}
+.zeroB a{
+    background-color: rgba(210, 210, 210, 0.8);
+    border-radius: 5px;
+    margin: 5px;
+    padding: 15px;
+    color: black;
+    text-decoration: none;
+}
+.zeroB a:hover{
+    background-color: grey;
 }
