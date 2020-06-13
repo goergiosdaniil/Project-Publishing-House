@@ -118,6 +118,25 @@ app.get('/slideshowPanel',(req,res) => {
   });
 });
 
+app.post('/addSlideshowBook',(req,res) => {
+  console.log(req.body);
+  let data = { book_id: req.body.book_id};
+  let sql = "INSERT INTO tbl_slideshow SET ?";
+  let query = conn.query(sql, data,(err, results) => {
+    if(err) throw err;
+    res.redirect('slideshowPanel');
+  });
+});
+
+app.post('/removeSlideshowBook',(req,res) => {
+  console.log(req.body);
+  let sql = "DELETE FROM tbl_slideshow WHERE book_id="+req.body.book_id+"";
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.redirect('slideshowPanel');
+  });
+});
+
 app.post('/upload', (req, res, next) => { 
   const form = new formidable.IncomingForm(); 
   form.parse(req, function(err, fields, files){

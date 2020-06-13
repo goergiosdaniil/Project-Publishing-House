@@ -108,7 +108,11 @@
     margin: 0;
     border-radius: 5px;
     margin-top: 5px;
+    float:right;
 }
 #uploadBtn:hover{
     background-color: rgb(224, 127, 0);
+}
+#document{
+    width: 200px;
 }
