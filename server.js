@@ -7,6 +7,7 @@ const hbs = require('hbs');
 const dotenv = require("dotenv");
 dotenv.config();
 //use bodyParser middleware
+
 const bodyParser = require('body-parser');
 //var db = require('./db');
 const flash = require('connect-flash');
@@ -75,7 +76,6 @@ passport.deserializeUser(function(id, cb) {
 app.use(require('morgan')('combined'));
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
-
 // Initialize Passport and restore authentication state, if any, from the
 // session.
 app.use(passport.initialize());
