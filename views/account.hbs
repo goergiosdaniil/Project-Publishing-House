@@ -28,29 +28,30 @@
         
         {{#if user.isAdmin}}
 
-        <div class="row zeroB px-5 pt-3 pb-4 m-3">
-            <h4 class="w-100 mb-2" style="text-align: center;">Πάνελ Διαχειριστή</h4>
-            <a href="/bookview">Admin Panel for Books</a> <br/>
-            <a href="/viewcategories">Admin Panel for Categories</a> <br/>
-            <a href="/authorsView">Admin Panel for Authors</a> <br/>
-            <a href="/emailToUser">Admin Panel to send email to user</a> <br/>
+        <div class="row zeroB px-3 pt-3 pb-4 m-3">
+            <h4 class="w-100 mb-4" style="text-align: center;">Πάνελ Διαχειριστή</h4>
+            <a href="/bookview" class="col-md-2 "> Διαχείριση Καταλόγου Βιβλίων</a> 
+            <a href="/viewcategories" class="col-md-2 ">Διαχείριση Κατηγοριών</a>
+            <a href="/authorsView" class="col-md-2 ">Διαχείριση Καταλόγου Συγγραφέων</a> <br/>
+            <a href="/emailToUser" class="col-md-2">E-mail Πάνελ Διαχείρισης</a> <br/>
+            <a href="/slideshowPanel" class="col-md-2">Διαχείριση Slideshow</a> <br/>
         </div>
 
         {{/if}}
 
         <div class="row firstB p-5 m-3">
-            <div class="col-6">
+            <div class="col-md-6">
                 <p><b>Όνομα : </b> <span>{{user.firstName}} </span></p>
                 <p><b>Επώνυμο : </b> {{user.lastName}} </p>
                 <p><b>Χρήστης : </b> {{user.role}}</p>
                 <p><b>Email : </b> {{user.email}}</p>
             </div>
-            <div class="col-2">
+            <div class="col-md-2">
                 <p><b>Έμβλημα : </b> </p>
                 {{!-- edw h timh tou arithmou twn sxoliwn --}}
                 <p><b id="totalComments" class="ml-2">{{results.0.length}}</b> / 10 <span style="font-style: italic;">σχολιασμοί</span></p>
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
                 {{!-- //kalitera na  ginei sto nodejs auto, poio badge dld na emfanizetai --}}
                 {{!-- me ousiastika ena element img kai hbs sto src="" --}}
                 <img src="../img/badgeFull.png" alt="Full Badge" id="badgeFull">
@@ -66,9 +67,9 @@
                         {{!-- apo edw--}}
                         {{#each results2}}
                         <li class="m-2 row">
-                            <div class="col-5"><a href="/book/{{book_id}}">{{book_title}}</a></div>
-                            <div class="col-5">{{author_name}}</div>
-                            <div class="col-2">
+                            <div class="col-md-5"><a href="/book/{{book_id}}">{{book_title}}</a></div>
+                            <div class="col-md-5">{{author_name}}</div>
+                            <div class="col-md-2">
                                 <form action="/deleteWishlist" method="post">
                                 <input type = "hidden" class="deleteWishlist" id = "book_id" name = "book_id" value ={{book_id}} />
                                 <input type = "hidden" class="deleteWishlist" name = "user_id" value ={{user_id}} />
@@ -91,8 +92,8 @@
                 <form action="upload" enctype="multipart/form-data" method="post" class="w-100 mt-3 px-3">
                     <input type = "hidden" id = "type" name = "type" value ="user_upload" />
                     <input type = "hidden" id = "user_id" name = "user_id" value ={{user.user_id}} />
-                    <div class="col-1"></div>
-                    <div class="col-4"> 
+                    
+                    <div class="col-md-4"> 
                         <input type="radio" id="summary" name="documentType" value="Περίληψη">
                         <label for="male">Περίληψη</label>
                         <input type="radio" id="chapter" name="documentType" value="Κεφάλαιο">
@@ -100,10 +101,10 @@
                         <input type="radio" id="book" name="documentType" value="Έργο">
                         <label for="male">Έργο</label>
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-7">
                         <label for="avatar">Ανέβασε το αρχείο PDF:</label>
                         <input type="file" id="document" name="file" accept="application/pdf">
-                        <input type="submit" value="Ανέβασε" />
+                        <input type="submit" value="Ανέβασμα" id="uploadBtn" />
                     </div>
                 </form>
         </div>
@@ -116,10 +117,10 @@
                         {{!-- for each gia ta erga mou apo neo pinaka sto db --}}
                         {{#each results3}}
                         <li class="m-2 row">
-                            <div class="col-5">{{name}}</div>
-                            <div class="col-3">{{type_of_upload}}</div>
-                            <div class="col-2" >{{current_state}}</div>
-                            <div class="col-2"><form action="/deleteUpload" method="post">
+                            <div class="col-md-5">{{name}}</div>
+                            <div class="col-md-3">{{type_of_upload}}</div>
+                            <div class="col-md-2 currentState" >DIABASTIKE{{current_state}}</div>
+                            <div class="col-md-2"><form action="/deleteUpload" method="post">
                                 <input type = "hidden" class="deleteUpload" id = "upload_id" name = "upload_id" value ={{id}} />
                                 <input type = "hidden" class="deleteUpload" id = "redirect" name = "redirect" value ="/account" /><button type="submit"  title="Wishlist2">Αφαίρεση</button>
                                 </form></div>
