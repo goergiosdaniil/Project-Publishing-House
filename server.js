@@ -417,35 +417,58 @@ app.post('/save', (req, res, next) => {
           res.redirect('/bookview');
       });
     }
-      //var oldPath = files.file.path;
-     //   var newPath = path.join(__dirname, 'public')+ '/img/covers/'+fields.name+".jpg"
-       // var rawData = fs.readFileSync(oldPath); 
-       // fs.writeFile(newPath, rawData, function(err){ 
-       //   if(err) console.log(err) 
-       //   res.render('account',{
-       ////     user: req.user });
-        //  return ;
+
       });
 });
-//route for insert data
-app.post('/save',(req, res) => {
-  
-  //let data = {book_title: req.body.book_title, book_description: req.body.book_description, book_cover: req.body.book_cover, book_author_id: req.body.book_author_id, book_category: req.body.book_category};
- // let sql = "INSERT INTO tbl_books SET ?";
- // let query = conn.query(sql, data,(err, results) => {
- //   if(err) throw err;
-  //  res.redirect('/bookview');
- // });
-});
 
-//route for update data
-app.post('/update',(req, res, body) => {
-  let sql = "UPDATE tbl_books SET book_title='"+req.body.book_title+"', book_description='"+req.body.book_description+"', book_cover='"+req.body.book_cover+"', book_author_id='"+req.body.book_author_id+"', book_category='"+req.body.book_category+"' WHERE book_id="+req.body.id;
-  let query = conn.query(sql, (err, results) => {
-    if(err) throw err;
-    res.redirect('/bookview');
+app.post('/update', (req, res, next) => { 
+  const form = new formidable.IncomingForm(); 
+  form.parse(req, function(err, fields, files){
+  if (fields.book_cover == "NewImage"){
+    let fileName = greekUtils.toGreeklish(fields.book_title);
+    fileName = fileName.replace(/ /g,"_");
+    var str = files.fileForCoverTypeFromUpdate.name;
+    var indices = [];
+    for(var i=0; i<str.length;i++) {
+      if (str[i] === ".") indices.push(i);
+    }
+
+    var pointOfLastDot = indices[indices.length-1];
+    var typeOfFile = files.fileForCoverTypeFromUpdate.name.slice(pointOfLastDot);
+    fileName = fileName.concat(typeOfFile);
+    var oldPath = files.fileForCoverTypeFromUpdate.path;
+    var newPath = path.join(__dirname, 'public')+ '/img/covers/'+fileName;
+    var rawData = fs.readFileSync(oldPath);
+    fs.writeFile(newPath, rawData, function(err){ 
+      if(err) console.log(err);
+  });
+  var book_cover = "../img/covers/"+fileName;
+  let sql = "UPDATE tbl_books SET book_title='"+fields.book_title+"', book_description='"+fields.book_description+"', book_cover='"+book_cover+"', book_author_id='"+fields.book_author_id+"', book_category='"+fields.book_category+"' WHERE book_id="+fields.id;
+    let query = conn.query(sql, (err, results) => {
+      if(err) throw err;
+        res.redirect('/bookview');
+    });
+
+  }
+  else{
+    let sql = "UPDATE tbl_books SET book_title='"+fields.book_title+"', book_description='"+fields.book_description+"', book_cover='"+fields.book_cover+"', book_author_id='"+fields.book_author_id+"', book_category='"+fields.book_category+"' WHERE book_id="+fields.id;
+    let query = conn.query(sql, (err, results) => {
+     if(err) throw err;
+      res.redirect('/bookview');
+  });
+  }
+
   });
 });
+
+// //route for update data
+// app.post('/update',(req, res, body) => {
+//   let sql = "UPDATE tbl_books SET book_title='"+req.body.book_title+"', book_description='"+req.body.book_description+"', book_cover='"+req.body.book_cover+"', book_author_id='"+req.body.book_author_id+"', book_category='"+req.body.book_category+"' WHERE book_id="+req.body.id;
+//   let query = conn.query(sql, (err, results) => {
+//     if(err) throw err;
+//     res.redirect('/bookview');
+//   });
+// });
  
 //route for delete data
 app.post('/delete',(req, res) => {
