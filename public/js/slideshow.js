@@ -1,3 +1,13 @@
+let slides = document.getElementsByClassName("mySlides");
+let dotHub = document.getElementById("dotHub");
+var i=1;
+for (slide of slides){
+  var dot = document.createElement("span");
+  dot.setAttribute("class","dot");
+  dot.setAttribute("onclick","currentSlide("+i+")");
+  dotHub.appendChild(dot);
+  i+=1;
+}
 
 var slideIndex = 1;
 showSlides(slideIndex);
@@ -14,7 +24,6 @@ function currentSlide(n) {
 
 function showSlides(n) {
   var i;
-  var slides = document.getElementsByClassName("mySlides");
   var dots = document.getElementsByClassName("dot");
   if (n > slides.length) {slideIndex = 1}
   if (n < 1) {slideIndex = slides.length}

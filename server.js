@@ -34,8 +34,6 @@ conn.connect((err) =>{
   console.log('Mysql Connected...');
 });
 
-
-
 passport.use('local',new Strategy(
     // by default, local strategy uses username and password, we will override with email
   function(username, password, done) { // callback with email and password from our form
@@ -99,9 +97,26 @@ app.use(express.static(__dirname + '/public'));
 
 //route for homepage
 app.get('/',(req, res) => {
-  res.render('index',{user: req.user});
+  var sql = "SELECT  * FROM tbl_slideshow INNER JOIN tbl_books ON tbl_slideshow.book_id=tbl_books.book_id;";
+  let query = conn.query(sql, (err, results)=>{
+    if(err) throw err;
+    res.render('index',
+    { results: results,
+      user: req.user });
+    });
 });
-
+  
+app.get('/slideshowPanel',(req,res) => {
+  var sql = "SELECT  * FROM tbl_slideshow INNER JOIN tbl_books ON tbl_slideshow.book_id=tbl_books.book_id;";
+  var sql2 = "SELECT  * FROM tbl_books INNER JOIN tbl_book_authors ON tbl_books.book_author_id=tbl_book_authors.book_author_id;"
+  let query = conn.query(sql, (err, results)=>{
+    if(err) throw err;
+    let query2 = conn.query(sql2, (err, results2)=>{
+      if(err) throw err;
+      res.render('slideshowPanel',{ results2: results2, results: results, user: req.user});
+    });
+  });
+});
 
 app.post('/upload', (req, res, next) => { 
   const form = new formidable.IncomingForm(); 
@@ -475,7 +490,7 @@ app.post('/delete',(req, res) => {
   let sql = "DELETE FROM tbl_books WHERE book_id="+req.body.book_id;
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
-      res.redirect('/bookview');
+    res.redirect('/bookview');
   });
 });
 

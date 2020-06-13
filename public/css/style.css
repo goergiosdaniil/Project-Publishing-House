@@ -3,6 +3,7 @@ body {
     padding: 10px 0px 0px;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     background-color:  rgb(240, 240, 240);
+    min-height: 100%;
 }
 
 header {
@@ -43,7 +44,7 @@ footer{
     color: rgb(240, 240, 240);
     min-height: 130px;
     max-width: 1200px;
-    margin:auto;
+    margin: 0 auto;
     padding: 10px 0px 10px;
     font-size:0.8em ;
 }

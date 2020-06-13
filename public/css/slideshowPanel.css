@@ -1,0 +1,44 @@
+.container{
+    min-height: 650px;
+}
+.secondB form div{
+    display: inline-block;
+}
+.secondB ul{
+    text-align: center;
+    width: 100%;
+    list-style-type: none;
+}
+.secondB a{
+    display: inline;
+    color: black;
+    font-weight: 600;
+}
+.secondB hr{
+    margin: 0 auto;
+    width: 90%;
+}
+.secondB li{
+    background-color: rgba(210, 210, 210, 0.8);
+    border-radius: 5px;
+    padding: 8px;
+}
+.secondB hr:last-child{
+    display: none;
+}
+.secondB li button{
+    border-radius: 3px;
+    background-color: orange;
+    border: none;
+    height: 20px;
+    font-size: small;
+    line-height: 15px;
+}
+.secondB li button:hover{
+    background-color: rgb(224, 127, 0);
+}
+h3{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
