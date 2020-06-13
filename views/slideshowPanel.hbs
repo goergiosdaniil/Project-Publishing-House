@@ -22,16 +22,20 @@
 
     {{> header }}
 
-    <div class="container">
+    <div class="container ">
 
-        <div class="row">
-            <form action="/slideshowPanel" method="POST">
-                <label for="sel1">Βιβλία</label>
-                    <select class="form-control" name="book" id="bookSelect">
-                      {{#each results2}}
-                      <option value={{book_id}}>{{book_id}}. {{book_title}} - {{author_name}} </option>
-                      {{/each}}
-                    </select>
+        <div class="row secondB m-3 p-3">
+            <h3>Βιβλία</h3>
+            <form action="/addSlideshowBook" method="POST" class="w-100 m-1 p-2">
+                <div class="col-2"></div>
+                <select class="col-lg-7" name="book_id" id="bookSelect">
+                    {{#each results2}}
+                    <option value={{book_id}}>{{book_id}}. {{book_title}} - {{author_name}} </option>
+                    {{/each}}
+                </select>
+                <div class="col-md-2 mt-3" id="addSlideBtn">
+                    <button type="submit"  title="addSlide">Προσθήκη</button>
+                </div>
             </form>
         </div>
 
@@ -45,9 +49,8 @@
                             <div class="col-2" id="slideNo"></div>
                             <div class="col-7"><a href="/book/{{book_id}}">{{book_title}}</a></div>
                             <div class="col-md-2">
-                                <form action="/deleteWishlist" method="post">
-                                    <input type = "hidden" class="deleteWishlist" id = "book_id" name = "book_id" value ={{book_id}} />
-                                    <input type = "hidden" class="deleteWishlist" id = "redirect" name = "redirect" value ="/account" />
+                                <form action="/removeSlideshowBook" method="post">
+                                    <input type = "hidden" class="deleteWishlist" name = "book_id" value ={{book_id}} />
                                     <button type="submit"  title="Wishlist2">Αφαίρεση</button>
                                 </form>
                             </div>                             
