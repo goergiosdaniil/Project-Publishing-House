@@ -314,7 +314,7 @@ app.get('/authorsView',(req, res) => {
 
 //route for insert author
 app.post('/saveAuthor',(req, res) => {
-  let data = {author_name: req.body.author_name, author_description: req.body.author_description, author_photo: req.body.author_photo};
+  let data = {author_name: req.body.author_name, author_description: req.body.author_description};
   let sql = "INSERT INTO tbl_book_authors SET ?";
   let query = conn.query(sql, data,(err, results) => {
     if(err) throw err;
@@ -324,7 +324,7 @@ app.post('/saveAuthor',(req, res) => {
 
 //route for update author
 app.post('/updateAuthor',(req, res) => {
-  let sql = "UPDATE tbl_book_authors SET author_name='"+req.body.author_name+"', author_description='"+req.body.author_description+"',  author_photo='"+req.body.author_photo+"' WHERE book_author_id="+req.body.book_author_id;
+  let sql = "UPDATE tbl_book_authors SET author_name='"+req.body.author_name+"', author_description='"+req.body.author_description+"' WHERE book_author_id="+req.body.book_author_id;
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
     res.redirect('/authorsView');
@@ -346,7 +346,7 @@ app.post('/deleteAuthor',(req, res) => {
 app.get('/bookview',
   
   function(req, res){
-    let sql ="SELECT book_id, book_title, tbl_categories.category_name, book_category, book_description, book_cover, tbl_book_authors.author_name, tbl_books.book_author_id, book_reviewer_id, book_is_written, book_is_reviewed, book_is_published FROM `tbl_books` INNER JOIN tbl_categories ON tbl_books.book_category = tbl_categories.id INNER JOIN tbl_book_authors ON tbl_books.book_author_id = tbl_book_authors.book_author_id ";
+    let sql ="SELECT book_id, book_title, tbl_categories.category_name, book_category, book_description, book_cover, tbl_book_authors.author_name, tbl_books.book_author_id FROM `tbl_books` INNER JOIN tbl_categories ON tbl_books.book_category = tbl_categories.id INNER JOIN tbl_book_authors ON tbl_books.book_author_id = tbl_book_authors.book_author_id ";
     let sql2 = "SELECT * FROM tbl_categories";
     let sql3 = "SELECT * FROM tbl_book_authors";
 
@@ -357,7 +357,7 @@ app.get('/bookview',
         let query = conn.query(sql3, (err, results3) => {
           if(err) throw err;
           // Το pather πρέπει να διαλεχθεί ανάλογα με το pc σου και που έχεις τα αρχεία αρα πρέπει να αλλάξεις το .env αρχείο
-          var pather = process.env.PATHER;
+          var pather = process.env.PATHER+"/img/covers/";
           fs.readdir(pather, (err, files) => { 
             if (err) 
               console.log(err); 
@@ -377,20 +377,70 @@ app.get('/bookview',
     });
   }
 );
+app.post('/save', (req, res, next) => { 
+  const form = new formidable.IncomingForm(); 
+  form.parse(req, function(err, fields, files){
 
+
+    if (fields.book_cover == "NewImage"){
+      let fileName = greekUtils.toGreeklish(fields.book_title);
+      fileName = fileName.replace(/ /g,"_");
+      var str = files.fileForCoverType.name;
+      var indices = [];
+      for(var i=0; i<str.length;i++) {
+        if (str[i] === ".") indices.push(i);
+      }
+
+      var pointOfLastDot = indices[indices.length-1];
+      var typeOfFile = files.fileForCoverType.name.slice(pointOfLastDot);
+      fileName = fileName.concat(typeOfFile);
+      var oldPath = files.fileForCoverType.path;
+      var newPath = path.join(__dirname, 'public')+ '/img/covers/'+fileName;
+      var rawData = fs.readFileSync(oldPath);
+      fs.writeFile(newPath, rawData, function(err){ 
+        if(err) console.log(err);
+    });
+    var book_cover = "../img/covers/"+fileName;
+    let data = {book_title: fields.book_title, book_description: fields.book_description, book_cover: book_cover, book_author_id: fields.book_author_id, book_category: fields.book_category};
+      let sql = "INSERT INTO tbl_books SET ?";
+      let query = conn.query(sql, data,(err, results) => {
+        if(err) throw err;
+          res.redirect('/bookview');
+      });
+
+    }
+    else{
+      let data = {book_title: fields.book_title, book_description: fields.book_description, book_cover: fields.book_cover, book_author_id: fields.book_author_id, book_category: fields.book_category};
+      let sql = "INSERT INTO tbl_books SET ?";
+      let query = conn.query(sql, data,(err, results) => {
+        if(err) throw err;
+          res.redirect('/bookview');
+      });
+    }
+      //var oldPath = files.file.path;
+     //   var newPath = path.join(__dirname, 'public')+ '/img/covers/'+fields.name+".jpg"
+       // var rawData = fs.readFileSync(oldPath); 
+       // fs.writeFile(newPath, rawData, function(err){ 
+       //   if(err) console.log(err) 
+       //   res.render('account',{
+       ////     user: req.user });
+        //  return ;
+      });
+});
 //route for insert data
 app.post('/save',(req, res) => {
-  let data = {book_title: req.body.book_title, book_description: req.body.book_description, book_cover: req.body.book_cover, book_author_id: req.body.book_author_id, book_reviewer_id: req.body.book_reviewer_id, book_is_written: req.body.book_is_written , book_is_reviewed: req.body.book_is_reviewed , book_is_published: req.body.book_is_published, book_category: req.body.book_category};
-  let sql = "INSERT INTO tbl_books SET ?";
-  let query = conn.query(sql, data,(err, results) => {
-    if(err) throw err;
-    res.redirect('/bookview');
-  });
+  
+  //let data = {book_title: req.body.book_title, book_description: req.body.book_description, book_cover: req.body.book_cover, book_author_id: req.body.book_author_id, book_category: req.body.book_category};
+ // let sql = "INSERT INTO tbl_books SET ?";
+ // let query = conn.query(sql, data,(err, results) => {
+ //   if(err) throw err;
+  //  res.redirect('/bookview');
+ // });
 });
 
 //route for update data
 app.post('/update',(req, res, body) => {
-  let sql = "UPDATE tbl_books SET book_title='"+req.body.book_title+"', book_description='"+req.body.book_description+"', book_cover='"+req.body.book_cover+"', book_author_id='"+req.body.book_author_id+"', book_reviewer_id='"+req.body.book_reviewer_id+"', book_is_written='"+req.body.book_is_written+"', book_is_reviewed='"+req.body.book_is_reviewed+"', book_is_published='"+req.body.book_is_published+"', book_category='"+req.body.book_category+"' WHERE book_id="+req.body.id;
+  let sql = "UPDATE tbl_books SET book_title='"+req.body.book_title+"', book_description='"+req.body.book_description+"', book_cover='"+req.body.book_cover+"', book_author_id='"+req.body.book_author_id+"', book_category='"+req.body.book_category+"' WHERE book_id="+req.body.id;
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
     res.redirect('/bookview');

@@ -20,7 +20,6 @@
           <th>Book Author Id</th>
           <th>Author Name</th>
           <th>Author Description</th>
-          <th>Author Photo</th>
           <th>Sum of Books</th>
           <th>Action</th>
         </tr>
@@ -31,10 +30,9 @@
           <td>{{ book_author_id }}</td>
           <td> <a href="/allbooks?author={{ book_author_id }}"{{ book_author_id }}>{{ author_name }}</a> </td>
           <td>{{ author_description }}</td>
-          <td>{{ author_photo }}</td>
           <td>{{ sum }}</td>
           <td>
-            <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-book_author_id="{{ book_author_id }}" data-author_name="{{ author_name }}" data-author_description="{{ author_description }}" data-author_photo="{{ author_photo }}" >Edit</a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-book_author_id="{{ book_author_id }}" data-author_name="{{ author_name }}" data-author_description="{{ author_description }}"  >Edit</a>
             <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-book_author_id="{{ book_author_id }}">Delete</a>
           </td>
         </tr>
@@ -61,13 +59,7 @@
                </div>
                <div class="form-group">
                    <input type="text" name="author_description" class="form-control" placeholder="author_description" required>
-               </div>
-               <div class="form-group">
-                   <input type="text" name="author_photo" class="form-control" placeholder="author_photo" required>
-               </div>
-            
-               
-
+               </div>         
              </div>
              <div class="modal-footer">
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -96,10 +88,6 @@
                <div class="form-group">
                    <input type="text" name="author_description" class="form-control author_description" placeholder="author_description" required>
                </div>
-               <div class="form-group">
-                   <input type="text" name="author_photo" class="form-control author_photo" placeholder="author_photo" required>
-               </div>
-
             </div>
             <div class="modal-footer">
               <input type="hidden" name="book_author_id" class="book_author_id">
@@ -141,11 +129,9 @@
         var book_author_id = $(this).data('book_author_id');
         var author_name = $(this).data('author_name');
         var author_description = $(this).data('author_description');
-        var author_photo = $(this).data('author_photo');
         $('#EditModal').modal('show');
         $('.author_name').val(author_name);
         $('.author_description').val(author_description);
-        $('.author_photo').val(author_photo);
         $('.book_author_id').val(book_author_id);
       });
             //showing delete record modal
