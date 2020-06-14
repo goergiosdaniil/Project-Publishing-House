@@ -78,20 +78,27 @@
 }
 .zeroB{
     justify-content: center;
-    vertical-align: middle;
     height: fit-content;
+    background-color: black;
+    border-radius: 5px;
+}
+.zeroB h3{
+    color: indianred;
 }
 .zeroB a{
     background-color: rgba(210, 210, 210, 0.8);
+    background-color: indianred;
     border-radius: 5px;
-    margin: 5px 10px;
+    margin: 5px 5px;
     padding: 10px;
     color: black;
     text-decoration: none;
     text-align: center;
     font-weight: 700;
     border: solid grey 1px;
-    
+    width: 190px;
+    height: 90px;
+    line-height: 30px;
 }
 .zeroB a:hover{
     background-color: grey;
@@ -111,6 +118,9 @@
 }
 #uploadBtn:hover{
     background-color: rgb(224, 127, 0);
+}
+#uploadBtn:disabled{
+    background-color: grey;
 }
 #document{
     width: 200px;

@@ -108,6 +108,21 @@ footer{
     width: 100%;
     text-align: center;
 }
+hr{
+    margin: 0 auto;
+    width: 90%;
+}
+hr:last-child{
+    display: none;
+}
+.container{
+    max-width: 1200px;
+    min-height: 610px;
+}
+.adminHeader{
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    text-align: center;
 
-
-
+}
