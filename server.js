@@ -395,6 +395,34 @@ app.post('/updateErgoState',(req, res) => {
   });
 });
 
+//route for usersview
+app.get('/usersview',(req, res) => {
+  let sql = "SELECT * FROM tbl_users";
+  let query = conn.query(sql, (err, results) => {
+      res.render('usersview',{
+      results: results,
+      user: req.user });
+
+    
+  });
+});
+//route for update user
+app.post('/updateUser',(req, res) => {
+  console.log(req.body);
+  let sql = "UPDATE tbl_users SET role='"+req.body.role+"' WHERE user_id="+req.body.id;
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.redirect('/usersview');
+  });
+});
+
+app.post('/deleteUser',(req, res) => {
+  let sql = "DELETE  FROM tbl_users WHERE user_id="+req.body.user_id;
+  let query = conn.query(sql, (err, results) => {
+    if(err) throw err;
+    res.redirect('/usersview');
+  });
+});
 
 //route for bookview
 app.get('/bookview',
