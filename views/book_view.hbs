@@ -10,7 +10,9 @@
     <link href="css/navbar.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+  
   {{> header }} 
+  {{#if user.isAdmin}}
   <div class="container">
     <h2>Books List</h2>
         <button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Add New Book</button>
@@ -192,8 +194,17 @@
             </div>
          </div>
      </form>
- {{> footer }} 
+ 
+ {{else}}
+    <main class="main-home">
 
+       <h3>Δεν έχετε δικαίωμα πρόσβασης σε αυτή τη σελίδα</h3>
+       <p>Θα σας απαντήσουμε το συντομότερο δυνατό
+       </p>
+       
+    </main>
+ {{/if}}
+{{> footer }} 
 <script>
     
 

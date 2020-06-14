@@ -106,7 +106,7 @@ app.get('/',(req, res) => {
     });
 });
   
-app.get('/slideshowPanel',(req,res) => {
+app.get('/slideshowPanel',require('connect-ensure-login').ensureLoggedIn(),(req,res) => {
   var sql = "SELECT  * FROM tbl_slideshow INNER JOIN tbl_books ON tbl_slideshow.book_id=tbl_books.book_id;";
   var sql2 = "SELECT  * FROM tbl_books INNER JOIN tbl_book_authors ON tbl_books.book_author_id=tbl_book_authors.book_author_id;"
   let query = conn.query(sql, (err, results)=>{
@@ -118,7 +118,7 @@ app.get('/slideshowPanel',(req,res) => {
   });
 });
 
-app.post('/addSlideshowBook',(req,res) => {
+app.post('/addSlideshowBook',require('connect-ensure-login').ensureLoggedIn(),(req,res) => {
   console.log(req.body);
   let data = { book_id: req.body.book_id};
   let sql = "INSERT INTO tbl_slideshow SET ?";
@@ -128,7 +128,7 @@ app.post('/addSlideshowBook',(req,res) => {
   });
 });
 
-app.post('/removeSlideshowBook',(req,res) => {
+app.post('/removeSlideshowBook',require('connect-ensure-login').ensureLoggedIn(),(req,res) => {
   console.log(req.body);
   let sql = "DELETE FROM tbl_slideshow WHERE book_id="+req.body.book_id+"";
   let query = conn.query(sql, (err, results) => {
@@ -137,7 +137,7 @@ app.post('/removeSlideshowBook',(req,res) => {
   });
 });
 
-app.post('/upload', (req, res, next) => { 
+app.post('/upload',require('connect-ensure-login').ensureLoggedIn(), (req, res, next) => { 
   const form = new formidable.IncomingForm(); 
   form.parse(req, function(err, fields, files){
       var oldPath = files.file.path;
@@ -246,7 +246,7 @@ app.get('/allBooks',(req, res) => {
 
 
 //route for categories
-app.get('/viewCategories',(req, res) => {
+app.get('/viewCategories',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   let sql = "SELECT * FROM tbl_categories";
   let sql2 = "SELECT book_category FROM tbl_books ORDER BY book_category ASC";
   let query = conn.query(sql, (err, results) => {
@@ -320,7 +320,7 @@ app.post('/deleteWishlist',require('connect-ensure-login').ensureLoggedIn(),(req
   });
 });
 //route for authors
-app.get('/authorsView',(req, res) => {
+app.get('/authorsView',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   let sql = "SELECT * FROM tbl_book_authors";
   let sql2 = "SELECT book_author_id FROM tbl_books ORDER BY book_author_id ASC";
   let query = conn.query(sql, (err, results) => {
@@ -347,7 +347,7 @@ app.get('/authorsView',(req, res) => {
 });
 
 //route for insert author
-app.post('/saveAuthor',(req, res) => {
+app.post('/saveAuthor',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   let data = {author_name: req.body.author_name, author_description: req.body.author_description};
   let sql = "INSERT INTO tbl_book_authors SET ?";
   let query = conn.query(sql, data,(err, results) => {
@@ -357,7 +357,7 @@ app.post('/saveAuthor',(req, res) => {
 });
 
 //route for update author
-app.post('/updateAuthor',(req, res) => {
+app.post('/updateAuthor',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   let sql = "UPDATE tbl_book_authors SET author_name='"+req.body.author_name+"', author_description='"+req.body.author_description+"' WHERE book_author_id="+req.body.book_author_id;
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
@@ -366,7 +366,7 @@ app.post('/updateAuthor',(req, res) => {
 });
  
 //route for delete author
-app.post('/deleteAuthor',(req, res) => {
+app.post('/deleteAuthor',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   let sql = "DELETE FROM tbl_book_authors WHERE book_author_id="+req.body.book_author_id;
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
@@ -376,7 +376,7 @@ app.post('/deleteAuthor',(req, res) => {
 
 
 //route for ergoview
-app.get('/ergoview',(req, res) => {
+app.get('/ergoview',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   let sql = "SELECT tbl_uploads.id, tbl_uploads.name, tbl_uploads.type_of_upload, tbl_uploads.current_state, tbl_uploads.path, tbl_users.firstName, tbl_users.lastName, tbl_users.email, tbl_users.user_id  FROM tbl_uploads INNER JOIN tbl_users ON tbl_users.user_id = tbl_uploads.user_id  ";
   let query = conn.query(sql, (err, results) => {
       res.render('ergoview',{
@@ -387,7 +387,7 @@ app.get('/ergoview',(req, res) => {
   });
 });
 //route for update ergostate
-app.post('/updateErgoState',(req, res) => {
+app.post('/updateErgoState',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   let sql = "UPDATE tbl_uploads SET current_state='"+req.body.current_state+"' WHERE id="+req.body.id;
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
@@ -396,7 +396,7 @@ app.post('/updateErgoState',(req, res) => {
 });
 
 //route for usersview
-app.get('/usersview',(req, res) => {
+app.get('/usersview',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   let sql = "SELECT * FROM tbl_users";
   let query = conn.query(sql, (err, results) => {
       res.render('usersview',{
@@ -407,22 +407,30 @@ app.get('/usersview',(req, res) => {
   });
 });
 //route for update user
-app.post('/updateUser',(req, res) => {
+app.post('/updateUser',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   console.log(req.body);
-  if(req.body.role == "Admin"){
+  console.log(req.body.isAdmin);
+  if(req.body.isAdmin == '1'){
+    console.log("make me admin");
     let sql = "UPDATE tbl_users SET role='Admin', isAdmin='1' WHERE user_id="+req.body.id;
+    let query = conn.query(sql, (err, results) => {
+      if(err) throw err;
+      res.redirect('/usersview');
+    });
   }
-  else if(req.body.role == "Admin"){
-    let sql = "UPDATE tbl_users SET role='User', isAdmin='0' WHERE user_id="+req.body.id;
+  else if(req.body.isAdmin == '0'){
+    console.log("make me user");
+    let sql2 = "UPDATE tbl_users SET role='User', isAdmin='0' WHERE user_id="+req.body.id;
+    let query = conn.query(sql2, (err, results) => {
+      if(err) throw err;
+      res.redirect('/usersview');
+    });
   }
   
-  let query = conn.query(sql, (err, results) => {
-    if(err) throw err;
-    res.redirect('/usersview');
-  });
+  
 });
 
-app.post('/deleteUser',(req, res) => {
+app.post('/deleteUser',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   let sql = "DELETE  FROM tbl_users WHERE user_id="+req.body.user_id;
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
@@ -431,7 +439,7 @@ app.post('/deleteUser',(req, res) => {
 });
 
 //route for bookview
-app.get('/bookview',
+app.get('/bookview',require('connect-ensure-login').ensureLoggedIn(),
   
   function(req, res){
     let sql ="SELECT book_id, book_title, tbl_categories.category_name, book_category, book_description, book_cover, tbl_book_authors.author_name, tbl_books.book_author_id FROM `tbl_books` INNER JOIN tbl_categories ON tbl_books.book_category = tbl_categories.id INNER JOIN tbl_book_authors ON tbl_books.book_author_id = tbl_book_authors.book_author_id ";
@@ -465,7 +473,7 @@ app.get('/bookview',
     });
   }
 );
-app.post('/save', (req, res, next) => { 
+app.post('/save',require('connect-ensure-login').ensureLoggedIn(), (req, res, next) => { 
   const form = new formidable.IncomingForm(); 
   form.parse(req, function(err, fields, files){
 
@@ -509,7 +517,7 @@ app.post('/save', (req, res, next) => {
       });
 });
 
-app.post('/update', (req, res, next) => { 
+app.post('/update',require('connect-ensure-login').ensureLoggedIn(), (req, res, next) => { 
   const form = new formidable.IncomingForm(); 
   form.parse(req, function(err, fields, files){
   if (fields.book_cover == "NewImage"){
@@ -559,7 +567,7 @@ app.post('/update', (req, res, next) => {
 // });
  
 //route for delete data
-app.post('/delete',(req, res) => {
+app.post('/delete',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
   let sql = "DELETE FROM tbl_books WHERE book_id="+req.body.book_id;
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
@@ -769,7 +777,7 @@ app.post('/contact', (req, res) => {
   })
 })
 
-app.get('/emailToUser',
+app.get('/emailToUser',require('connect-ensure-login').ensureLoggedIn(),
   function(req, res){
     let sql = "SELECT * FROM tbl_users";
     let query = conn.query(sql,(err, results) => {
@@ -785,7 +793,7 @@ app.get('/emailToUser',
 
 
 // POST route from contact form
-app.post('/sendToUser', (req, res) => {
+app.post('/sendToUser',require('connect-ensure-login').ensureLoggedIn(), (req, res) => {
   console.log(req.body);
   // Instantiate the SMTP server
   const smtpTrans = nodemailer.createTransport({

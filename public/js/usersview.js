@@ -3,10 +3,10 @@ $(document).ready(function(){
     //showing data to edit modal      
 $('#mytable').on('click','.edit',function(){
 var id = $(this).data('id');
-var role = $(this).data('role');
+var isAdmin = $(this).data('isAdmin');
 $('#EditModal').modal('show');
 $('.id').val(id);
-$('.role').val(role);
+$('.isAdmin').val(isAdmin);
 });
     //showing delete record modal
 $('#mytable').on('click','.delete',function(){
