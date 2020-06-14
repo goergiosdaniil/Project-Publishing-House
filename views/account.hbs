@@ -119,7 +119,7 @@
                         {{!-- for each gia ta erga mou apo neo pinaka sto db --}}
                         {{#each results3}}
                         <li class="m-2 row">
-                            <div class="col-md-5">{{name}}</div>
+                            <div class="col-md-5"><a href="/uploadedbyusers/{{ path }}">{{name}}</a></div>
                             <div class="col-md-3">{{type_of_upload}}</div>
                             <div class="col-md-2 currentState" value="{{current_state}}">{{current_state}}</div>
                             <div class="col-md-2"><form action="/deleteUpload" method="post">

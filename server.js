@@ -377,7 +377,7 @@ app.post('/deleteAuthor',(req, res) => {
 
 //route for ergoview
 app.get('/ergoview',(req, res) => {
-  let sql = "SELECT tbl_uploads.id, tbl_uploads.name, tbl_uploads.type_of_upload, tbl_uploads.current_state, tbl_uploads.path, tbl_users.firstName, tbl_users.lastName, tbl_users.user_id  FROM tbl_uploads INNER JOIN tbl_users ON tbl_users.user_id = tbl_uploads.user_id  ";
+  let sql = "SELECT tbl_uploads.id, tbl_uploads.name, tbl_uploads.type_of_upload, tbl_uploads.current_state, tbl_uploads.path, tbl_users.firstName, tbl_users.lastName, tbl_users.email, tbl_users.user_id  FROM tbl_uploads INNER JOIN tbl_users ON tbl_users.user_id = tbl_uploads.user_id  ";
   let query = conn.query(sql, (err, results) => {
       res.render('ergoview',{
       results: results,
@@ -621,10 +621,20 @@ app.get('/emailsent',
     res.render('emailsent', { user: req.user });
   }
 );
+app.get('/emailsent2',
+  function(req, res) {
+    res.render('emailsent2', { user: req.user });
+  }
+);
 
 app.get('/emailFailed',
   function(req, res) {
     res.render('emailFailed', { user: req.user });
+  }
+);
+app.get('/emailFailed2',
+  function(req, res) {
+    res.render('emailFailed2', { user: req.user });
   }
 );
 
@@ -776,6 +786,7 @@ app.get('/emailToUser',
 
 // POST route from contact form
 app.post('/sendToUser', (req, res) => {
+  console.log(req.body);
   // Instantiate the SMTP server
   const smtpTrans = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -796,14 +807,16 @@ app.post('/sendToUser', (req, res) => {
   }
 
   // Attempt to send the email
-  smtpTrans.sendMail(mailOpts, (error, response) => {
+    smtpTrans.sendMail(mailOpts, (error, response) => {
     if (error) {
-      res.render('emailFailed') // Show a page indicating failure
+      res.render('emailFailed2') // Show a page indicating failure
     }
     else {
-      res.render('emailsent') // Show a page indicating success
+    res.render('emailsent2') // Show a page indicating success
     }
   })
+  
+  
 })
 
 var portNumber = process.env.port || process.env.PORT || 3000;
