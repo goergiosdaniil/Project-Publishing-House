@@ -386,7 +386,7 @@ app.get('/ergoview',(req, res) => {
     
   });
 });
-//route for update author
+//route for update ergostate
 app.post('/updateErgoState',(req, res) => {
   let sql = "UPDATE tbl_uploads SET current_state='"+req.body.current_state+"' WHERE id="+req.body.id;
   let query = conn.query(sql, (err, results) => {
@@ -409,7 +409,13 @@ app.get('/usersview',(req, res) => {
 //route for update user
 app.post('/updateUser',(req, res) => {
   console.log(req.body);
-  let sql = "UPDATE tbl_users SET role='"+req.body.role+"' WHERE user_id="+req.body.id;
+  if(req.body.role == "Admin"){
+    let sql = "UPDATE tbl_users SET role='Admin', isAdmin='1' WHERE user_id="+req.body.id;
+  }
+  else if(req.body.role == "Admin"){
+    let sql = "UPDATE tbl_users SET role='User', isAdmin='0' WHERE user_id="+req.body.id;
+  }
+  
   let query = conn.query(sql, (err, results) => {
     if(err) throw err;
     res.redirect('/usersview');
