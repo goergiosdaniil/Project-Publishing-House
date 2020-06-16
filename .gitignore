@@ -1,3 +1,4 @@
 .env
 db/users.js
 node_modules/
+public/uploadedbyusers

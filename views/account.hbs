@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="el">
+
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Spyridon Peppas, George Danil">
     <meta name="description" content="Publishing House">
     <meta name="keywords" content="HMTL, CSS, JS, Project, Ekdotikos Oikos, Upatras">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Εκδοτικος Οίκος - Home Page</title>
+    <title>Εκδοτικός Οίκος - Λογαριασμός</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -15,25 +16,133 @@
 
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link href="css/navbar.css" rel="stylesheet" type="text/css">
+    <link href="css/account.css" rel="stylesheet" type="text/css">
 
 </head>
+
 <body>
 
     {{> header }} 
 
-    <main class="main-home">ID: {{user.id}} <br/>
-    Username: {{user.username}} <br/>
-    Name: {{user.displayName}} <br/>
-    Role: {{user.role}} <br/>
-    <a href="/logout">Log out</a></main>
+    <div class="nav2 mb-5 pt-2"><h2>Ο λογαριασμός μου</h2></div>
 
+    <main class="container my-3">
+        
+        {{#if user.isAdmin}}
+
+        <div class="row zeroB py-4 my-3">
+            <h3 class="w-100 mb-4" >Πάνελ Διαχειριστή</h3>
+            <a href="/bookview" class="col-md-2 "> Διαχείριση Καταλόγου Βιβλίων</a> 
+            <a href="/viewcategories" class="col-md-2 ">Διαχείριση Κατηγοριών</a>
+            <a href="/authorsView" class="col-md-2 ">Διαχείριση Συγγραφέων</a> <br/>
+            <a href="/slideshowPanel" class="col-md-2">Διαχείριση <br> Slideshow</a> <br/>
+            <a href="/emailToUser" class="col-md-2">E-mail Πάνελ Διαχείρισης</a> <br/>
+            <a href="/ergoview" class="col-md-2">Διαχείριση Εργων Χρηστών</a>
+            <a href="/usersview" class="col-md-2 ">Διαχείριση <br> Χρηστών</a>
+        </div>
+
+        {{/if}}
+
+        <div class="row firstB p-5 my-3">
+            <div class="col-md-6">
+                <p><b>Όνομα : </b> <span>{{user.firstName}} </span></p>
+                <p><b>Επώνυμο : </b> {{user.lastName}} </p>
+                <p><b>Χρήστης : </b> {{user.role}}</p>
+                <p><b>Email : </b> {{user.email}}</p>
+            </div>
+            <div class="col-md-2">
+                <p><b>Έμβλημα : </b> </p>
+                {{!-- edw h timh tou arithmou twn sxoliwn --}}
+                <p><b id="totalComments" class="ml-2">{{results.0.length}}</b> / 10 <span style="font-style: italic;">σχολιασμοί</span></p>
+            </div>
+            <div class="col-md-4">
+                {{!-- //kalitera na  ginei sto nodejs auto, poio badge dld na emfanizetai --}}
+                {{!-- me ousiastika ena element img kai hbs sto src="" --}}
+                <img src="../img/badgeFull.png" alt="Full Badge" id="badgeFull">
+                <img src="../img/badgeGrey.png" alt="Empty Badge" id="badgeGrey">
+            </div>
+        </div>
+
+        <div class="row secondB my-3 p-3">
+            <h3>Wishlist</h3>
+            <div class="w-100 mt-1">
+                {{!-- ftiakse forma pou mallon 8a kalei to hdh aithma gia afairesh apo wishlist --}}
+                    <ul class="p-2">
+                        {{!-- apo edw--}}
+                        {{#each results2}}
+                        <li class="m-2 row">
+                            <div class="col-md-5"><a href="/book/{{book_id}}">{{book_title}}</a></div>
+                            <div class="col-md-5">{{author_name}}</div>
+                            <div class="col-md-2">
+                                <form action="/deleteWishlist" method="post">
+                                <input type = "hidden" class="deleteWishlist" id = "book_id" name = "book_id" value ={{book_id}} />
+                                <input type = "hidden" class="deleteWishlist" name = "user_id" value ={{user_id}} />
+                                <input type = "hidden" class="deleteWishlist" id = "redirect" name = "redirect" value ="/account" /><button type="submit"  title="Wishlist2">Αφαίρεση</button>
+                                </form>
+                            </div>                             
+                        </li>
+                        <hr>
+                        {{/each}}
+                        {{!-- mexri edw hbs for each  --}}
+
+                        
+                    </ul>
+            </div>
+        </div>
+
+        <div class="row thirdB my-3 p-3 ">
+            <h3>Ανέβασε το έργο σου</h3>
+            {{!-- edw prepei na to deis pws 8a ginei kai pou 8a anevainoun ta erga --}}
+                <form action="upload" enctype="multipart/form-data" method="post" class="w-100 mt-3 px-3">
+                    <input type = "hidden" id = "type" name = "type" value ="user_upload" />
+                    <input type = "hidden" id = "user_id" name = "user_id" value ={{user.user_id}} />
+                    
+                    <div class="col-md-4"> 
+                        <input type="radio" class="radioType" id="summary" onclick="upBtnDisabled()" name="documentType" value="Περίληψη">
+                        <label for="male">Περίληψη</label>
+                        <input type="radio" class="radioType" id="chapter" onclick="upBtnDisabled()" name="documentType" value="Κεφάλαιο">
+                        <label for="male">Κεφάλαιο</label>
+                        <input type="radio" class="radioType" id="book" onclick="upBtnDisabled()" name="documentType" value="Έργο">
+                        <label for="male">Έργο</label>
+                    </div>
+                    <div class="col-md-7">
+                        <label for="avatar">Ανέβασε το αρχείο PDF:</label>
+                        <input type="file" id="document" name="file" accept="application/pdf">
+                        <input type="submit" value="Ανέβασμα" id="uploadBtn" />
+                    </div>
+                </form>
+        </div>
+
+        <div class="row secondB my-3 p-3">
+            <h3>Τα έργα μου</h3>
+            <div class="w-100 mt-1">
+                
+                    <ul class="p-2 workList">
+                        {{!-- for each gia ta erga mou apo neo pinaka sto db --}}
+                        {{#each results3}}
+                        <li class="m-2 row">
+                            <div class="col-md-5"><a href="/uploadedbyusers/{{ path }}">{{name}}</a></div>
+                            <div class="col-md-3">{{type_of_upload}}</div>
+                            <div class="col-md-2 currentState" value="{{current_state}}">{{current_state}}</div>
+                            <div class="col-md-2"><form action="/deleteUpload" method="post">
+                                <input type = "hidden" class="deleteUpload" id = "upload_id" name = "upload_id" value ={{id}} />
+                                <input type = "hidden" class="deleteUpload" id = "redirect" name = "redirect" value ="/account" /><button type="submit"  title="Wishlist2">Αφαίρεση</button>
+                                </form></div>
+                        </li>
+                        <hr>
+                        {{/each}}
+                        {{!-- mexri edw katw li delete --}}
+                       
+                    </ul>
+                
+            </div>
+        </div>
+
+    </main>
+   
     {{> footer }} 
+
+    <script src="../js/account.js"></script>
 
 </body>
 </html>
-
-
-
-
-   
- 

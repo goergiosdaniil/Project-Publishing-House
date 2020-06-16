@@ -38,11 +38,11 @@
               <div class="row justify-content-center my-3"><h2 id="book-title">{{results.0.book_title}}</h2></div>
               <div class="article-details mt-5">
                 <div class="article-authors">
-                  <p><span>Είδος :</span>  Δράσης</p><br>
-                  <p><span>Συγγραφέας : </span>  {{results.0.author_name}}</p>
+                  <span>Κατηγορία :</span>  <a href="/allbooks?category={{results.0.book_category}}">{{results.0.category_name}}</a><br>
+                  <span>Συγγραφέας : </span>    <a href="/allbooks?author={{results.0.book_author_id}}">{{results.0.author_name}}</a>
                 </div> 
                 <div class="article-rating">
-                  <p> <span>Αξιολόγηση</span> </p><br>
+                  <p> <span>Αξιολόγηση :</span> </p>
                   <!-- EDw pairnei value ton meso oro ton aksiologisewn apo thn vash-->
                   <progress value="0" max="5"></progress>
                   <!-- EDw pairnei value ton meso oro ton aksiologisewn apo thn vash-->
@@ -55,8 +55,30 @@
                   </p>
                 </div>
                 <div class="article-wish">
-                  <button type="button" class="btn btn-default wishlist" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
-                  <p>Wishlist it!</p>
+                  {{#if user.user_id}}
+                    {{#if results3.0.id}}
+                    <form action="/deleteWishlist" method="post">
+                        <input type = "hidden" id = "book_id" name = "book_id" value ={{results.0.book_id}} />
+                        <input type = "hidden" id = "user_id" name = "user_id" value ={{user.user_id}} />
+                        <input type = "hidden" id = "redirect" name = "redirect" value ="/book/{{results.0.book_id}}" />
+                        <p><span> Αφαίρεση από Wishlist</span></p> &nbsp; 
+                        <button type="submit" class="btn btn-default wishlist"  id="submitButton2" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
+                      </form>
+                    {{else}}
+                      <form action="/saveWishlist" method="post">
+                        <input type = "hidden" id = "book_id" name = "book_id" value ={{results.0.book_id}} />
+                        <input type = "hidden" id = "user_id" name = "user_id" value ={{user.user_id}} />
+                        
+                        <p><span> Προσθήκη σε Wishlist</span></p> &nbsp; 
+                        <button type="submit" class="btn btn-default wishlist"  id="submitButton2" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
+                      </form>
+                    {{/if}}
+                  {{else}}
+                    <form action="/login">
+                      <p><span> Προσθήκη σε Wishlist</span></p> &nbsp; 
+                      <button type="submit" class="btn btn-default wishlist"  id="submitButton2" data-toggle="tooltip" data-placement="right" title="Wishlist"><i class="fa fa-heart"></i></button>
+                    </form>
+                  {{/if}}                  
                 </div>
               </div>
             </article>
@@ -96,10 +118,11 @@
             <input type = "hidden" id = "book_id"  name = "book_id" value ={{results.0.book_id}} />
             <input type = "hidden" id = "date" name = "date"  />
             <input type = "hidden" id = "user_id" name ="user_id"  value ={{user.user_id}} />
+            <input type = "hidden" id = "isAdmin" name ="isAdmin"  value ={{user.isAdmin}} />
             <button class="btn btn-default float-right mr-3" id="submitButton"type="submit">Υποβολή</button>
           </form>
           {{else}}
-          <div class="w-100 my-3 " style="font-style: italic;text-align:center;font-size:18px">πρέπει να συνδεθείς για να γράψεις σχόλιο</div>  
+          <div class="w-100 my-3 " style="font-style: italic;text-align:center;font-size:18px"><a href="/login"> Σύνδεση για προσθήκη σχολίου</a></div>  
           {{/if}}
         </div>
 

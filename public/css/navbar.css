@@ -73,11 +73,9 @@
 .nav2{
     margin: 20px auto;
     max-width: 1200px;
-    border: 0px solid red;
     height: 24px;
     line-height: 40px;
     text-align: center;
-
 }
 .nav2 h2{
     margin:0 auto;

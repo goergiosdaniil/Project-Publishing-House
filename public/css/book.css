@@ -4,12 +4,16 @@
 .main-book{
     font-size: 1.3rem;
 }
+.main-book a{
+    color: grey;
+}
 .row{
     max-width: 1200px;
 }
 #book-title{
     font-weight: 600;
-    margin: 10px 0px 0px;
+    margin: 10px auto 0px;
+    max-width: 320px;
 }
 #book-img{
     width:70%;
@@ -41,7 +45,7 @@
 
 .article-wish p{
     color: black;
-    margin-left: 15px;
+    
     font-style: italic;
 }
 .article-wish .wishlist{

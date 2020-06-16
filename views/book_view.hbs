@@ -1,46 +1,56 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="el">
+
 <head>
     <meta charset="utf-8">
-    <title>Book View</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="author" content="Spyridon Peppas, George Danil">
+    <meta name="description" content="Publishing House">
+    <meta name="keywords" content="HMTL, CSS, JS, Project, Ekdotikos Oikos, Upatras">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Διαχείρηση Βιβλίων - Εκδοτικός Οίκος</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/navbar.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
+  
+  {{> header }} 
+
+  {{#if user.isAdmin}}
   <div class="container">
-    <h2>Books List</h2>
-        <button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Add New Book</button>
+    <h2 class="adminHeader">Λίστα Βιβλίων</h2>
+        <button class="btn btn-success my-2" data-toggle="modal" data-target="#myModalAdd">Add New Book</button>
     <table class="table table-striped" id="mytable">
       <thead>
         <tr>
-          <th>Βοοk ID</th>
-          <th>Βook title</th>
-          <th>Book Description</th>
+          <th>ID</th>
+          <th>Τίτλος</th>
+          <th>Περιγραφή</th>
+          <th>Κατηγορία</th>
           <th>Βοοk Cover</th>
-          <th>Βook Author</th>
-          <th>Book Reviewer</th>
-          <th>Βοοk is Written</th>
-          <th>Βook is reveiwed</th>
-          <th>Book is published</th>
-          <th>Action</th>
+          <th>Συγγραφέας</th>          
+          <th>Ενέργεια</th>
         </tr>
       </thead>
       <tbody>
          {{#each results}}
         <tr>
           <td>{{ book_id }}</td>
-          <td>{{ book_title }}</td>
+          <td> <a href="/book/{{ book_id }}"{{ book_id }}>{{ book_title }}</a> </td>
           <td>{{ book_description }}</td>
-          <td>{{ book_cover }}</td>
-          <td>{{ book_author_id }}</td>
-          <td>{{ book_reviewer_id }}</td>
-          <td>{{ book_is_written }}</td>
-          <td>{{ book_is_reviewed }}</td>
-          <td>{{ book_is_published }}</td>
+          <td>{{ category_name }}</td>
+          <td><img src="{{ book_cover }}" alt="..." class="img-thumbnail" ></td>
+          <td>{{ author_name }}</td>
+          
           <td>
-            <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{ book_id }}" data-book_title="{{ book_title }}" data-book_description="{{ book_description }}" data-book_cover="{{ book_cover }}" data-book_author_id="{{ book_author_id }}" data-book_reviewer_id="{{ book_reviewer_id }}" data-book_is_written="{{ book_is_written }}" data-book_is_reviewed="{{ book_is_reviewed }}" data-book_is_published="{{ book_is_published }}">Edit</a>
-            <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{ book_id }}">Delete</a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{ book_id }}" data-book_title="{{ book_title }}" data-book_description="{{ book_description }}" data-book_cover="{{ book_cover }}" data-book_author_id="{{ book_author_id }}" data-book_category="{{ book_category }}">Επεξεργασία</a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{ book_id }}">Αφαίρεση</a>
           </td>
         </tr>
         {{/each}}
@@ -49,43 +59,58 @@
   </div>
  
     <!-- Modal Add Product-->
-      <form action="/save" method="post">
+      <form action="/save" enctype="multipart/form-data" method="post">
         <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog" role="document">
            <div class="modal-content">
              <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">Add New Book</h5>
+               <h5 class="modal-title" id="exampleModalLabel" name="exampleModalLabel">Add New Book</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                  <span aria-hidden="true">&times;</span>
                </button>
              </div>
              <div class="modal-body">
                <div class="form-group">
-                   <input type="text" name="book_title" class="form-control" placeholder="book_title" required>
+                 <label for="book_title">Τιτλος βιβλίου</label>
+                   <input type="text" name="book_title" class="form-control" required>
                </div>
  
                <div class="form-group">
-                   <input type="text" name="book_description" class="form-control" placeholder="book_description" required>
+                 <label for="book_description">Περιγραφή του βιβλίου</label>
+                   <input type="text" name="book_description" class="form-control" required>
                </div>
 
+               <div class="form-group">
+                    <label for="sel1">Εξώφυλλο</label>
+                    <select class="form-control" name="book_cover" id="book_cover" onchange="functionForCovers(this)">
+                      <option value=""> </option>
+                      <option value="NewImage" id="NewImage">Καινούργια εικόνα</option>
+                      {{#each files}}
+                      <option value="../img/covers/{{this}}" >{{this}}</option>
+                      {{/each}}
+                    </select>
+                    <div style="display:none" id="fileForCover">File: <input id="fileForCoverType" type="file" name="fileForCoverType" multiple="multiple" /></div>
+                </div> 
+                      
+
+               <div class="form-group">
+                    <label for="sel1">Συγγραφέας</label>
+                    <select class="form-control" name="book_author_id" id="sel1">
+                      {{#each results3}}
+                      <option value={{book_author_id}}>{{author_name}}</option>
+                      {{/each}}
+                    </select>
+                </div> 
+                             
                 <div class="form-group">
-                   <input type="text" name="book_cover" class="form-control" placeholder="book_cover" required>
-               </div> 
-               <div class="form-group">
-                   <input type="text" name="book_author_id" class="form-control" placeholder="book_author_id" required>
-               </div> 
-               <div class="form-group">
-                   <input type="text" name="book_reviewer_id" class="form-control" placeholder="book_reviewer_id" required>
-               </div> 
-               <div class="form-group">
-                   <input type="text" name="book_is_written" class="form-control" placeholder="book_is_written" required>
-               </div> 
-               <div class="form-group">
-                   <input type="text" name="book_is_reviewed" class="form-control" placeholder="book_is_reviewed" required>
-               </div>
-                <div class="form-group">
-                   <input type="text" name="book_is_published" class="form-control" placeholder="book_is_published" required>
-               </div>
+                    <label for="sel1">Κατηγορία</label>
+                    <select class="form-control" name="book_category" id="sel1">
+                      {{#each results2}}
+                      <option value={{id}}>{{category_name}}</option>
+                      {{/each}}
+                    </select>
+                </div> 
+
              </div>
              <div class="modal-footer">
                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -97,7 +122,7 @@
      </form>
  
      <!-- Modal Update Product-->
-   <form action="/update" method="post">
+   <form action="/update" enctype="multipart/form-data" method="post">
        <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -115,30 +140,38 @@
               <div class="form-group">
                   <input type="text" name="book_description" class="form-control book_description" placeholder="book_description" required>
               </div>
- 
               <div class="form-group">
-                  <input type="text" name="book_cover" class="form-control book_cover" placeholder="book_cover" required>
-              </div>
- 
+                    <label for="sel1">Εξώφυλλο</label>
+                    <select class="form-control book_cover" name="book_cover" id="book_cover" onChange="functionForCoversUpdate(this)">
+                      <option value=""></option>
+                      <option value="NewImage" id="NewImage">Καινούργια εικόνα</option>
+                      {{#each files}}
+                      <option value="../img/covers/{{this}}">{{this}}</option>
+                      {{/each}}
+                             
+                    
+                    </select>
+                    <div style="display:none" id="fileForCoverFromUpdate">File: <input id="fileForCoverTypeFromUpdate" type="file" name="fileForCoverTypeFromUpdate" multiple="multiple" /></div>
+             
+                </div> 
+              
               <div class="form-group">
-                  <input type="text" name="book_author_id" class="form-control book_author_id" placeholder="book_author_id" required>
-              </div>
- 
+                    <label for="sel1">Συγγραφέας</label>
+                    <select class="form-control book_author_id" name="book_author_id" id="sel1">
+                      {{#each results3}}
+                      <option value={{book_author_id}}>{{author_name}}</option>
+                      {{/each}}
+                    </select>
+                </div> 
+                
               <div class="form-group">
-                  <input type="text" name="book_reviewer_id" class="form-control book_reviewer_id" placeholder="book_reviewer_id" required>
-              </div>
- 
-              <div class="form-group">
-                  <input type="text" name="book_is_written" class="form-control book_is_written" placeholder="book_is_written" required>
-              </div>
- 
-              <div class="form-group">
-                  <input type="text" name="book_is_reviewed" class="form-control book_is_reviewed" placeholder="book_is_reviewed" required>
-              </div>
- 
-              <div class="form-group">
-                  <input type="text" name="book_is_published" class="form-control book_is_published" placeholder="book_is_published" required>
-              </div>
+                    <label for="sel1">Κατηγορία</label>
+                    <select class="form-control book_category" name="book_category" id="sel1">
+                      {{#each results2}}
+                      <option value={{id}}>{{category_name}}</option>
+                      {{/each}}
+                    </select>
+                </div> 
             </div>
             <div class="modal-footer">
               <input type="hidden" name="id" class="book_id">
@@ -172,39 +205,20 @@
          </div>
      </form>
  
+ {{else}}
+    <main class="main-home">
 
+       <h3>Δεν έχετε δικαίωμα πρόσβασης σε αυτή τη σελίδα</h3>
+       <p>Θα σας απαντήσουμε το συντομότερο δυνατό
+       </p>
+       
+    </main>
+ {{/if}}
+{{> footer }} 
 <script>
-    $(document).ready(function(){
-            //showing data to edit modal      
-        $('#mytable').on('click','.edit',function(){
-        var book_id = $(this).data('id');
-        var book_title = $(this).data('book_title');
-        var book_description = $(this).data('book_description');
-        var book_cover = $(this).data('book_cover');
-        var book_author_id = $(this).data('book_author_id');
-        var book_reviewer_id = $(this).data('book_reviewer_id');
-        var book_is_written = $(this).data('book_is_written');
-        var book_is_reviewed = $(this).data('book_is_reviewed');
-        var book_is_published = $(this).data('book_is_published');
-        $('#EditModal').modal('show');
-        $('.book_title').val(book_title);
-        $('.book_description').val(book_description);
-        $('.book_cover').val(book_cover);
-        $('.book_author_id').val(book_author_id);
-        $('.book_reviewer_id').val(book_reviewer_id);
-        $('.book_is_written').val(book_is_written);
-        $('.book_is_reviewed').val(book_is_reviewed);
-        $('.book_is_published').val(book_is_published);
-        $('.book_id').val(book_id);
-      });
-            //showing delete record modal
-        $('#mytable').on('click','.delete',function(){
-        var bookt_id = $(this).data('id');
-        $('#DeleteModal').modal('show');
-        $('.book_id2').val(book_id);
-      });
- 
-    });
+    
+
 </script>
+<script src="../js/bookView.js" ></script>
 </body>
 </html>

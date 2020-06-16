@@ -1,8 +1,9 @@
 body {
     margin: auto;
-    padding: 10px 0px;
+    padding: 10px 0px 0px;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
     background-color:  rgb(240, 240, 240);
+    min-height: 100%;
 }
 
 header {
@@ -43,7 +44,7 @@ footer{
     color: rgb(240, 240, 240);
     min-height: 130px;
     max-width: 1200px;
-    margin:auto;
+    margin: 0 auto;
     padding: 10px 0px 10px;
     font-size:0.8em ;
 }
@@ -98,79 +99,30 @@ footer{
     text-align: center;
 }
 
-
-/*  allBooks.html   */
-.grid-books{
-    padding: 0;
+/* welcome page after register */
+#welcomeSign{
+    height: 200px;
+    margin: 30px auto;
+}
+#welcomeSignDiv{
+    width: 100%;
+    text-align: center;
+}
+hr{
     margin: 0 auto;
+    width: 90%;
+}
+hr:last-child{
+    display: none;
+}
+.container{
     max-width: 1200px;
-    display: grid;
-    grid-template-columns: 1fr 4fr;
-    grid-column-gap: 5px;
+    min-height: 610px;
 }
-.aside-books{
-    padding-bottom: 15px;
-    background-color: black;
-    color: rgb(240, 240, 240);
-    height: min-content;
-    min-width: 190px;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-.aside-books h2{
-    margin-top: 15px;
+.adminHeader{
+    display: block;
+    width: 100%;
+    margin-top: 30px;
     text-align: center;
-    margin-bottom: 10px;
-}
-.aside-books hr {
-    width: 60%;
-    margin-bottom: 0;
-}
-.aside-books ul{
-    list-style-type: none;
-    padding: 0;
-    margin:0;
-    text-align: center;
-    height: 290px;
-    
-}
-.aside-books li a{
-    text-decoration: none;
-    color: inherit;
-    font-size: 1.2em;
-    line-height: 58px;
-}
 
-.article-container {
-    padding: 20px;
-    display: grid;
-    /* grid-template-columns: 1fr 1fr 1fr; */
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    /* grid-template-rows: repeat(2,350px); */
-    grid-auto-rows: minmax(350px, auto);
-    grid-gap: 30px ;
-    
 }
-.article-container div{
-    padding: 0;
-    margin: 0;
-    max-width: 300px;
-    color: royalblue;
-    text-align: center;
-    line-height: 100px;
-    background-color:rgb(240, 156, 94);
-    border-radius: 5px;
-}
-
-
-/*
-
-@media only screen and (max-width: 1200px) {
-    .main-home p, .main-home h3{
-        padding: 0 100px;
-    }  
-}
-
-*/
-
-

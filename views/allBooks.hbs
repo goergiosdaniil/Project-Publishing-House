@@ -6,7 +6,16 @@
     <meta name="description" content="Publishing House">
     <meta name="keywords" content="HMTL, CSS, JS, Project, Ekdotikos Oikos, Upatras">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Εκδοτικος Οίκος - Home Page</title>
+
+    {{#if results3.category_name}}
+      <title>{{results3.category_name}}</title>
+    {{else}}
+      {{#if results3.author_name}}
+        <title>{{results3.author_name}}</title>
+      {{else}}
+        <title>Όλα τα βιβλία</title>
+      {{/if}}
+    {{/if}}
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -15,60 +24,80 @@
 
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link href="css/navbar.css" rel="stylesheet" type="text/css">
+    <link href="css/allBooks.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
 
     {{> header }} 
-    
-    <div class="nav2"><h2>Βιβλία</h2>
-    </div>
-    <main class="grid-books">
-        <aside class="aside-books">
+
+    {{#if results3.category_name}}
+      <div class="nav2"><h2> {{results3.category_name}} </h2></div>
+    {{else}}
+        {{#if results3.author_name}}
+            <div class="nav2"><h2>{{results3.author_name}}</h2></div>
+        {{else}}
+            <div class="nav2"><h2>Βιβλία {{results3.author_name}}</h2></div>
+        {{/if}}
+    {{/if}}
+
+    <main class="grid-books container mx-auto p-0 row">
+      
+      <button class="navbar-toggler myIcon" type="button" id="toggleButton" data-toggle="collapse" data-target="#asideCategories" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span>Κατηγορίες</span>
+      </button>
+
+        <aside class="col-md-3 py-0 px-3 my-3 collapse navbar-collapse" id="asideCategories">
+          <div class="aside-books m-0">
             <h2>Κατηγορίες</h2>
             <hr>
             <ul>
-                <li><a href=""> Kati 1 </a></li>
-                <li><a href=""> kati 2 </a></li>
-                <li><a href=""> kati 3 </a></li>
-                <li><a href=""> kati 4 </a></li>
-                <li><a href=""> kati 5 </a></li>
+              {{#each results2}}
+              <li><a href="/allbooks?category={{id}}"> {{category_name}} </a></li>
+              {{/each}}
             </ul>
+            <button class="navbar-toggler" type="button" id="closeToggle" data-toggle="collapse" data-target="#asideCategories" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span>x</span>
+            </button>
+          </div>
         </aside>
-        <article class="article-books" id="mytable">
-            <tbody>
+        
+        <article class="col-md-9 row p-0 mx-auto article-container" id="mytable">
               
-          
-            <div class="article-container">
               {{#each results}}
-                <div> 
-                  <a href="/book/{{book_id}}" title="{{book_title}}"><img src="{{book_cover}}" alt="{{book_title}}" class="img-thumbnail"></a>
+                <div class="col-lg-4 my-2 p-0"> 
+                  <div class="inDiv m-2 p-2">
+                    <a href="/book/{{book_id}}" title="{{book_title}}">
+                      <img src="{{book_cover}}" alt="{{book_title}}" class="img-thumbnail">
+                    </a>
+                    <br>
+                    <a href="/book/{{book_id}}" title="{{book_title}}" class="py-1 my-2 titleLink">{{book_title}}</a>
+                  </div>
                 </div>
               {{/each}}
-            </div>
-          </tbody>
+          
         </article>
+
+      
     </main>
+
+
     <input type = "hidden" id = "totalPages" value ={{results3.totalPages}} />
     <input type = "hidden" id = "page" value ={{page}} />
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center" id="listOfPages">
-        {{!-- <li class="page-item ">
-          <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-        </li> --}}
-
-
-        {{!-- AYTO MPAINEI PLEON APO TIN JAVASCRIPT ANALOGA ME TO POSA VIVLIA YPARXOUN --}}
-
-        
-        {{!-- <li class="page-item"><a class="page-link" value = "1"href="?page=1">1</a></li>
-        <li class="page-item"><a class="page-link" value = "2" href="?page=2">2</a></li>
-        <li class="page-item"><a class="page-link" value = "3" href="?page=3">3</a></li> --}}
-        {{!-- <li class="page-item">
-          <a class="page-link" href="#">Next</a>
-        </li> --}}
-      </ul>
-    </nav>
+    {{#if results3.category }}
+    <input type = "hidden" id = "category" value ={{results3.category}} />
+    {{/if}}
+    {{#if results3.book_author_id }}
+    <input type = "hidden" id = "author" value ={{results3.book_author_id}} />
+    {{/if}}
+    
+    <div class="row" style="max-width: 1200px; margin:auto;">
+      <div class="col-md-3"></div>
+      <nav class="col-md-9" aria-label="Page navigation">
+        <ul class="pagination justify-content-center" id="listOfPages">
+        </ul>
+      </nav>
+    </div>
 
     {{> footer }} 
 

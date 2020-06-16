@@ -1,0 +1,127 @@
+.mainToDELETE{
+    height: 180px;
+    overflow: scroll;
+    margin: 20px ;
+    border: solid green 3px;
+}
+.container{
+    max-width: 1200px;
+}
+.row{
+    background-color: rgba(230, 230, 230, 0.8);
+}
+.firstB p{
+    margin-bottom: 0;
+}
+.firstB span{
+    text-align: left;
+}
+.firstB b{
+    display: inline-block;
+    width: 100px;
+}
+#totalComments{
+    width: max-content;
+}
+.firstB img{
+    height: 100px;
+}
+.row h3{
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+.secondB form div{
+    display: inline-block;
+}
+.secondB ul{
+    text-align: center;
+    width: 100%;
+    list-style-type: none;
+}
+.secondB a{
+    display: inline;
+    color: black;
+    font-weight: 600;
+}
+.secondB hr{
+    margin: 0 auto;
+    width: 90%;
+}
+.secondB li{
+    background-color: rgba(210, 210, 210, 0.8);
+    border-radius: 5px;
+    padding: 8px;
+}
+.secondB hr:last-child{
+    display: none;
+}
+.secondB li button{
+    border-radius: 3px;
+    background-color: orange;
+    border: none;
+    height: 20px;
+    font-size: small;
+    line-height: 15px;
+}
+.secondB li button:hover{
+    background-color: rgb(224, 127, 0);
+}
+.thirdB input{
+    margin-left: 15px;
+}
+.thirdB div{
+   display: inline-block;
+}
+.workList div{
+    text-align: center;
+}
+.zeroB{
+    justify-content: center;
+    height: fit-content;
+    background-color: black;
+    border-radius: 5px;
+}
+.zeroB h3{
+    color: indianred;
+}
+.zeroB a{
+    background-color: rgba(210, 210, 210, 0.8);
+    background-color: indianred;
+    border-radius: 5px;
+    margin: 5px 5px;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 700;
+    border: solid grey 1px;
+    width: 190px;
+    height: 90px;
+    line-height: 30px;
+}
+.zeroB a:hover{
+    background-color: grey;
+}
+.currentState{
+    font-weight: 700;
+    font-style: italic;
+}
+#uploadBtn{
+    color: black;
+    background-color: orange;
+    border: none;
+    margin: 0;
+    border-radius: 5px;
+    margin-top: 5px;
+    float:right;
+}
+#uploadBtn:hover{
+    background-color: rgb(224, 127, 0);
+}
+#uploadBtn:disabled{
+    background-color: grey;
+}
+#document{
+    width: 200px;
+}

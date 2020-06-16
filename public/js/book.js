@@ -107,11 +107,21 @@ while(y<bookStarValue){
 let rmBtns = document.getElementsByClassName("removeButton");
 let rmDiv = document.getElementsByClassName("removeButtonDiv");
 let usr = document.getElementById("user_id");
+if (document.getElementById("isAdmin")){
+    var isAdmin = document.getElementById("isAdmin").value;
+}
+
 if (usr){ 
+    console.log(isAdmin);
     for (rm in rmDiv){
         if (rmDiv[rm].innerHTML==usr.value){
-            console.log(rmDiv[rm].innerHTML,usr.value);
+
+            rmBtns[rm].setAttribute("style","display:block;");
+        }
+        else if(isAdmin == '1' && rmDiv[rm].innerHTML ){
             rmBtns[rm].setAttribute("style","display:block;");
         }
     }
 }
+
+

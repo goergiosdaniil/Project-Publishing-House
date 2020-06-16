@@ -6,7 +6,7 @@ let pswd1 = document.getElementById("password");
 let pswd2 = document.getElementById("passwordRe");
 let emailDiv = document.getElementById("emailDiv");
  
-submitButton.disabled = false;
+submitButton.disabled = true;
 pswd1.addEventListener('focusout',validatePswd);
 pswd2.addEventListener('focusout',validatePswd);
 email.addEventListener('focusout',validateEmail);
