@@ -27,7 +27,8 @@
 
 {{> header}}
 
-<div class="container" id="login-container">
+<div class="container" >
+    <div id="login-container">
     <div id="inside-container">
         <form action="/login2" method="post">
             <div>
@@ -42,10 +43,20 @@
                 <button type="submit" class="btn btn-primary logIn-button"> Σύνδεση </button>
             </div>
         </form>
-        <b>Έδωσες λάθος στοιχεία</b>
+        <b>Τα στοιχεία ήταν λάθος!</b>
+    </div>
     </div>
 </div>
 {{> footer}}
+
+<script>
+    let redB = document.querySelector("b");
+    let emailInput = document.querySelectorAll("input")[2];
+
+    emailInput.addEventListener("input",()=>{
+        redB.style.display="none";
+    })
+</script>
 
 </body>
 

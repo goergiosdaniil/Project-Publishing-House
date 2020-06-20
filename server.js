@@ -39,7 +39,6 @@ passport.use('local',new Strategy(
     // by default, local strategy uses username and password, we will override with email
   function(username, password, done) { // callback with email and password from our form
     conn.query("SELECT * FROM tbl_users WHERE username = ?",username, function(err, rows){
-      
       if (err)
         return done(err);
       if (!rows.length) { return done(null, false); }

@@ -53,11 +53,11 @@ footer{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;   
-    margin: 0 100px;
+    margin: 0 80px;
 }
 .footer-column{
     color: inherit;
-    flex: 0 1 180px;
+    flex: 0 1 210px;
     
 }
 .column-title{
@@ -84,8 +84,7 @@ footer{
 .main-home{
     min-height: 400px ;
     max-width: 1200px;
-    margin: 50px auto;
-    
+    margin: 0 auto;
 }
 .main-home h3{
     padding: 0px 10px;

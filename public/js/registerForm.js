@@ -23,7 +23,7 @@ function buttonDisabled(){
 }
 
 function validateEmail(){
-    var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$/;
     var emailLegend = document.getElementById('emailLegend');
     if (email.value.match(emailFormat)) {
         emailLegend.innerHTML = "";
@@ -40,7 +40,7 @@ function validateEmail(){
 }
 
 function allLetter(inputtxt) {
-    var letters = /^[A-Za-z]+$/;
+    var letters = /^[A-Za-zαβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ]+$/;
     if(inputtxt.value.match(letters)) {
         return true; 
     }else{

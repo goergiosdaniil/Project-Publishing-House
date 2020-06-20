@@ -19,7 +19,7 @@ if (!emptyTxt(firstname) && !emptyTxt(surname) && validateEmail(email) && msgLen
 }}
 
 function validateEmail(inputtxt){
-    var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,10})+$/;
     var legend = document.querySelector('legend');
     if (inputtxt.value.match(emailFormat)) {
         legend.innerHTML = "";
@@ -32,7 +32,7 @@ function validateEmail(inputtxt){
 }
 
 function allLetter(inputtxt) {
-    var letters = /^[A-Za-z]+$/;
+    var letters = /^[A-Za-zαβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ]+$/;
     if(inputtxt.value.match(letters)) {
         return true; 
     }else{
@@ -52,5 +52,5 @@ function emptyTxt(inputtxt) {
 }
 
 function msgLength(inputtxt) {
-    return (inputtxt.value.length<=210 && inputtxt.value.length>=3);
+    return (inputtxt.value.length<=610 && inputtxt.value.length>=2);
 }
