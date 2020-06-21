@@ -756,22 +756,20 @@ app.post('/contact', (req, res) => {
       pass: process.env.GMAIL_PASS
     }
   })
-
-  // Specify what the email will look like
   const mailOpts = {
-    from: 'Your sender info here', // This is ignored by Gmail
+    from: 'Sender', // This is ignored by Gmail
     to: process.env.GMAIL_USER,
-    subject: 'New message from contact form at ekdotikosOikos',
+    subject: 'Contact form at ekdotikosOikos',
     text: `${req.body.firstname} ${req.body.surname} (${req.body.email}) says: ${req.body.subject}`
   }
 
   // Attempt to send the email
   smtpTrans.sendMail(mailOpts, (error, response) => {
     if (error) {
-      res.render('emailFailed') // Show a page indicating failure
+      res.render('emailFailed') //Indicating failure
     }
     else {
-      res.render('emailsent') // Show a page indicating success
+      res.render('emailsent') //Indicating success
     }
   })
 })
