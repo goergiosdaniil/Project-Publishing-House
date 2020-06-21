@@ -407,8 +407,7 @@ app.get('/usersview',require('connect-ensure-login').ensureLoggedIn(),(req, res)
 });
 //route for update user
 app.post('/updateUser',require('connect-ensure-login').ensureLoggedIn(),(req, res) => {
-  console.log(req.body);
-  console.log(req.body.isAdmin);
+
   if(req.body.isAdmin == '1'){
     console.log("make me admin");
     let sql = "UPDATE tbl_users SET role='Admin', isAdmin='1' WHERE user_id="+req.body.id;
@@ -671,7 +670,7 @@ app.post('/registerUser', function(req,res){
 
 app.get('/registered',
   function(req, res) {
-    res.render('registered');
+    res.render('registered', { user: req.user });
   }
 );
 

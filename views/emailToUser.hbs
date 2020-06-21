@@ -20,7 +20,7 @@
 <body>
 
    {{> header }} 
-
+    {{#if user.isAdmin}}
     <div class="container">
             <form action="/sendToUser" method="post" class="contact-form">
                 <h2 class="adminHeader">Email Panel</h2>
@@ -48,7 +48,13 @@
                 </div>
             </form>
    </div>
+{{else}}
+    <main class="main-home">
 
+<h2 class="adminHeader mb-3">Δεν έχετε δικαίωμα πρόσβασης σε αυτήν τη σελίδα</h2>
+       
+    </main>
+ {{/if}}
     {{> footer }} 
 
     

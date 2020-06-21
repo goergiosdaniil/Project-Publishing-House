@@ -19,6 +19,7 @@
 <body>
 
   {{> header }} 
+{{#if user.isAdmin}}
 
   <div class="container">
     <h2 class="adminHeader mb-3">Λίστα χρηστών</h2>
@@ -104,7 +105,15 @@
             </div>
          </div>
      </form>
- 
+ {{else}}
+    <main class="main-home">
+
+ <h2 class="adminHeader mb-3">Δεν έχετε δικαίωμα πρόσβασης σε αυτήν τη σελίδα</h2>
+
+
+       
+    </main>
+ {{/if}}
 {{> footer }} 
 <script src="../js/usersview.js">
     

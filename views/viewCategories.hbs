@@ -21,6 +21,7 @@
 <body>
 
   {{> header }} 
+  {{#if user.isAdmin}}
   <div class="container">
     <h2 class="adminHeader">Λίστα Κατηγοριών</h2>
         <button class="btn btn-success my-3" data-toggle="modal" data-target="#myModalAdd">Προσθήκη</button>
@@ -126,6 +127,15 @@
          </div>
      </form>
  
+{{else}}
+    <main class="main-home">
+
+ <h2 class="adminHeader mb-3">Δεν έχετε δικαίωμα πρόσβασης σε αυτήν τη σελίδα</h2>
+
+
+       
+    </main>
+ {{/if}}
 {{> footer }} 
 <script>
     $(document).ready(function(){
