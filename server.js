@@ -766,10 +766,10 @@ app.post('/contact', (req, res) => {
   // Attempt to send the email
   smtpTrans.sendMail(mailOpts, (error, response) => {
     if (error) {
-      res.render('emailFailed') //Indicating failure
+      res.render('emailFailed',{user: req.user }) //Indicating failure
     }
     else {
-      res.render('emailsent') //Indicating success
+      res.render('emailsent',{user: req.user }) //Indicating success
     }
   })
 })
@@ -813,10 +813,10 @@ app.post('/sendToUser',require('connect-ensure-login').ensureLoggedIn(), (req, r
   // Attempt to send the email
     smtpTrans.sendMail(mailOpts, (error, response) => {
     if (error) {
-      res.render('emailFailed2') // Show a page indicating failure
+      res.render('emailFailed2',{user: req.user }) // Show a page indicating failure
     }
     else {
-    res.render('emailsent2') // Show a page indicating success
+    res.render('emailsent2',{user: req.user }) // Show a page indicating success
     }
   })
   
